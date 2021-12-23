@@ -29,13 +29,16 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<scope>runtime</scope>
+			<scope>system</scope>
+			<!-- <systemPath>D:/Documents/S5/Rojo/projetCloud/src/main/resources/lib/mssql-jdbc-9.4.1.jre8.jar</!systemPath> -->
+			<systemPath>${project.basedir}\src\main\resources\lib\mssql-jdbc-9.4.1.jre8.jar</systemPath>
+			
 		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
+		<!-- dependency>
+			<groupId>org.postgresqlsystemPath>D:/Documents/S5/Rojo/projetCloud/src/main/resources/lib/mssql-jdbc-9.4.1.jre8.jar</!systemPath><</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -48,6 +51,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
