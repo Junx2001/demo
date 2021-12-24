@@ -1,10 +1,30 @@
 package com.example.demo.signalement;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Signalement {
+	@Id
+	@SequenceGenerator(
+            name="seqSignalement",
+            sequenceName="seqSignalement",
+            allocationSize=1
+    )
+    @GeneratedValue(
+            strategy=GenerationType.SEQUENCE,
+            generator="seqSignalement"
+    )
+	
 	private String idSignalement;
-	private LocalDate dateSignalement;
+	private LocalDateTime dateSignalement;
 	private String description;
 	private String idUtilisateur;
 	private String region;
@@ -12,16 +32,18 @@ public class Signalement {
 	private Double latitude;
 	private String idSousCategorie;
 	private String nomImage;
+	
+	
 	public String getIdSignalement() {
 		return idSignalement;
 	}
 	public void setIdSignalement(String idSignalement) {
 		this.idSignalement = idSignalement;
 	}
-	public LocalDate getDateSignalement() {
+	public LocalDateTime getDateSignalement() {
 		return dateSignalement;
 	}
-	public void setDateSignalement(LocalDate dateSignalement) {
+	public void setDateSignalement(LocalDateTime dateSignalement) {
 		this.dateSignalement = dateSignalement;
 	}
 	public String getDescription() {
