@@ -1,10 +1,5 @@
 package com.example.demo.detailGroupement;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table
 public class DetailGroupement {
 	private String idGroupement;
 	private String idSignalement;

@@ -33,6 +33,10 @@ public class Signalement {
 	private String idSousCategorie;
 	private String nomImage;
 	
+	/*@JsonIgnore
+	 @ManyToMany(mappedBy="enrolledSignalements")
+	private List<Groupement> groupements = new ArrayList<Groupement>();
+	*/
 	
 	public String getIdSignalement() {
 		return idSignalement;

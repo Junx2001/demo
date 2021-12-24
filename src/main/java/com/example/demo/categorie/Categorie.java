@@ -1,5 +1,6 @@
 package com.example.demo.categorie;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Categorie {
 	
 	private String idCategorie;
 	private String label;
+	
 	public String getIdCategorie() {
 		return idCategorie;
 	}

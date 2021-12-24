@@ -27,6 +27,16 @@ public class Groupement {
 	private Double latitude ;
     private String etat ;
     private String nomImage ;
+    
+   /* @ManyToMany
+    @JoinTable(
+    		name="detailGroupement",
+    		joinColumns = @JoinColumn(name="groupement_id"),
+    		inverseJoinColumns = @JoinColumn(name="signalement_id")
+    )
+    private List<Signalement> enrolledSignalements = new ArrayList<Signalement>();
+    */
+	
 	public String getIdGroupement() {
 		return idGroupement;
 	}
