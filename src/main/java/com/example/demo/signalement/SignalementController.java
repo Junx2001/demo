@@ -19,7 +19,7 @@ public class SignalementController {
 	        this.signService = signService;
 	    }
 	    
-	    @GetMapping
+	    @GetMapping("/")
 	    public List<Signalement> getStudents(){
 	        return signService.getSignalements();
 	    }
