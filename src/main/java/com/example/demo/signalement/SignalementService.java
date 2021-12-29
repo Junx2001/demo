@@ -18,5 +18,9 @@ public class SignalementService {
 	public List<Signalement> getSignalements() {
 		return signRepository.findAll();
 	}
+	
+	public List<Object[]> getFicheSignalements(){
+		return signRepository.getFicheSignalements();
+	}
 
 }

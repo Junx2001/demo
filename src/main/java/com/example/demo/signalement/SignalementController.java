@@ -28,10 +28,12 @@ public class SignalementController {
 	        return new ModelAndView("template");
 	    }
 	    
-	    public ModelAndView ficheSignalement(Model model) {
-	    	model.addAttribute("signalements", signService.getSignalements());
-	    	model.addAttribute("maPage", "mainTable");
-	        return new ModelAndView("template");
+	    @GetMapping("/fiche")
+	    public List<Object[]> ficheSignalement() {
+	    	return signService.getFicheSignalements();
+	    	/*model.addAttribute("signalements", signService.getFicheSignalements());
+	    	model.addAttribute("maPage", "affectation");
+	        return new ModelAndView("template");*/
 	    }
 	    
 	    
