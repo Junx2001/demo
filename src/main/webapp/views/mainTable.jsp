@@ -26,12 +26,12 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">image</th>
+                    <th scope="col">label</th>
                     <th scope="col">date signalement</th>
-                    <th scope="col">description</th>
-                    <th scope="col">Categorie</th>
+                    <th scope="col">image</th>
+                    <!--  <th scope="col">Categorie</th>
                     <th scope="col">Sous-categorie</th>
-                    <th scope="col">auteur</th>
+                    <th scope="col">auteur</th>-->
                     <th scope="col">longitude</th>
                     <th scope="col">latitude</th>
                   </tr>
@@ -40,12 +40,12 @@
                 <c:forEach  items="${signalements}" var ="signalement">
                   <tr>
                     <th scope="row">1</th>
-                    <td>Designer</td>
+                    <td><a href="/Signalement/${signalement.idSignalement}">${signalement.description}</a></td>
                     <td>${signalement.dateSignalement}</td>
-                    <td>${signalement.description}</td>
-                    <td>${signalement.longitude}</td>
+                    <td>Designer</td>
+                    <!--  <td>${signalement.longitude}</td>
                     <td>${signalement.idSousCategorie}</td>
-                    <td>${signalement.idUtilisateur}</td>
+                    <td>${signalement.idUtilisateur}</td>-->
                     <td>${signalement.longitude}</td>
                     <td>${signalement.latitude}</td>
                   </tr>

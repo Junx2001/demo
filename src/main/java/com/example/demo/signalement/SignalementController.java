@@ -28,6 +28,12 @@ public class SignalementController {
 	        return new ModelAndView("template");
 	    }
 	    
+	    public ModelAndView ficheSignalement(Model model) {
+	    	model.addAttribute("signalements", signService.getSignalements());
+	    	model.addAttribute("maPage", "mainTable");
+	        return new ModelAndView("template");
+	    }
+	    
 	    
 	    
 }
