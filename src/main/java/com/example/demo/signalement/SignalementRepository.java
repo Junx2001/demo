@@ -12,6 +12,9 @@ public interface SignalementRepository
 		extends JpaRepository<Signalement,String>{
 	
 	@Query(nativeQuery = true, value ="select * from detailsSignalement")
-	List<Object[]> getFicheSignalements();
+	List<Object[]> getDetailsSignalements();
+	
+	@Query(nativeQuery = true, value ="select * from detailsSignalement where idSignalement=?1")
+	List<Object[]> getFicheSignalement(String idSignalement);
 
 }
