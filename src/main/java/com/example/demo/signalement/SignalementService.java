@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -27,5 +28,20 @@ public class SignalementService {
 	public List<Object[]> getDetailsSignalements(){
 		return signRepository.getDetailsSignalements();
 	}
+
+    void updateSignalement(String signalementId, String region) {
+        
+    }
+    @Transactional
+    void updateSignalement2(String signalementId, String region) {
+        Signalement sign = signRepository.findById(signalementId)
+                .orElseThrow(() -> new IllegalStateException(
+                "signalement with id " + signalementId + " does not exists"));
+        if (region != null && region.length() > 0 && sign.getRegion().compareTo(region) != 0) {
+            sign.setRegion(region);
+            signRepository.save(sign);
+        }
+
+    }
 
 }
