@@ -37,14 +37,16 @@
   ======================================================== -->
 </head>
 
+
 <body>
 
     
-
-
-  
-
-
+    <jsp:include page="header.jsp" />
+    <jsp:include page="sidebar.jsp" />
+    <jsp:include page="${param.maPage}.jsp" />
+    <jsp:include page="footer.jsp" /> 
+    
+    
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
