@@ -12,18 +12,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.region.RegionService;
+
 
 @RestController
 @RequestMapping(path = "/signalement")
 public class SignalementController {
-	 private final SignalementService signService;
+		@Autowired
+		private  SignalementService signService;
+		public SignalementController(SignalementService signService) {
+		        this.signService = signService;
+		    }
+		 
+		@Autowired
+		private  RegionService regionService;
 
-     
-	    @Autowired
-	    public SignalementController(SignalementService signService) {
-	        this.signService = signService;
-	    }
-	    
 	    @GetMapping()
 	    public ModelAndView getSignalement(Model model){
 	    	model.addAttribute("signalements", signService.getSignalements());
@@ -31,18 +34,19 @@ public class SignalementController {
 	        return new ModelAndView("template");
 	    }
             
-            @PutMapping(path = "{signalementId}")
-            public void updateSignalement(
-                    @PathVariable("signalementId") String signalementId,
-                    @RequestParam(required = false) String region)
-            {
-                signService.updateSignalement(signalementId,region);
-            }
+        @PutMapping(path = "{signalementId}")
+        public void updateSignalement(
+           @PathVariable("signalementId") String signalementId,
+           @RequestParam(required = false) String region)
+        {
+            signService.updateSignalement(signalementId,region);
+        }
 	    
 	    @GetMapping("/{signalementId}")
 	    public ModelAndView ficheSignalement(Model model, @PathVariable("signalementId") String idSignalement) {
 	    	//return signService.getFicheSignalement(idSignalement);
 	    	model.addAttribute("signalement", signService.getFicheSignalement(idSignalement));
+	    	model.addAttribute("regions", regionService.getRegions());
 	    	model.addAttribute("maPage", "ficheSignalement");
 	        return new ModelAndView("template");
 	    }

@@ -34,6 +34,7 @@
                     <th scope="col">auteur</th>
                     <th scope="col">longitude</th>
                     <th scope="col">latitude</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,10 @@
                     <td>${signalement.idUtilisateur}</td>
                     <td>${signalement.longitude}</td>
                     <td>${signalement.latitude}</td>
+                    <c:if test="${signalement.region == null}">
+                    <td><a href="signalement/${signalement.idSignalement}">Affecter à une région</a></td>
+                    </c:if>
+                    
                   </tr>
                   </c:forEach>
                   
