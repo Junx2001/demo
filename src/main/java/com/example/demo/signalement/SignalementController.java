@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @RestController
-@RequestMapping(path = "api/v1/signalement")
+@RequestMapping(path = "/signalement")
 public class SignalementController {
 	 private final SignalementService signService;
 
@@ -21,9 +21,13 @@ public class SignalementController {
 	        this.signService = signService;
 	    }
 	    
-	    @GetMapping("/")
+	    @GetMapping
 	    public ModelAndView getSignalement(Model model){
 	    	model.addAttribute("signalements", signService.getSignalements());
-	        return new ModelAndView("listeSignalement");
+	    	model.addAttribute("maPage", "mainTable");
+	        return new ModelAndView("template");
 	    }
+	    
+	    
+	    
 }
