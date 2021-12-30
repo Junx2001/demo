@@ -2,14 +2,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Liste de Signalements</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
-        </ol>
-      </nav>
+      <h1>Liste des Signalements</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -18,14 +11,12 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
-              <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
-
+              
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">image</th>
                     <th scope="col">date signalement</th>
                     <th scope="col">description</th>
@@ -40,8 +31,8 @@
                 <tbody>
                 <c:forEach  items="${signalements}" var ="signalement">
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Designer</td>
+                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${signalement.idSignalement}</a></th>
+                    <td>${signalement.nomImage}</td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
                     <td>${signalement.longitude}</td>

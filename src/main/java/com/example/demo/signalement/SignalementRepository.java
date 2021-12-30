@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface SignalementRepository 
 		extends JpaRepository<Signalement,String>{
 	
+	
 	@Query(nativeQuery = true, value ="select * from detailsSignalement")
 	List<Object[]> getDetailsSignalements();
 	
