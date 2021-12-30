@@ -65,6 +65,8 @@
   <script src="${baseURL}/views/assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="${baseURL}/views/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="${baseURL}/views/assets/vendor/php-email-form/validate.js"></script>
+  
+  
 
   <!-- Template Main JS File -->
   <script src="${baseURL}/views/assets/js/main.js"></script>

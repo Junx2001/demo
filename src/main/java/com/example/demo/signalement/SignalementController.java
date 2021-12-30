@@ -51,6 +51,13 @@ public class SignalementController {
 	        return new ModelAndView("template");
 	    }
 	    
+	    @GetMapping("/statistique")
+	    public ModelAndView statistique(Model model) {
+	    	model.addAttribute("statRegion", signService.getStatParRegion());
+	    	model.addAttribute("maPage", "statistique");
+	        return new ModelAndView("template");
+	    }
+	    
 	    
 	    
 }

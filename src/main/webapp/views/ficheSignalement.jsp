@@ -33,7 +33,7 @@
 	              	<option value="${region.idRegion}">${region.nom}</option>
 	              </c:forEach>
 	              </select>
-	              <button type="submit">Affecter</button>
+	              <p><button type="submit">Affecter</button></p>
               	</div>
 	          </form>
             
