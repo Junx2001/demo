@@ -2,39 +2,68 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Affectation d'un signalement à une région</h1>
+        <h1>Affectation d'un signalement ï¿½ une rï¿½gion</h1>
     </div><!-- End Page Title -->
+
+    <div>
+
+        <!-- Card with an image on top -->
+        <div class="card">
+
+            <img src="${baseURL}/views/assets/img/card.jpg" width="50" class="card-img-top" alt="...">
+            <input type="hidden" id="url" value="${baseURL}">
+            <div class="card-body">
+                <h5 class="card-title">Signalement <span id="idSignalement">${signalement.idSignalement}</span></h5>
+                <p class="card-text">Catï¿½gorie: ${signalement.nomCat}</p>
+                <p class="card-text">Sous-catï¿½gorie: ${signalement.nomSousCat}</p>
+                <p class="card-text">Description: ${signalement.description}</p>
+                <p class="card-text">Date: ${signalement.dateSignalement}</p>
+                <hr>
+                <p class="card-text">Longitude: ${signalement.longitude}</p>
+                <p class="card-text">Latitude: ${signalement.latitude}</p>
+                <hr>
+                <p class="card-text">Email auteur: ${signalement.email}</p>
+                <hr>
+
+
+                <c:if test="${signalement.region == null}">
+                    <select name="idRegion" id="idRegion">
+                        <c:forEach  items="${regions}" var ="region">
+                            <option value="${region.idRegion}">${region.nom}</option>
+                        </c:forEach>
+                    </select>
+                </c:if>
+                <c:if test="${signalement.region != null}">
+                    <p class="card-text">Region : ${signalement.region}</p>
+                </c:if>
+
+                <button id="bouton">Affecter</button>
+            </div>
+
+
+        </div><!-- End Card with an image on top -->
+
+
+    </div>
+</main>
+
+<script>
+    $('#bouton').click(function () {
+        var baseUrl = $('#url').val();
+        var sign = $('#idSignalement').html();
+        var region = $('#idRegion').val();
+        $.ajax({
+            url: baseUrl + '/signalement/' + sign,
+            method: 'put',
+            data: {region: region},
+            dataType: 'json',
+            success: function (response) {
+                console.log("put method successfully done");
+                console.log(response);
+                
+            }
+        });
+    });
+</script>
     
-		<div>
-
-          <!-- Card with an image on top -->
-          <div class="card">
-	          <form>
-	          	<img src="${baseURL}/views/assets/img/card.jpg" width="50" class="card-img-top" alt="...">
-	            <div class="card-body">
-	              <h5 class="card-title">Signalement ${signalement.idSignalement} </h5>
-	              <p class="card-text">Catégorie: ${signalement.nomCat}</p>
-	              <p class="card-text">Sous-catégorie: ${signalement.nomSousCat}</p>
-	              <p class="card-text">Description: ${signalement.description}</p>
-	              <p class="card-text">Date: ${signalement.dateSignalement}</p>
-	              <hr>
-	              <p class="card-text">Longitude: ${signalement.longitude}</p>
-	              <p class="card-text">Latitude: ${signalement.latitude}</p>
-	              <hr>
-	              <p class="card-text">Email auteur: ${signalement.email}</p>
-	              <hr>
-	              <select name="idRegion">
-	              <c:forEach  items="${regions}" var ="region">
-	              	<option value="${region.idRegion}">${region.nom}</option>
-	              </c:forEach>
-	              </select>
-	              <p><button type="submit">Affecter</button></p>
-              	</div>
-	          </form>
-            
-           
-          </div><!-- End Card with an image on top -->
-
-
-        </div>
       </main>
