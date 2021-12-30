@@ -157,9 +157,9 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Line Chart</h5>
+                        <h5 class="card-title">Statistique Probleme Résolus Par Mois</h5>
                         <input type="hidden" id="url" value="${baseURL}">
-                        <input type="number" class="form-control" id="annee">
+                        Choisir une année : <input type="number" class="form-control" id="annee">
                         <button class="btn btn-success" id="bouton">Envoyer</button>
 
                         <!-- Line Chart -->
