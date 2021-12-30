@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -50,7 +50,7 @@
                     <td>${signalement.longitude}</td>
                     <td>${signalement.latitude}</td>
                     <c:if test="${signalement.region == null}">
-                    <td><a href="signalement/${signalement.idSignalement}">Affecter à une région</a></td>
+                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter à une région</a></td>
                     </c:if>
                     
                   </tr>
