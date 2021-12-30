@@ -32,12 +32,14 @@ public class Signalement {
 	private Double latitude;
 	private String idSousCategorie;
 	private String nomImage;
+	private String idGroupement;
 	
-	/*@JsonIgnore
-	 @ManyToMany(mappedBy="enrolledSignalements")
-	private List<Groupement> groupements = new ArrayList<Groupement>();
-	*/
-	
+	public String getIdGroupement() {
+		return idGroupement;
+	}
+	public void setIdGroupement(String idGroupement) {
+		this.idGroupement = idGroupement;
+	}
 	public String getIdSignalement() {
 		return idSignalement;
 	}
@@ -92,5 +94,6 @@ public class Signalement {
 	public void setNomImage(String nomImage) {
 		this.nomImage = nomImage;
 	}
+	
 	public Signalement() {}
 }
