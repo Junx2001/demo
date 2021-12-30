@@ -1,12 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="scheme" value="${pageContext.request.scheme}"/>
-<c:set var="serverName" value="${pageContext.request.serverName}"/>
-<c:set var="serverPort" value="${pageContext.request.serverPort}"/>
-<c:set var="baseURL" value="${scheme}://${serverName}:${serverPort}"/>
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Affectation d'un signalement à une région</h1>
+        <h1>Affectation d'un signalement ï¿½ une rï¿½gion</h1>
     </div><!-- End Page Title -->
 
     <div>
@@ -17,29 +13,28 @@
             <img src="${baseURL}/views/assets/img/card.jpg" width="50" class="card-img-top" alt="...">
             <input type="hidden" id="url" value="${baseURL}">
             <div class="card-body">
-                <h5 class="card-title">Signalement <span id="idSignalement">${signalement[0][0]}</span></h5>
-                <p class="card-text">Catégorie: ${signalement[0][11]}</p>
-                <p class="card-text">Sous-catégorie: ${signalement[0][10]}</p>
-                <p class="card-text">Description: ${signalement[0][2]}</p>
-                <p class="card-text">Date: ${signalement[0][1]}</p>
+                <h5 class="card-title">Signalement <span id="idSignalement">${signalement.idSignalement}</span></h5>
+                <p class="card-text">Catï¿½gorie: ${signalement.nomCat}</p>
+                <p class="card-text">Sous-catï¿½gorie: ${signalement.nomSousCat}</p>
+                <p class="card-text">Description: ${signalement.description}</p>
+                <p class="card-text">Date: ${signalement.dateSignalement}</p>
                 <hr>
-                <p class="card-text">Longitude: ${signalement[0][7]}</p>
-                <p class="card-text">Latitude: ${signalement[0][6]}</p>
+                <p class="card-text">Longitude: ${signalement.longitude}</p>
+                <p class="card-text">Latitude: ${signalement.latitude}</p>
                 <hr>
-                <p class="card-text">Auteur: ${signalement[0][5]}</p>
-                <p class="card-text">Email: ${signalement[0][12]}</p>
+                <p class="card-text">Email auteur: ${signalement.email}</p>
                 <hr>
 
 
-                <c:if test="${signalement[0][9] == null}">
+                <c:if test="${signalement.region == null}">
                     <select name="idRegion" id="idRegion">
                         <c:forEach  items="${regions}" var ="region">
                             <option value="${region.idRegion}">${region.nom}</option>
                         </c:forEach>
                     </select>
                 </c:if>
-                <c:if test="${signalement[0][9] != null}">
-                    <p class="card-text">Region : ${signalement[0][9]}</p>
+                <c:if test="${signalement.region != null}">
+                    <p class="card-text">Region : ${signalement.region}</p>
                 </c:if>
 
                 <button id="bouton">Affecter</button>
@@ -70,3 +65,5 @@
         });
     });
 </script>
+    
+      </main>

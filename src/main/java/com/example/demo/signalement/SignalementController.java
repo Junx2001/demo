@@ -44,10 +44,25 @@ public class SignalementController {
 	    
 	    @GetMapping("/{signalementId}")
 	    public ModelAndView ficheSignalement(Model model, @PathVariable("signalementId") String idSignalement) {
-	    	//return signService.getFicheSignalement(idSignalement);
 	    	model.addAttribute("signalement", signService.getFicheSignalement(idSignalement));
 	    	model.addAttribute("regions", regionService.getRegions());
+	    	/*
+	    	Iterator<?> it = hm.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				String key = (String)pair.getKey();
+				String value = (String)pair.getValue();
+				
+			}*/
+			
 	    	model.addAttribute("maPage", "ficheSignalement");
+	        return new ModelAndView("template");
+	    }
+	    
+	    @GetMapping("/statistique")
+	    public ModelAndView statistique(Model model) {
+	    	model.addAttribute("statRegion", signService.getStatParRegion());
+	    	model.addAttribute("maPage", "statistique");
 	        return new ModelAndView("template");
 	    }
 	    

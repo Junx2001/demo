@@ -16,5 +16,8 @@ public interface SignalementRepository
 	
 	@Query(nativeQuery = true, value ="select * from detailsSignalement where idSignalement=?1")
 	List<Object[]> getFicheSignalement(String idSignalement);
+	
+	@Query(nativeQuery = true, value="select * from top4MaxSignalement")
+	List<Object[]> getStatParRegion();
 
 }
