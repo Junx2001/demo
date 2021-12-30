@@ -63,8 +63,9 @@
             data: {region: region},
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 console.log("put method successfully done");
+                console.log(response);
+                
             }
         });
     });
