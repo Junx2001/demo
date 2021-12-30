@@ -23,6 +23,8 @@ public interface SignalementRepository
 	
 	@Query(nativeQuery = true, value="select * from statSousCategorie")
 	List<Object[]> getStatSousCategorie();
-	
-	
+
+        @Query(nativeQuery = true, value="select count(*) as nb,MONTH(date_resolu) as mois from groupement where YEAR(date_resolu)=?1 and etat=1 group by MONTH(date_resolu)")
+        List<Object[]> getStatParMois(Integer annee);
+
 }

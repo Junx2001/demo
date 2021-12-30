@@ -82,4 +82,17 @@ public class SignalementService {
 
     }
 
+    public List<HashMap<String, Object>> getStatParMois(Integer annee) {
+        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+		List<Object[]> liste =   signRepository.getStatParMois(annee);
+		for(int i=0; i<liste.size(); i++) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Object[] s = (Object[]) liste.get(i);
+			hm.put("nb", s[0]);
+			hm.put("mois", s[1]);
+			listehm.add(hm);
+		}
+		return listehm;
+    }
+
 }
