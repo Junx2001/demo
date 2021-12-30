@@ -159,7 +159,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Statistique Probleme Résolus Par Mois</h5>
                         <input type="hidden" id="url" value="${baseURL}">
-                        Choisir une année : <input type="number" class="form-control" id="annee">
+                        Choisir une année : <input type="number" class="form-control" id="annee"><br>
                         <button class="btn btn-success" id="bouton">Envoyer</button>
 
                         <!-- Line Chart -->
