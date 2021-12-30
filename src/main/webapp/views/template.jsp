@@ -45,7 +45,7 @@
 
 
 <body>
-
+     <script src="${baseURL}/views/assets/vendor/jquery.min.js"></script>
     
     <jsp:include page="header.jsp" />
     <jsp:include page="sidebar.jsp" />

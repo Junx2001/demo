@@ -29,15 +29,12 @@ public class SignalementService {
 		return signRepository.getDetailsSignalements();
 	}
 
-    void updateSignalement(String signalementId, String region) {
-        
-    }
     @Transactional
-    void updateSignalement2(String signalementId, String region) {
+    void updateSignalement(String signalementId, String region) {
         Signalement sign = signRepository.findById(signalementId)
                 .orElseThrow(() -> new IllegalStateException(
                 "signalement with id " + signalementId + " does not exists"));
-        if (region != null && region.length() > 0 && sign.getRegion().compareTo(region) != 0) {
+        if (region != null && region.length() > 0 && sign.getRegion()==null) {
             sign.setRegion(region);
             signRepository.save(sign);
         }
