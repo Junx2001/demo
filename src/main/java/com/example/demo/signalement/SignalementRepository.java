@@ -23,5 +23,6 @@ public interface SignalementRepository
 	
 	@Query(nativeQuery = true, value="select * from statSousCategorie")
 	List<Object[]> getStatSousCategorie();
-
+	
+	
 }

@@ -1,5 +1,8 @@
 package com.example.demo.groupement;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,16 +30,14 @@ public class Groupement {
 	private Double latitude ;
     private String etat ;
     private String nomImage ;
+    private LocalDate dateResolu;
     
-   /* @ManyToMany
-    @JoinTable(
-    		name="detailGroupement",
-    		joinColumns = @JoinColumn(name="groupement_id"),
-    		inverseJoinColumns = @JoinColumn(name="signalement_id")
-    )
-    private List<Signalement> enrolledSignalements = new ArrayList<Signalement>();
-    */
-	
+	public LocalDate getDateResolu() {
+		return dateResolu;
+	}
+	public void setDateResolu(LocalDate dateResolu) {
+		this.dateResolu = dateResolu;
+	}
 	public String getIdGroupement() {
 		return idGroupement;
 	}
