@@ -1,5 +1,6 @@
 package com.example.demo.signalement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class SignalementService {
 		return signRepository.findAll();
 	}
 	
-	public HashMap getFicheSignalement(String idSignalement){
+	public HashMap<String, Object> getFicheSignalement(String idSignalement){
 		HashMap<String, Object> hm = new HashMap<String, Object>();
 		List<Object[]> liste = signRepository.getFicheSignalement(idSignalement);
 		Object[] s = (Object[])liste.get(0);
@@ -39,13 +40,33 @@ public class SignalementService {
 		
 	}
 	
-
-	public List<Object[]> getDetailsSignalements(){
-		return signRepository.getDetailsSignalements();
+	
+	public List<HashMap<String, Object>> getStatParRegion(){
+		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+		List<Object[]> liste =   signRepository.getStatParRegion();
+		for(int i=0; i<liste.size(); i++) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Object[] s = (Object[]) liste.get(i);
+			hm.put("region", s[0]);
+			hm.put("nb", s[1]);
+			listehm.add(hm);
+		}
+		return listehm;
+		
 	}
 	
-	public List<Object[]> getStatParRegion(){
-		return  signRepository.getStatParRegion();
+	public List<HashMap<String, Object>> getStatSousCategorie(){
+		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+		List<Object[]> liste =   signRepository.getStatSousCategorie();
+		for(int i=0; i<liste.size(); i++) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Object[] s = (Object[]) liste.get(i);
+			hm.put("label", s[0]);
+			hm.put("nb", s[1]);
+			listehm.add(hm);
+		}
+		return listehm;
+		
 	}
 
     @Transactional
