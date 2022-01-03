@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.region.RegionService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 
@@ -62,6 +64,17 @@ public class SignalementController {
             @GetMapping("/statParMois/{annee}")
             public List<HashMap<String,Object>> statParMois( @PathVariable("annee") Integer annee){
                 return signService.getStatParMois(annee);
+            }
+            
+            @GetMapping("/recherche")
+            public ModelAndView rechercheSignalement(Model model,
+               @RequestParam(required = true) String d1,
+               @RequestParam(required = true) String d2
+               )
+            {
+                model.addAttribute("listeRecherche", signService.rechercheSignalement(d1,d2));
+                model.addAttribute("maPage", "resultatRecherche");
+                return new ModelAndView("template");
             }
 	    
 	    

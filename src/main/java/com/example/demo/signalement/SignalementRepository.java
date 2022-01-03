@@ -1,5 +1,6 @@
 package com.example.demo.signalement;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,5 +27,8 @@ public interface SignalementRepository
 
         @Query(nativeQuery = true, value="select count(*) as nb,MONTH(date_resolu) as mois from groupement where YEAR(date_resolu)=?1 and etat=1 group by MONTH(date_resolu)")
         List<Object[]> getStatParMois(Integer annee);
+
+        @Query(nativeQuery = true, value="select * from detailsSignalement where dateSignalement >=?1 and dateSignalement <=?2")
+        List<Object[]> rechercheSign(String d1, String d2);
 
 }
