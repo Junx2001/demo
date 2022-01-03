@@ -26,6 +26,12 @@ public class Administrateur {
 	private String mdp;
 	
 	public Administrateur() {}
+
+    public Administrateur(String idAdmin, String email, String mdp) {
+        this.idAdmin = idAdmin;
+        this.email = email;
+        this.mdp = mdp;
+    }
 	public String getIdAdmin() {
 		return idAdmin;
 	}
