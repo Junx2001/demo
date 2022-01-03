@@ -11,7 +11,8 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Categorie {
-	@Id
+	@Id 
+	
 	@SequenceGenerator(
             name="seq_categorie",
             sequenceName="seq_categorie",
