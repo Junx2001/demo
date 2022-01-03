@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.region.RegionService;
+import java.util.HashMap;
 
 
 @RestController
@@ -58,6 +59,11 @@ public class SignalementController {
 	    	model.addAttribute("maPage", "statistique");
 	        return new ModelAndView("template");
 	    }
+            
+            @GetMapping("/statParMois/{annee}")
+            public List<HashMap<String,Object>> statParMois( @PathVariable("annee") Integer annee){
+                return signService.getStatParMois(annee);
+            }
 	    
 	    
 	    @GetMapping("/statistique/")
