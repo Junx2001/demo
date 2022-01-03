@@ -15,8 +15,8 @@ function init(){
 
 
     var coor = ol.proj.fromLonLat([47.50792, -18.8792]);
-
-    var circle = new ol.geom.Circle(coor,5,"XY");
+    
+    
 
     var layer = new ol.layer.Vector({
         source: new ol.source.Vector({
@@ -35,8 +35,10 @@ function init(){
         //   })
         // ]
       });
+    
+    console.log(${signalement});
 
-    var marker = new ol.layer.Vector({
+    /*var marker = new ol.layer.Vector({
         source: new ol.source.Vector({
             features: [
                 new ol.Feature({
@@ -44,10 +46,10 @@ function init(){
                 })
             ]
         })
-    });
-    //map.addLayer(layer);
+    });*/
+    map.addLayer(layer);
 
-    map.addLayer(marker);
+    //map.addLayer(marker);
 
     var container = document.getElementById('popup');
     var content = document.getElementById('popup-content');

@@ -1,5 +1,6 @@
 package com.example.demo.signalement;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,19 @@ public class SignalementController {
 	    	model.addAttribute("maPage", "statistique");
 	        return new ModelAndView("template");
 	    }
+	    
+	    
+	    @GetMapping("/statistique/")
+	    public ModelAndView statistiqueSignalementParRegion(Model model) {
+	    	//model.addAttribute("statRegion", signService.getStatSignalementParRegion());
+	    	model.addAttribute("signalements", signService.getSignalementSansRegion());
+	    	model.addAttribute("regions", regionService.getRegions());
+	    	model.addAttribute("maPage", "chartRegion");
+	        return new ModelAndView("template");
+	        //return signService.getSignalementSansRegion();
+	    }
+	    
+	    
 	    
 	    
 	    

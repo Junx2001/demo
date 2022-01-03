@@ -69,6 +69,20 @@ public class SignalementService {
 		return listehm;
 		
 	}
+	
+	public List<HashMap<String, Object>> getStatSignalementParRegion(){
+		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+		List<Object[]> liste =   signRepository.getStatSignalementParRegion();
+		for(int i=0; i<liste.size(); i++) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Object[] s = (Object[]) liste.get(i);
+			hm.put("label", s[0]);
+			hm.put("nb", s[1]);
+			listehm.add(hm);
+		}
+		return listehm;
+		
+	}
 
     @Transactional
     void updateSignalement(String signalementId, String region) {
@@ -81,5 +95,27 @@ public class SignalementService {
         }
 
     }
+    
+    public List<HashMap<String, Object>> getSignalementSansRegion(){
+		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+		List<Object[]> liste =   signRepository.getStatSignalementSansRegion();
+		for(int i=0; i<liste.size(); i++) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Object[] s = (Object[]) liste.get(i);
+			hm.put("idSignalement", s[0]);
+			hm.put("dateSignalement", s[1]);
+			hm.put("description", s[2]);
+			hm.put("idGroupement", s[3]);
+			hm.put("idSousCategorie", s[4]);
+			hm.put("idUtilisateur", s[5]);
+			hm.put("latitude", s[6]);
+			hm.put("longitude", s[7]);
+			hm.put("nomImage", s[8]);
+			hm.put("region", s[9]);
+			listehm.add(hm);
+		}
+		return listehm;
+		
+	}
 
 }

@@ -23,5 +23,11 @@ public interface SignalementRepository
 	
 	@Query(nativeQuery = true, value="select * from statSousCategorie")
 	List<Object[]> getStatSousCategorie();
+	
+	@Query(nativeQuery = true, value="select * from statSignalementParRegion")
+	List<Object[]> getStatSignalementParRegion();
+	
+	@Query(nativeQuery = true, value="select * from signalement where region is null")
+	List<Object[]> getStatSignalementSansRegion();
 
 }
