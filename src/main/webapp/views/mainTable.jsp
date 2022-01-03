@@ -20,7 +20,6 @@
                     <th scope="col">image</th>
                     <th scope="col">date signalement</th>
                     <th scope="col">description</th>
-                    <th scope="col">Categorie</th>
                     <th scope="col">Sous-categorie</th>
                     <th scope="col">auteur</th>
                     <th scope="col">longitude</th>
@@ -35,7 +34,6 @@
                     <td>${signalement.nomImage}</td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
-                    <td>${signalement.longitude}</td>
                     <td>${signalement.idSousCategorie}</td>
                     <td>${signalement.idUtilisateur}</td>
                     <td>${signalement.longitude}</td>
