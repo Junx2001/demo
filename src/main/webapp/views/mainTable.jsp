@@ -51,6 +51,8 @@
                   
                 </tbody>
               </table>
+                   </div>
+        </div>
               <!-- End Table with stripped rows -->
 
                 <div class="card">
@@ -84,9 +86,7 @@
 
                     </div>
                 </div>
-
-            </div>
-        </div>
+       
         </div>
         </div>
     </section>

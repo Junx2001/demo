@@ -1,0 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.example.demo.utilisateur;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+/**
+ *
+ * @author ratsi
+ */
+@Repository
+public interface UtilisateurRepository extends JpaRepository<Utilisateur,String>{
+
+    @Query(value = "SELECT * from utilisateur where email = ?1", nativeQuery = true)
+    public Optional<Utilisateur> findUtilByEmail(String email);
+
+	
+    
+}
