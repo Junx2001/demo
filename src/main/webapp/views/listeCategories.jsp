@@ -98,12 +98,7 @@
 	            method: 'delete',
 	            dataType: 'json',
 	            success: function (response) {
-	                console.log(response);
-	                /*if (response.includes('existe')){
-	                	$('#exception').appendChild("<div class='alert alert-danger' role='alert'>".response."</div>")
-	                }else{
-	                	$('#exception').appendChild("<div class='alert alert-success' role='alert'>".response."</div>")	
-	                }*/
+	                console.log(response.includes('existe'));
 	                if(data.success == true){ // if true (1)
 	                    setTimeout(function(){// wait for 5 secs(2)
 	                         location.reload(); // then reload the page.(3)
@@ -125,11 +120,6 @@
 	            dataType: 'json',
 	            success: function (response) {
 	                console.log(response);
-	                /*if (response.includes('existe')){
-	                	$('#exception').appendChild("<div class='alert alert-danger' role='alert'>".response."</div>")
-	                }else{
-	                	$('#exception').appendChild("<div class='alert alert-success' role='alert'>".response."</div>")	
-	                }*/
 	                if(data.success == true){ // if true (1)
 	                    setTimeout(function(){// wait for 5 secs(2)
 	                         location.reload(); // then reload the page.(3)
