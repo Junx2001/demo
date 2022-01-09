@@ -5,6 +5,8 @@
  */
 package com.example.demo.administrateur;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,8 +17,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AdministrateurRepository extends JpaRepository<Administrateur,String>{
-
-    @Query(nativeQuery = true, value ="SELECT * FROM administrateur WHERE email =?1 AND mdp =HASHBYTES(\'SHA2_256\',?2)")
-	Administrateur findAdministrateurByEmailAndMdp(String email, String mdp);
+	
+	String QUERY_FIND_USER_FROM_DATBASE = "SELECT * from " +
+		      "administrateur where " +
+		      "email= ?1 and " +
+		     "mdp=HashBytes('SHA2_256', convert(varchar,?2))";
+	@Query(value = QUERY_FIND_USER_FROM_DATBASE, nativeQuery = true)
+		Administrateur findAdministrateurByEmailAndMdp(String email,String mdp);
+	
     
 }

@@ -5,6 +5,7 @@
  */
 package com.example.demo.administrateur;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,15 @@ import org.springframework.stereotype.Service;
 public class AdministrateurService {
    private final AdministrateurRepository admRepository;
 
+   
     @Autowired
     public AdministrateurService(AdministrateurRepository admRepository) {
         this.admRepository = admRepository;
     }
 
-    Administrateur find(Administrateur adm) {
-       Administrateur ad = admRepository.findAdministrateurByEmailAndMdp(adm.getEmail(), adm.getMdp());
-       return ad;
+    public Administrateur find(Administrateur adm) {      
+    	Administrateur ad = admRepository.findAdministrateurByEmailAndMdp(adm.getEmail(),adm.getMdp());
+        return ad;
     }
     
 }
