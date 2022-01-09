@@ -12,5 +12,5 @@ public interface CategorieRepository
 	
 	
 	Optional<Categorie> findCategorieByLabel(String label);
-	
+	boolean existsByLabel(String label);
 }

@@ -14,7 +14,12 @@
     </div><!-- End Page Title -->
     
 		<div id="container"></div>
-		
+		<c:if test="${exception != null}">
+	        <div class="alert alert-danger" role="alert">
+				  ${exception}
+			</div>
+		</c:if>
+		<div id="exception"></div>
 		<div class="card-body">
               <h5 class="card-title">Ajouter une categorie</h5>
 	              <form class="row g-3" action="${baseURL}/categorie" method="post">
@@ -84,6 +89,9 @@
 	<script>
 		function supprimerCategorie(idCat){
 			var baseUrl = $('#url').val();
+			setTimeout(function(){// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3)
+           }, 100); 
 			console.log(idCat);
 			$.ajax({
 	            url: baseUrl + '/categorie/' + idCat,
@@ -91,10 +99,15 @@
 	            dataType: 'json',
 	            success: function (response) {
 	                console.log(response);
+	                /*if (response.includes('existe')){
+	                	$('#exception').appendChild("<div class='alert alert-danger' role='alert'>".response."</div>")
+	                }else{
+	                	$('#exception').appendChild("<div class='alert alert-success' role='alert'>".response."</div>")	
+	                }*/
 	                if(data.success == true){ // if true (1)
 	                    setTimeout(function(){// wait for 5 secs(2)
 	                         location.reload(); // then reload the page.(3)
-	                    }, 5000); 
+	                    }, 100); 
 	                 }
 	            }
 	        });
@@ -102,6 +115,9 @@
 		
 		function supprimer(idSousCat){
 			var baseUrl = $('#url').val();
+			setTimeout(function(){// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3)
+           }, 100); 
 			console.log(idSousCat);
 			$.ajax({
 	            url: baseUrl + '/sousCategorie/' + idSousCat,
@@ -109,10 +125,15 @@
 	            dataType: 'json',
 	            success: function (response) {
 	                console.log(response);
+	                /*if (response.includes('existe')){
+	                	$('#exception').appendChild("<div class='alert alert-danger' role='alert'>".response."</div>")
+	                }else{
+	                	$('#exception').appendChild("<div class='alert alert-success' role='alert'>".response."</div>")	
+	                }*/
 	                if(data.success == true){ // if true (1)
 	                    setTimeout(function(){// wait for 5 secs(2)
 	                         location.reload(); // then reload the page.(3)
-	                    }, 5000); 
+	                    }, 100); 
 	                 }
 	            }
 	        });

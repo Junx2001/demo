@@ -30,9 +30,15 @@ public class CategorieService {
 	
 	@Transactional
 	public void insertWithQuery(Categorie cat) {
-	    entityManager.createNativeQuery("INSERT INTO categorie (id_categorie, label) VALUES (CONCAT('C',NEXT VALUE FOR seq_categorie),?)")
-	      .setParameter(1, cat.getLabel())
-	      .executeUpdate();
+		boolean exists = repository.existsByLabel(cat.getLabel());
+		if (exists) {
+            throw new IllegalStateException(
+                "La categorie avec le nom " + cat.getLabel() + " existe deja ");
+        }else {
+        	entityManager.createNativeQuery("INSERT INTO categorie (id_categorie, label) VALUES (CONCAT('C',NEXT VALUE FOR seq_categorie),?)")
+		      .setParameter(1, cat.getLabel())
+		      .executeUpdate();
+        }
 	}
 
 	public void deleteCategorie(String categorieId) {

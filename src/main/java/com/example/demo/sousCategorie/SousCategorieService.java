@@ -31,10 +31,16 @@ public class SousCategorieService {
 	
 	@Transactional
 	public void insertWithQuery(SousCategorie sousCat) {
-	    entityManager.createNativeQuery("INSERT INTO sous_categorie (id_sous_categorie,id_categorie, label) VALUES (CONCAT('SC',NEXT VALUE FOR seq_sous_categorie),?,?)")
+		boolean exists = repository.existsByLabel(sousCat.getLabel());
+		if (exists) {
+            throw new IllegalStateException(
+            		  "Le sous-categorie avec le nom " + sousCat.getLabel() + " existe deja ");
+        }else {
+        	entityManager.createNativeQuery("INSERT INTO sous_categorie (id_sous_categorie,id_categorie, label) VALUES (CONCAT('SC',NEXT VALUE FOR seq_sous_categorie),?,?)")
 	      .setParameter(1, sousCat.getIdCategorie())
 	      .setParameter(2, sousCat.getLabel())
 	      .executeUpdate();
+        }
 	}
 
 	public void deleteSousCategorie(String sousCategorieId) {
