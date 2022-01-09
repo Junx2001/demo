@@ -31,7 +31,6 @@ public class SousCategorieController {
 	
 	@PostMapping
     public @ResponseBody ModelAndView registerNewCategorie(SousCategorie sousCat,Model model){
-		
 		try {
 			service.insertWithQuery(sousCat);
 			model.addAttribute("insertionSousCat","Le sous-catégorie "+sousCat.getLabel()+" a été ajouté");

@@ -42,9 +42,9 @@ public class AdministrateurController {
 		    return new ModelAndView("template");
 		 }
 
-	    @PostMapping("/login")
-            public @ResponseBody ModelAndView login(Administrateur adm, Model model)
-            {
+	     @PostMapping("/login")
+         public @ResponseBody ModelAndView login(Administrateur adm, Model model)
+         {
                 Administrateur val = adService.find(adm);
                 if(val!=null)
                 {
@@ -60,6 +60,6 @@ public class AdministrateurController {
         		    return new ModelAndView("template");
                 }
                 
-            }
+         }
 	    
 }
