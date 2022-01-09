@@ -25,10 +25,16 @@
                 <p class="card-text">Email auteur: ${signalement.email}</p>
                 <hr>
                 
+             
                 <c:if test="${signalement.region != null}">
                     <p class="card-text">Region : ${signalement.region}</p>
                 </c:if>
 				<c:if test="${signalement.region == null}">
+					<p> 
+					<div id="spinner" class="spinner-border" role="status" style="display:none;">
+	                <span class="visually-hidden">Loading...</span>
+	              	</div>
+	              </p>
                     <select name="idRegion" id="idRegion">
                         <c:forEach  items="${regions}" var ="region">
                             <option value="${region.idRegion}">${region.nom}</option>
@@ -48,18 +54,27 @@
 
 <script>
     $('#bouton').click(function () {
+    	var spinner=$('#spinner');
+
+    	  spinner.show();
+    	  
         var baseUrl = $('#url').val();
         var sign = $('#idSignalement').html();
         var region = $('#idRegion').val();
+        setTimeout(function(){
+            location.reload(); 
+            spinner.hide();
+       }, 2000); 
+        
         $.ajax({
             url: baseUrl + '/signalement/' + sign,
             method: 'put',
             data: {region: region},
             dataType: 'json',
             success: function (response) {
+            	  
                 console.log("put method successfully done");
                 console.log(response);
-                
             }
         });
     });
