@@ -36,8 +36,6 @@ public class CategorieService {
 	}
 
 	public void deleteCategorie(String categorieId) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
         boolean exists = repository.existsById(categorieId);
         if (!exists) {
             throw new IllegalStateException(

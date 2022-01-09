@@ -1,12 +1,11 @@
 package com.example.demo.signalement;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,17 +18,41 @@ public class SignalementService {
     public SignalementService(SignalementRepository signRepository) {
         this.signRepository = signRepository;
     }
+    
 
-    public List<Signalement> getSignalements() {
-        return signRepository.findAll(Sort.by("idSignalement"));
+    public List<HashMap<String, Object>> getSignalements() {
+    	 List<Object[]> liste = signRepository.getDetailsSignalements();
+    	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+         for (int i = 0; i < liste.size(); i++) {
+             HashMap<String, Object> hm = new HashMap<String, Object>();
+             Object[] s = (Object[]) liste.get(i);
+             hm.put("idSignalement", s[0]);
+             String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
+             hm.put("dateSignalement", str);
+             hm.put("description", s[2]);
+             hm.put("latitude", s[3]);
+             hm.put("longitude", s[4]);
+             hm.put("nomImage", s[5]);
+             hm.put("region", s[6]);
+             hm.put("nomSousCat", s[7]);
+             hm.put("nomCat", s[8]);
+             hm.put("email", s[9]);
+             listehm.add(hm);
+         }
+         return listehm;
     }
 
     public HashMap<String, Object> getFicheSignalement(String idSignalement) {
-        HashMap<String, Object> hm = new HashMap<String, Object>();
         List<Object[]> liste = signRepository.getFicheSignalement(idSignalement);
+        HashMap<String, Object> hm = new HashMap<String, Object>();
+        
         Object[] s = (Object[]) liste.get(0);
+        
         hm.put("idSignalement", s[0]);
-        hm.put("dateSignalement", s[1]);
+        
+        String str = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(s[1]);
+        
+        hm.put("dateSignalement", str);
         hm.put("description", s[2]);
         hm.put("latitude", s[3]);
         hm.put("longitude", s[4]);
@@ -102,7 +125,8 @@ public class SignalementService {
             HashMap<String, Object> hm = new HashMap<String, Object>();
             Object[] s = (Object[]) liste.get(i);
             hm.put("idSignalement", s[0]);
-            hm.put("dateSignalement", s[1]);
+            String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
+            hm.put("dateSignalement", str);
             hm.put("description", s[2]);
             hm.put("latitude", s[3]);
             hm.put("longitude", s[4]);

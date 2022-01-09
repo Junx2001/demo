@@ -12,48 +12,7 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">image</th>
-                    <th scope="col">date signalement</th>
-                    <th scope="col">description</th>
-                    <th scope="col">Sous-categorie</th>
-                    <th scope="col">auteur</th>
-                    <th scope="col">longitude</th>
-                    <th scope="col">latitude</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                <c:forEach  items="${signalements}" var ="signalement">
-                  <tr>
-                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${signalement.idSignalement}</a></th>
-                    <td>${signalement.nomImage}</td>
-                    <td>${signalement.dateSignalement}</td>
-                    <td>${signalement.description}</td>
-                    <td>${signalement.idSousCategorie}</td>
-                    <td>${signalement.idUtilisateur}</td>
-                    <td>${signalement.longitude}</td>
-                    <td>${signalement.latitude}</td>
-                    <c:if test="${signalement.region == null}">
-                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter � une r�gion</a></td>
-                    </c:if>
-                    
-                  </tr>
-                  </c:forEach>
-                  
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-
-                <div class="card">
+			<div class="card">
                     <div class="card-body">
 
 
@@ -84,6 +43,53 @@
 
                     </div>
                 </div>
+                
+                
+          <div class="card">
+            <div class="card-body">
+            
+              <div class="scrollme" style="overflow-x: auto;"> 
+              <!-- Table with stripped rows -->
+              <table class="table datatable" >
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">image</th>
+                    <th scope="col">date signalement</th>
+                    <th scope="col">description</th>
+                    <th scope="col">categorie</th>
+                    <th scope="col">sous-categorie</th>
+                    <th scope="col">auteur</th>
+                    <th scope="col">longitude</th>
+                    <th scope="col">latitude</th>
+                    <th scope="col">region</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <c:forEach  items="${signalements}" var ="signalement">
+                  <tr>
+                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${signalement.idSignalement}</a></th>
+                    <td>${signalement.nomImage}</td>
+                    <td>${signalement.dateSignalement}</td>
+                    <td>${signalement.description}</td>
+                    <td>${signalement.nomCat}</td>
+                    <td>${signalement.nomSousCat}</td>
+                    <td>${signalement.email}</td>
+                    <td>${signalement.longitude}</td>
+                    <td>${signalement.latitude}</td>
+                    <c:if test="${signalement.region == null}">
+                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
+                    </c:if>
+                    <c:if test="${signalement.region != null}">
+                    <td>${signalement.region}</td>
+                    </c:if>
+                    
+                  </tr>
+                  </c:forEach>
+                  
+                </tbody>
+              </table>
+              </div>
 
             </div>
         </div>
