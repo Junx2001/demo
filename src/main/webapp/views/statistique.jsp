@@ -15,7 +15,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Statistique par sous-catï¿½gorie</h5>
+                        <h5 class="card-title">Statistique par sous-catégorie</h5>
 
                         <!-- Bar Chart -->
                         <div id="barChart" style="min-height: 365px;"></div>
