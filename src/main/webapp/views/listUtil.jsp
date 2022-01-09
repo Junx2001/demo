@@ -1,25 +1,50 @@
-<%-- 
-    Document   : listUtil
-    Created on : 9 janv. 2022, 15:19:15
-    Author     : ratsi
---%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="scheme" value="${pageContext.request.scheme}"/>
+<c:set var="serverName" value="${pageContext.request.serverName}"/>
+<c:set var="serverPort" value="${pageContext.request.serverPort}"/>
+<c:set var="baseURL" value="${scheme}://${serverName}:${serverPort}"/>
+<main id="main" class="main">
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <div class="pagetitle">
+        <h1>Liste des Utilisateurs du Gouvernement (Front-Office)</h1>
+    </div><!-- End Page Title -->
 
-<%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
-<%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+          <div class="card">
+            <div class="card-body">
+              
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mot de Passe (Hashé en SHA2_256)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <c:forEach  items="${utilisateurs}" var ="utilisateur">
+                  <tr>
+                    <td>${utilisateur.idUtilisateur}</td>
+                    <td>${utilisateur.email}</td>
+                    <td>${utilisateur.mdp}</td>
+                    <td><a class="btn btn-info" href="${baseURL}/utilisateur/updateUtil?email=${utilisateur.email}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="${baseURL}//utilisateur/deleteUtil?email=${utilisateur.email}">Supprimer</a></td>
+                  </tr>
+                  </c:forEach>
+                  
+                </tbody>
+              </table>
+                </div>
+        </div>
+              <!-- End Table with stripped rows -->
 
-<f:view>
-    <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>JSP Page</title>
-        </head>
-        <body>
-            <h1><h:outputText value="Hello World!"/></h1>
-        </body>
-    </html>
-</f:view>
+              
+        </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->

@@ -7,9 +7,11 @@ package com.example.demo.utilisateur;
 
 
 import com.example.demo.categorie.Categorie;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,46 @@ public class UtilisateurService {
         .setParameter(1, u.getEmail())
         .setParameter(2, u.getMdp())
         .executeUpdate();
+    }
+    @Transactional
+    void updateUtil(String idUtil, String email, String mdp) {
+        Utilisateur u = uRepository.findById(idUtil)
+                .orElseThrow(() -> new IllegalStateException(
+                "utilisateur with id " + idUtil + " does not exists"));
+        String sql = "UPDATE utilisateur SET ";
+        Boolean misy = false;
+        if(email!=null & email.length()>0){
+            sql += "email = '"+email+"'";
+            misy = true;
+        }
+        if(misy==true){ sql+=","; }
+        if(mdp!=null & mdp.length()>0){
+            sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
+           
+        }
+        sql+=" WHERE idUtil = '"+idUtil+"'";
+        System.out.println(sql);
+        
+        entityManager.createNativeQuery(sql)
+        .executeUpdate();
+
+    }
+
+   public List getUtilisateurs() {
+        return uRepository.findAll();
+   }
+   public Utilisateur getUtilisateurByEmail(String email)
+   {
+      Optional<Utilisateur> uOptional = uRepository
+                .findUtilByEmail(email);
+      return uOptional.get();
+      
+   }
+
+  
+
+    void deleteUtil(String idUtil) {
+        uRepository.deleteById(idUtil);
     }
     
 	
