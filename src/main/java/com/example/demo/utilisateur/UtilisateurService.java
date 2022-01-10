@@ -6,7 +6,6 @@
 package com.example.demo.utilisateur;
 
 
-import com.example.demo.categorie.Categorie;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -25,10 +23,9 @@ import org.springframework.transaction.support.TransactionTemplate;
  */
 @Service
 public class UtilisateurService {
-    	@PersistenceContext
+    @PersistenceContext
     private EntityManager entityManager;
     private  TransactionTemplate transactionTemplate;
-    private TransactionStatus status;
     
     @Autowired
     private PlatformTransactionManager transactionManager;
@@ -57,7 +54,7 @@ public class UtilisateurService {
     
     @Transactional
     void updateUtil(String idUtil, String email, String mdp) {
-        Utilisateur u = uRepository.findById(idUtil)
+        uRepository.findById(idUtil)
                 .orElseThrow(() -> new IllegalStateException(
                 "utilisateur with id " + idUtil + " does not exists"));
         
