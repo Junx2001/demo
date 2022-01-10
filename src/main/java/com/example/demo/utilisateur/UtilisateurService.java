@@ -14,7 +14,10 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  *
@@ -24,8 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class UtilisateurService {
     	@PersistenceContext
     private EntityManager entityManager;
-	
-   private final UtilisateurRepository uRepository;
+    private  TransactionTemplate transactionTemplate;
+    private TransactionStatus status;
+    
+    @Autowired
+    private PlatformTransactionManager transactionManager;
+
+         
+    private final UtilisateurRepository uRepository;
 
    
     @Autowired
@@ -45,28 +54,37 @@ public class UtilisateurService {
         .setParameter(2, u.getMdp())
         .executeUpdate();
     }
+    
     @Transactional
     void updateUtil(String idUtil, String email, String mdp) {
         Utilisateur u = uRepository.findById(idUtil)
                 .orElseThrow(() -> new IllegalStateException(
                 "utilisateur with id " + idUtil + " does not exists"));
-        String sql = "UPDATE utilisateur SET ";
-        Boolean misy = false;
-        if(email!=null & email.length()>0){
-            sql += "email = '"+email+"'";
-            misy = true;
-        }
-        if(misy==true){ sql+=","; }
-        if(mdp!=null & mdp.length()>0){
-            sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
-           
-        }
-        sql+=" WHERE idUtil = '"+idUtil+"'";
-        System.out.println(sql);
         
-        entityManager.createNativeQuery(sql)
-        .executeUpdate();
-
+        transactionTemplate = new TransactionTemplate(transactionManager);
+        
+        transactionTemplate.execute(status->{
+        	 
+        	String sql = "UPDATE Utilisateur SET ";
+            Boolean misy = false;
+            if(email!=null & email.length()>0){
+                sql += "email = '"+email+"'";
+                misy = true;
+            }
+            if(misy==true){ sql+=","; }
+            if(mdp!=null & mdp.length()>0){
+                sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
+               
+            }
+            sql+=" WHERE id_utilisateur = '"+idUtil+"'";
+            
+        	entityManager.createQuery(sql).executeUpdate();
+        	status.flush();
+        	return null;
+        });
+        
+        
+       
     }
 
    public List getUtilisateurs() {

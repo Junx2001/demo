@@ -8,7 +8,9 @@ package com.example.demo.utilisateur;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,7 +22,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,String>
 
     @Query(value = "SELECT * from utilisateur where email = ?1", nativeQuery = true)
     public Optional<Utilisateur> findUtilByEmail(String email);
-
+    
 	
     
 }
