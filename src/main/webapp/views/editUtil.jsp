@@ -1,8 +1,3 @@
-<%-- 
-    Document   : editUtil
-    Created on : 9 janv. 2022, 15:18:50
-    Author     : ratsi
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
