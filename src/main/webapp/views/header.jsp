@@ -1,4 +1,8 @@
- 
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="scheme" value="${pageContext.request.scheme}"/>
+<c:set var="serverName" value="${pageContext.request.serverName}"/>
+<c:set var="serverPort" value="${pageContext.request.serverPort}"/>
+<c:set var="baseURL" value="${scheme}://${serverName}:${serverPort}"/>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -42,7 +46,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="${baseURL}/administrateur/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Se deconnecter</span>
               </a>

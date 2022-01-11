@@ -7,6 +7,9 @@ package com.example.demo.administrateur;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,12 +45,17 @@ public class AdministrateurController {
 		 }
 
 	     @PostMapping("/login")
-         public @ResponseBody ModelAndView login(Administrateur adm, Model model)
+         public @ResponseBody ModelAndView login(Administrateur adm, Model model,HttpServletRequest request)
          {
                 Administrateur val = adService.find(adm);
                 if(val!=null)
                 {
-                    model.addAttribute("administrateur", adm);
+                	HttpSession session = request.getSession();
+                	if (session.getAttribute("admin")==null) {
+                		session.setAttribute("admin", val);
+                	}
+                	
+                    model.addAttribute("administrateur", val);
                     model.addAttribute("signalements", signService.getSignalements());
         	    	model.addAttribute("maPage", "mainTable");
         	        return new ModelAndView("template");
@@ -57,7 +65,14 @@ public class AdministrateurController {
                     model.addAttribute("erreur", "Verifier votre Email / Mot de Passe ");
         		    return new ModelAndView("login");
                 }
-                
+               
          }
+	     
+        @PostMapping("/logout")
+     	public String destroySession(HttpServletRequest request) {
+     		request.getSession().invalidate();
+     		System.out.println(request.getSession().getAttribute("admin"));
+     		return null;
+     	}
 	    
 }

@@ -2,6 +2,15 @@ package com.example.demo.signalement;
 
 import java.util.List;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.region.RegionService;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -20,7 +31,21 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping(path = "/signalement")
-public class SignalementController {
+public class SignalementController implements Filter {
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse rep = (HttpServletResponse) response;
+		HttpSession session = req.getSession();
+
+		System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEh");
+		if (session.getAttribute("admin")==null) {
+			System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEh");
+    		//rep.sendRedirect("https://www.google.com");
+    	}
+	}
+	
 		@Autowired
 		private  SignalementService signService;
 		public SignalementController(SignalementService signService) {
@@ -30,8 +55,9 @@ public class SignalementController {
 		@Autowired
 		private  RegionService regionService;
 
-	    @GetMapping()
+	    @GetMapping
 	    public ModelAndView getSignalement(Model model){
+	    	
 	    	model.addAttribute("signalements", signService.getSignalements());
 	    	model.addAttribute("maPage", "mainTable");
 	        return new ModelAndView("template");
@@ -76,6 +102,8 @@ public class SignalementController {
                 model.addAttribute("maPage", "resultatRecherche");
                 return new ModelAndView("template");
             }
+
+			
 	    
 	    
 	    

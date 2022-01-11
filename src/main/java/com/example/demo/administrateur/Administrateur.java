@@ -1,5 +1,7 @@
 package com.example.demo.administrateur;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Administrateur {
+public class Administrateur implements Serializable{
 	@Id
 	@SequenceGenerator(
             name="seq_administrateur",
