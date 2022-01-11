@@ -68,11 +68,11 @@ public class AdministrateurController {
                
          }
 	     
-        @PostMapping("/logout")
-     	public String destroySession(HttpServletRequest request) {
+        @GetMapping("/logout")
+     	public ModelAndView destroySession(HttpServletRequest request) {
      		request.getSession().invalidate();
      		System.out.println(request.getSession().getAttribute("admin"));
-     		return null;
+     		return new ModelAndView("login");
      	}
 	    
 }
