@@ -17,7 +17,6 @@
 	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
 	<div id="popup-content" class="col-lg-3"></div>
 </div>
-<!-- <script src="${baseURL}/views/assets/js/geochart.js">  -->
 <script>
 window.onload = init;
 function init(event){
@@ -42,7 +41,6 @@ function init(event){
     var listeLayer = [];
     var listeSignalement=[];
     var cordLayer = [];
-    var listeOverlay = [];
 	var i = 0;
 	console.log("${signalements}");
 	
@@ -53,7 +51,7 @@ function init(event){
 		listeLayer[i] = new ol.layer.Vector({
 	        source: new ol.source.Vector({
 	          projection: 'EPSG:4326',
-	          features: [new ol.Feature(new ol.geom.Circle(coord, 20000))]
+	          features: [new ol.Feature(new ol.geom.Circle(coord, 100000))]
 	        }),
 
 	        
@@ -70,55 +68,7 @@ function init(event){
 	        // ]
 	      });
 
-			listeOverlay[i] = new ol.Overlay({
-	            element: content,
-	            autoPan: false,
-	            autoPanAnimation: {
-	                duration: 250
-	            }
-	        });
-	        map.addOverlay(listeOverlay[i]);
-	       
-	        closer.onclick = function() {
-	        	listeOverlay[i].setPosition(undefined);
-	            closer.blur();
-	            return false;
-	        };
-	        
-	        /*map.on('singleclick', function (event) {
-	        	
-	            if (map.hasFeatureAtPixel(event.pixel) === true) {
-		            
-	            	console.log(listeOverlay);
-	                let coordinate = event.coordinate;
-	       			var lfeture=map.getFeaturesAtPixel(event.pixel);
-	               let temp = "<div class=\"card\"> \
-	        		<img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
-	            	<input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
-	            	<div class=\"card-body\"> \
-	                <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
-	                <p class=\"card-text\">Description: ${signalement.description}</p> \
-	                <p class=\"card-text\">Date: ${signalement.dateSignalement}</p> \
-	                <hr> \
-	                <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
-	                <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
-	                <hr> \
-	                <select name=\"idRegion\" id=\"idRegion\">";
-	                
-	                <c:forEach  items="${regions}" var ="region"> 
-	                temp+= "<option value=\"${region.idRegion}\">${region.nom}</option>";
-	                </c:forEach>
-	                
-	           		temp+= "</select> \
-	                <button id=\"bouton\">Affecter</button> \
-	                </div>";
-	                content.innerHTML=temp;
-	                listeOverlay[i].setPosition(coordinate);
-	            } else {
-	            	listeOverlay[i].setPosition(undefined);
-	                closer.blur();
-	            }
-	        });*/
+			
 		 
 		  map.addLayer(listeLayer[i]);
 		  
@@ -152,6 +102,39 @@ function init(event){
         closer.blur();
         return false;
     };
+    console.log(listeLayer[0].getSource().getFeatures());
+    map.getView().on('change:resolution', function(evt){
+        //according to http://openlayers.org/en/v3.6.0/apidoc/ol.View.html
+        // I think this is not true for any scenario
+        //40075016.68557849 / 256 / Math.pow(2, 28) = 0.0005831682455839253
+
+        var resolution = evt.target.get(evt.key),
+            resolution_constant = 40075016.68557849,
+            tile_pixel = 256;
+
+        var result_resol_const_tile_px = resolution_constant / tile_pixel / resolution;
+
+        var currentZoom = Math.log(result_resol_const_tile_px) / Math.log(2);
+        console.info(currentZoom, resolution);
+
+        //now find your features and apply radius
+        if(resolution>15000){
+            for(let l=0;l<listeLayer.length;l++){
+            	listeLayer[l].getSource().forEachFeature(function(feature){
+                	console.log(feature);
+            		//feature.getStyle().getGeometry().setRadius(100000);
+            	});
+                //feature.getStyle().getGeometry().setRadius(100000);
+            }
+        }else if(resolution<=15000 && resolution>6000){
+        	for(let l=0;l<listeLayer.length;l++){
+            	listeLayer[l].getSource().forEachFeature(function(feature){
+            		feature.getStyle().getGeometry().setRadius(30000);
+            	});
+                //feature.getStyle().getGeometry().setRadius(100000);
+            }
+		}
+    });
     
     map.on('singleclick', function (event) {
     	
@@ -186,23 +169,6 @@ function init(event){
     	        	        	temp+= "</select> \
     	        	             <button id=\"bouton\">Affecter</button> \
     	        	             </div>";
-    	        	             /*<script>$('#bouton').click(function () { \
-    	        	             var baseUrl = $('#url').val();\
-    	        	             var sign = $('#idSignalement').html();\
-    	        	             var region = $('#idRegion').val();\
-    	        	             $.ajax({\
-    	        	                 url: baseUrl + '/signalement/' + sign,\
-    	        	                 method: 'put',\
-    	        	                 data: {region: region},\
-    	        	                 dataType: 'json',\
-    	        	                 success: function (response) { \
-    	        	                     console.log(\"put method successfully done\");\
-    	        	                     console.log(response);\
-    	        	                     location.reload();\
-    	        	                 }\
-    	        	             });\
-    	        	         })</\script>";*/
-    	        	         //console.log(temp);
     	        	             content.innerHTML=temp;
     	        	             overlay.setPosition(coordinate);
     	        	             
@@ -233,6 +199,7 @@ function init(event){
                     }
                }
             });
+        
             
    			
         } else {
