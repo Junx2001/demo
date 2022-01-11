@@ -14,36 +14,29 @@
               
              <h5 class="card-title">Tous les signalements entre les dates ${param.d1} et ${param.d2}</h5>
               <!-- Table with stripped rows -->
+              <div class="scrollme" style="overflow-x: auto;"> 
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">#</th>
+                    <th scope="col">image</th>
                     <th scope="col">date signalement</th>
                     <th scope="col">description</th>
-                    <th scope="col">latitude</th>
-                    <th scope="col">longitude</th>
-                    <th scope="col">image</th>
-                    <th scope="col">Sous catégorie</th>
-                    <th scope="col">Catégorie</th>
-                    <th scope="col">email</th>
+                    <th scope="col">region</th>
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach  items="${listeRecherche}" var ="signalement">
+                <c:forEach  items="${listeRecherche}" var ="signalement" varStatus="i">
                   <tr>
-                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${signalement.idSignalement}</a></th>
-                
+                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${i.index}</a></th>
+                    <td>${signalement.nomImage}</td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
-                     <td>${signalement.latitude}</td>
-                     <td>${signalement.longitude}</td>
-                     <td>${signalement.nomImage}</td>
-                    <td>${signalement.nomSousCat}</td>
-                    <td>${signalement.nomCat}</td>
-                     <td>${signalement.email}</td>
-                                 
                     <c:if test="${signalement.region == null}">
-                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter à une région</a></td>
+                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
+                    </c:if>
+                    <c:if test="${signalement.region != null}">
+                    <td>${signalement.region}</td>
                     </c:if>
                     
                   </tr>
@@ -51,6 +44,7 @@
                   
                 </tbody>
               </table>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>

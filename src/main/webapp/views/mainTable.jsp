@@ -53,30 +53,20 @@
               <table class="table datatable" >
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">#</th>
                     <th scope="col">image</th>
                     <th scope="col">date signalement</th>
                     <th scope="col">description</th>
-                    <th scope="col">categorie</th>
-                    <th scope="col">sous-categorie</th>
-                    <th scope="col">auteur</th>
-                    <th scope="col">longitude</th>
-                    <th scope="col">latitude</th>
                     <th scope="col">region</th>
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach  items="${signalements}" var ="signalement">
+                <c:forEach  items="${signalements}" var ="signalement" varStatus="i">
                   <tr>
-                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${signalement.idSignalement}</a></th>
+                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${i.index}</a></th>
                     <td>${signalement.nomImage}</td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
-                    <td>${signalement.nomCat}</td>
-                    <td>${signalement.nomSousCat}</td>
-                    <td>${signalement.email}</td>
-                    <td>${signalement.longitude}</td>
-                    <td>${signalement.latitude}</td>
                     <c:if test="${signalement.region == null}">
                     <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
                     </c:if>
@@ -85,7 +75,7 @@
                     </c:if>
                     
                   </tr>
-                  </c:forEach>
+              </c:forEach>
                   
                 </tbody>
               </table>

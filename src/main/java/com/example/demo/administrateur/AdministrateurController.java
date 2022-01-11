@@ -38,8 +38,7 @@ public class AdministrateurController {
 		 
 		 @GetMapping("/login")
 		 public ModelAndView getSignalement(Model model){
-		   	model.addAttribute("maPage", "login");
-		    return new ModelAndView("template");
+		    return new ModelAndView("login");
 		 }
 
 	     @PostMapping("/login")
@@ -56,8 +55,7 @@ public class AdministrateurController {
                 else
                 {
                     model.addAttribute("erreur", "Verifier votre Email / Mot de Passe ");
-                    model.addAttribute("maPage", "login");
-        		    return new ModelAndView("template");
+        		    return new ModelAndView("login");
                 }
                 
          }
