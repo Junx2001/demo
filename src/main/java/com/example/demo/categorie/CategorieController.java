@@ -48,12 +48,15 @@ public class CategorieController {
         return new ModelAndView("template");
     }
 	
-	@PostMapping(
-			consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, 
-	        produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
-			)
+	@PostMapping
     public @ResponseBody ModelAndView registerNewCategorie( Categorie categorie,Model model){
-		service.insertWithQuery(categorie);
+		try {
+			service.insertWithQuery(categorie);
+			model.addAttribute("insertion","La catégorie "+categorie.getLabel()+" a été ajouté");
+		}catch(IllegalStateException ex) {
+			model.addAttribute("exception", ex.getMessage());
+		}
+		
 		
 		List<Categorie> listCat = service.getCategories();	
 		List<List<SousCategorie>> listeSousCat = new ArrayList<List<SousCategorie>>();
@@ -64,15 +67,19 @@ public class CategorieController {
     	model.addAttribute("categories", service.getCategories());
     	model.addAttribute("sousCategories", listeSousCat);
     	model.addAttribute("maPage", "listeCategories");
-    	model.addAttribute("insertion","La catégorie "+categorie.getLabel()+" a été ajouté");
+    	
         return new ModelAndView("template");
     }
 	
 	@DeleteMapping(path = "{categorieId}")
     public String deleteCategorie(@PathVariable("categorieId") String categorieId)
     {
-        service.deleteCategorie(categorieId);
-        return "La catégorie a été supprimé";
+		try {
+	        service.deleteCategorie(categorieId);
+	        return "La catégorie a été supprimé";
+	    }catch(IllegalStateException ex) {
+			return ex.getMessage();
+		}
     }
 	
 }

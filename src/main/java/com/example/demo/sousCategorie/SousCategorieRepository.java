@@ -16,5 +16,5 @@ public interface SousCategorieRepository
 	List<SousCategorie> findSousCategorieByIdCategorie(String idCategorie);
 
 	Optional<Categorie> findSousCategorieByLabel(String label);
-
+	boolean existsByLabel(String label);
 }

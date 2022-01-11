@@ -23,6 +23,7 @@ public class SousCategorie {
 	private String idSousCategorie;
 	private String label;
 	private String idCategorie;
+	
 	public String getIdSousCategorie() {
 		return idSousCategorie;
 	}

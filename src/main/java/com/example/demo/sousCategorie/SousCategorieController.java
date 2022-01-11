@@ -31,7 +31,13 @@ public class SousCategorieController {
 	
 	@PostMapping
     public @ResponseBody ModelAndView registerNewCategorie(SousCategorie sousCat,Model model){
-		service.insertWithQuery(sousCat);
+		try {
+			service.insertWithQuery(sousCat);
+			model.addAttribute("insertionSousCat","Le sous-catégorie "+sousCat.getLabel()+" a été ajouté");
+		}catch(IllegalStateException ex) {
+			model.addAttribute("exception", ex.getMessage());
+		}
+		
 		
 		List<Categorie> listCat = catService.getCategories();	
 		List<List<SousCategorie>> listeSousCat = new ArrayList<List<SousCategorie>>();
@@ -42,14 +48,18 @@ public class SousCategorieController {
     	model.addAttribute("categories", catService.getCategories());
     	model.addAttribute("sousCategories", listeSousCat);
     	model.addAttribute("maPage", "listeCategories");
-    	model.addAttribute("insertionSousCat","Le sous-catégorie "+sousCat.getLabel()+" a été ajouté");
+    	
         return new ModelAndView("template");
     }
 	
 	@DeleteMapping(path = "{sousCategorieId}")
     public String deleteSousCategorie(@PathVariable("sousCategorieId") String sousCategorieId)
     {
-        service.deleteSousCategorie(sousCategorieId);
-        return "Le sous-catégorie a été supprimé";
+		try {
+	        service.deleteSousCategorie(sousCategorieId);
+	        return "Le sous-catégorie a été supprimé";
+		}catch(IllegalStateException ex) {
+			return ex.getMessage();
+		}
     }
 }
