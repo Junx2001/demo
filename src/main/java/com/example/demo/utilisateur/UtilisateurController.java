@@ -41,13 +41,14 @@ public class UtilisateurController {
     @Autowired
     private SignalementService signService;
 
-    @PostMapping("/insert")
-    public @ResponseBody
-    void insertWithQuery(
-            Utilisateur u) {
+    @PostMapping
+    public @ResponseBody ModelAndView insertWithQuery(Model model, Utilisateur u) {
         System.out.println(u.getEmail());
         System.out.println(u.getMdp());
         uService.insertWithQuery(u);
+        model.addAttribute("maPage", "insertUtil");
+        model.addAttribute("succes", "L'utilisateur a été inséré");
+		return new ModelAndView("template");
     }
 
     @GetMapping("/formulaireInsert")
@@ -63,10 +64,13 @@ public class UtilisateurController {
         return new ModelAndView("template");
     }
     
-    @GetMapping("/updateUtil")
-    public ModelAndView updateUtil(Model model,@RequestParam(required = true) String email) {
+    @GetMapping("/formulaireUpdate")
+    public ModelAndView updateUtil(Model model,@RequestParam(required = true) String idUtil,@RequestParam(required = false) String reponse) {
         model.addAttribute("maPage", "editUtil");
-        model.addAttribute("utilisateur", uService.getUtilisateurByEmail(email));
+        model.addAttribute("utilisateur", uService.getUtilisateurById(idUtil));
+        if (reponse!=null) {
+        	model.addAttribute("succes", reponse);
+        }
         return new ModelAndView("template");
     }
     
@@ -76,6 +80,8 @@ public class UtilisateurController {
            @RequestParam(required = false) String email,
            @RequestParam(required = false) String mdp)
         {
+    		if (email.compareTo("")==0) email=null;
+    		if (mdp.compareTo("")==0) mdp=null;
             uService.updateUtil(idUtil,email,mdp);
         }
         

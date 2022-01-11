@@ -22,7 +22,6 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Mot de Passe (Hashé en SHA2_256)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -30,9 +29,8 @@
                   <tr>
                     <td>${utilisateur.idUtilisateur}</td>
                     <td>${utilisateur.email}</td>
-                    <td>${utilisateur.mdp}</td>
-                    <td><a class="btn btn-info" href="${baseURL}/utilisateur/updateUtil?email=${utilisateur.email}">Modifier</a></td>
-                    <td><a class="btn btn-danger" href="${baseURL}//utilisateur/deleteUtil?email=${utilisateur.email}">Supprimer</a></td>
+                    <td><a class="btn btn-info" href="${baseURL}/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier</a></td>
+                    <td><button class="btn btn-danger" onclick="deleteUtil('${utilisateur.idUtilisateur}')">Supprimer</button></td>
                   </tr>
                   </c:forEach>
                   
@@ -46,5 +44,26 @@
         </div>
         </div>
     </section>
+    <div>
+    	<a href="${baseURL}/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur</a>
+    </div>
+    <script>
+    	function deleteUtil(idUtil){
+    		console.log(idUtil);
+    		console.log("${baseURL}");
+    		setTimeout(function(){
+                location.reload(); 
+           }, 1000); 
+    		$.ajax({
+	            url: '${baseURL}/utilisateur/' + idUtil,
+	            method: 'delete',
+	            dataType: 'json',
+	            success: function (response) {
+	                console.log(response);
+	                
+	            }
+	        });
+    	}
+    </script>
 
 </main><!-- End #main -->

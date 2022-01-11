@@ -21,7 +21,7 @@
                         <!-- General Form Elements -->
                         <h5 class="card-title">Entrer les Informations de l'Utilisateur Front Office à insérer</h5>
 
-                        <form action="${baseURL}/utilisateur/insert" oninput='up2.setCustomValidity(up2.value != mdp.value ? "Passwords do not match." : "")' method="post">
+                        <form action="${baseURL}/utilisateur" oninput='up2.setCustomValidity(up2.value != mdp.value ? "Passwords do not match." : "")' method="post">
                             <div class="row mb-3">
                                 <label for="email" class="col-sm-2 col-form-label">Email </label>
                                 <div class="col-sm-10">
@@ -48,7 +48,12 @@
                             </div>
 
                         </form><!-- End General Form Elements -->
-
+ 							<c:if test="${succes != null}">
+ 							<div class="alert alert-success alert-dismissible fade show" role="alert">
+				                ${succes}
+				                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				              </div>
+							</c:if>
                     </div>
                 </div>
 

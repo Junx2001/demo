@@ -64,12 +64,12 @@ public class UtilisateurService {
         	 
         	String sql = "UPDATE Utilisateur SET ";
             Boolean misy = false;
-            if(email!=null & email.length()>0){
+            if(email!=null ){
                 sql += "email = '"+email+"'";
                 misy = true;
             }
-            if(misy==true){ sql+=","; }
-            if(mdp!=null & mdp.length()>0){
+            if(misy==true && mdp!=""){ sql+=","; }
+            if(mdp!=null){
                 sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
                
             }
@@ -91,6 +91,14 @@ public class UtilisateurService {
    {
       Optional<Utilisateur> uOptional = uRepository
                 .findUtilByEmail(email);
+      return uOptional.get();
+      
+   }
+   
+   public Utilisateur getUtilisateurById(String idUtil)
+   {
+      Optional<Utilisateur> uOptional = uRepository
+                .findById(idUtil);
       return uOptional.get();
       
    }

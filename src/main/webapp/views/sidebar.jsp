@@ -30,7 +30,14 @@
         </a>
       </li>
 
-
+	
+	<li class="nav-item">
+        <a class="nav-link " href="${baseURL}/utilisateur/listeUtilisateur">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>Gestion des utilisateurs</span>
+        </a>
+      </li>
+      
     </ul>
 
   </aside><!-- End Sidebar-->
