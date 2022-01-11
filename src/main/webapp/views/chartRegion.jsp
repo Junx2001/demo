@@ -38,25 +38,11 @@ function init(event){
     var content = document.getElementById('popup-content');
     var closer = document.getElementById('popup-closer');
 
-
-    /*var overlay = new ol.Overlay({
-        element: content,
-        autoPan: false,
-        autoPanAnimation: {
-            duration: 250
-        }
-    });
-    map.addOverlay(overlay);
-   
-    closer.onclick = function() {
-        //overlay.setPosition(undefined);
-        closer.blur();
-        return false;
-    };*/
     
     var listeLayer = [];
     var listeSignalement=[];
     var cordLayer = [];
+    var listeOverlay = [];
 	var i = 0;
 	console.log("${signalements}");
 	
@@ -69,6 +55,8 @@ function init(event){
 	          projection: 'EPSG:4326',
 	          features: [new ol.Feature(new ol.geom.Circle(coord, 20000))]
 	        }),
+
+	        
 	        // style: [
 	        //   new ol.style.Style({
 	        //     stroke: new ol.style.Stroke({
@@ -81,12 +69,61 @@ function init(event){
 	        //   })
 	        // ]
 	      });
+
+			listeOverlay[i] = new ol.Overlay({
+	            element: content,
+	            autoPan: false,
+	            autoPanAnimation: {
+	                duration: 250
+	            }
+	        });
+	        map.addOverlay(listeOverlay[i]);
+	       
+	        closer.onclick = function() {
+	        	listeOverlay[i].setPosition(undefined);
+	            closer.blur();
+	            return false;
+	        };
+	        
+	        /*map.on('singleclick', function (event) {
+	        	
+	            if (map.hasFeatureAtPixel(event.pixel) === true) {
+		            
+	            	console.log(listeOverlay);
+	                let coordinate = event.coordinate;
+	       			var lfeture=map.getFeaturesAtPixel(event.pixel);
+	               let temp = "<div class=\"card\"> \
+	        		<img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
+	            	<input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
+	            	<div class=\"card-body\"> \
+	                <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
+	                <p class=\"card-text\">Description: ${signalement.description}</p> \
+	                <p class=\"card-text\">Date: ${signalement.dateSignalement}</p> \
+	                <hr> \
+	                <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
+	                <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
+	                <hr> \
+	                <select name=\"idRegion\" id=\"idRegion\">";
+	                
+	                <c:forEach  items="${regions}" var ="region"> 
+	                temp+= "<option value=\"${region.idRegion}\">${region.nom}</option>";
+	                </c:forEach>
+	                
+	           		temp+= "</select> \
+	                <button id=\"bouton\">Affecter</button> \
+	                </div>";
+	                content.innerHTML=temp;
+	                listeOverlay[i].setPosition(coordinate);
+	            } else {
+	            	listeOverlay[i].setPosition(undefined);
+	                closer.blur();
+	            }
+	        });*/
 		 
 		  map.addLayer(listeLayer[i]);
 		  
 	      i++;
     </c:forEach>
-    console.log(cordLayer);
     
 
     /*var marker = new ol.layer.Vector({
@@ -101,40 +138,7 @@ function init(event){
     //map.addLayer(layer);
 
     //map.addLayer(marker);
-	 /*map.on('singleclick', function (event) {
-            if (map.hasFeatureAtPixel(event.pixel) === true) {
-                let coordinate = event.coordinate;
-       			var lfeture=map.getFeaturesAtPixel(event.pixel);
-               let temp = "<div class=\"card\"> \
-        		<img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
-            	<input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
-            	<div class=\"card-body\"> \
-                <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
-                <p class=\"card-text\">Description: ${signalement.description}</p> \
-                <p class=\"card-text\">Date: ${signalement.dateSignalement}</p> \
-                <hr> \
-                <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
-                <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
-                <hr> \
-                <select name=\"idRegion\" id=\"idRegion\">";
-                
-                <c:forEach  items="${regions}" var ="region"> 
-                temp+= "<option value=\"${region.idRegion}\">${region.nom}</option>";
-                </c:forEach>
-                
-           		temp+= "</select> \
-                <button id=\"bouton\">Affecter</button> \
-                </div>";
-                content.innerHTML=temp;
-                overlay.setPosition(coordinate);
-            } else {
-                overlay.setPosition(undefined);
-                closer.blur();
-            }
-        });*/
-    
-   
-    /*var overlay = new ol.Overlay({
+    var overlay = new ol.Overlay({
         element: content,
         autoPan: false,
         autoPanAnimation: {
@@ -147,8 +151,96 @@ function init(event){
         overlay.setPosition(undefined);
         closer.blur();
         return false;
-    };*/
+    };
+    
+    map.on('singleclick', function (event) {
+    	
+        if (map.hasFeatureAtPixel(event.pixel) === true) {
+        	var feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
+                var coordinate = event.coordinate;
+                for(let j=0;j<listeLayer.length;j++){
+                	if (layer === listeLayer[j]) {
 
+						var k = 0;
+                		<c:forEach  items="${signalements}" var ="signalement">
+
+                			if(k==j){
+                				var lfeture=map.getFeaturesAtPixel(event.pixel);
+    	        	            let temp = "<div class=\"card\"> \
+    	        	     		<img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
+    	        	         	<input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
+    	        	         	<div class=\"card-body\"> \
+    	        	             <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
+    	        	             <p class=\"card-text\">Description: ${signalement.description}</p> \
+    	        	             <p class=\"card-text\">Date: ${signalement.dateSignalement}</p> \
+    	        	             <hr> \
+    	        	             <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
+    	        	             <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
+    	        	             <hr> \
+    	        	             <select name=\"idRegion\" id=\"idRegion\">";
+    	        	             
+    	        	             <c:forEach  items="${regions}" var ="region"> 
+    	        	             temp+= "<option value=\"${region.idRegion}\">${region.nom}</option>";
+    	        	             </c:forEach>
+    	        	             
+    	        	        	temp+= "</select> \
+    	        	             <button id=\"bouton\">Affecter</button> \
+    	        	             </div>";
+    	        	             /*<script>$('#bouton').click(function () { \
+    	        	             var baseUrl = $('#url').val();\
+    	        	             var sign = $('#idSignalement').html();\
+    	        	             var region = $('#idRegion').val();\
+    	        	             $.ajax({\
+    	        	                 url: baseUrl + '/signalement/' + sign,\
+    	        	                 method: 'put',\
+    	        	                 data: {region: region},\
+    	        	                 dataType: 'json',\
+    	        	                 success: function (response) { \
+    	        	                     console.log(\"put method successfully done\");\
+    	        	                     console.log(response);\
+    	        	                     location.reload();\
+    	        	                 }\
+    	        	             });\
+    	        	         })</\script>";*/
+    	        	         //console.log(temp);
+    	        	             content.innerHTML=temp;
+    	        	             overlay.setPosition(coordinate);
+    	        	             
+    	        	             var newScript = document.createElement("script");
+    	        	             var inlineScript = document.createTextNode("$('#bouton').click(function () {\
+    	        	            	        var baseUrl = $('#url').val();\
+    	        	            	        var sign = $('#idSignalement').html();\
+    	        	            	        var region = $('#idRegion').val();\
+    	        	            	        setTimeout(() => {location.reload();}, 3000);\
+    	        	            	        $.ajax({\
+    	        	            	            url: baseUrl + '/signalement/' + sign,\
+    	        	            	            method: 'put',\
+    	        	            	            data: {region: region},\
+    	        	            	            dataType: 'json',\
+    	        	            	            success: function (response) {\
+    	        	            	                console.log(\"put method successfully done\");\
+    	        	            	                console.log(response);\
+    	        	            	            }\
+    	        	            	        });\
+    	        	            	    });");
+    	        	             newScript.appendChild(inlineScript); 
+    	        	             container.appendChild(newScript);
+                    		}
+                    		k++;
+	        	            
+                    	</c:forEach>	
+                		
+                    }
+               }
+            });
+            
+   			
+        } else {
+        	overlay.setPosition(undefined);
+            closer.blur();
+        }
+    });
 
 }
 </script>
+
