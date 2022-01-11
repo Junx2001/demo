@@ -83,7 +83,7 @@ public class SignalementController  {
 			
 	    
 	    
-	    @GetMapping("/statistique/")
+	    @GetMapping("/carte")
 	    public ModelAndView statistiqueSignalementParRegion(Model model) {
 	    	//model.addAttribute("statRegion", signService.getStatSignalementParRegion());
 	    	model.addAttribute("signalements", signService.getSignalementSansRegion());

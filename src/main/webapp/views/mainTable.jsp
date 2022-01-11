@@ -15,10 +15,16 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
+        
+         	<div class="card">
+                 <div class="card-body">
+						<h5 class="card-title">Voir la carte des signalements non encore affectés à une région</h5>
+						<a class="btn btn-primary" href="${baseURL}/signalement/carte">Carte</a>
+                  </div>
+             </div>
+                
 			<div class="card">
                     <div class="card-body">
-
-
                         <!-- General Form Elements -->
                         <h5 class="card-title">Filtrer les signalements entre 2 dates</h5>
                         
@@ -46,7 +52,6 @@
 
                     </div>
                 </div>
-                
                 
           <div class="card">
             <div class="card-body">
