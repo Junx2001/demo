@@ -1,7 +1,13 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/css/ol.css" type="text/css">
-<link rel="stylesheet" href="${baseURL}/views/assets/css/geochart.css">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script src="${baseURL}/views/assets/v6.10.0-dist/ol.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/css/ol.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
+<style>
+      .map {
+        height: 600px;
+        width: 100%;
+      }
+    </style>
+<%-- <script src="${baseURL}/views/assets/v6.10.0-dist/ol.js"></script> --%>
 <title></title>
 <h2>My Map</h2>
 <div id="map" class="map">
@@ -14,8 +20,8 @@
 <!-- <script src="${baseURL}/views/assets/js/geochart.js">  -->
 <script>
 window.onload = init;
-function init(){
-    var map = new ol.Map({
+function init(event){
+	var map = new ol.Map({
         target: 'map',
         layers: [
           new ol.layer.Tile({
@@ -33,7 +39,7 @@ function init(){
     var closer = document.getElementById('popup-closer');
 
 
-    var overlay = new ol.Overlay({
+    /*var overlay = new ol.Overlay({
         element: content,
         autoPan: false,
         autoPanAnimation: {
@@ -46,14 +52,17 @@ function init(){
         //overlay.setPosition(undefined);
         closer.blur();
         return false;
-    };
+    };*/
     
     var listeLayer = [];
     var listeSignalement=[];
+    var cordLayer = [];
 	var i = 0;
+	console.log("${signalements}");
 	
     <c:forEach  items="${signalements}" var ="signalement">
     	listeSignalement[i] = "${signalement}";
+    	cordLayer[i] =event.coordinate;
 		var coord = ol.proj.fromLonLat([${signalement.longitude}, ${signalement.latitude}]);
 		listeLayer[i] = new ol.layer.Vector({
 	        source: new ol.source.Vector({
@@ -72,11 +81,31 @@ function init(){
 	        //   })
 	        // ]
 	      });
-		map.on('singleclick', function (event) {
+		 
+		  map.addLayer(listeLayer[i]);
+		  
+	      i++;
+    </c:forEach>
+    console.log(cordLayer);
+    
+
+    /*var marker = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([47.50792, -18.8792]))
+                })
+            ]
+        })
+    });*/
+    //map.addLayer(layer);
+
+    //map.addLayer(marker);
+	 /*map.on('singleclick', function (event) {
             if (map.hasFeatureAtPixel(event.pixel) === true) {
-                var coordinate = event.coordinate;
-       			console.log(coordinate);
-               var temp = "<div class=\"card\"> \
+                let coordinate = event.coordinate;
+       			var lfeture=map.getFeaturesAtPixel(event.pixel);
+               let temp = "<div class=\"card\"> \
         		<img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
             	<input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
             	<div class=\"card-body\"> \
@@ -102,32 +131,10 @@ function init(){
                 overlay.setPosition(undefined);
                 closer.blur();
             }
-        });
-		  map.addLayer(listeLayer[i]);
-		  
-	      i++;
-	     
-    </c:forEach>
-    
-    
-    //console.log(${signalements});
-
-    /*var marker = new ol.layer.Vector({
-        source: new ol.source.Vector({
-            features: [
-                new ol.Feature({
-                    geometry: new ol.geom.Point(ol.proj.fromLonLat([47.50792, -18.8792]))
-                })
-            ]
-        })
-    });*/
-    //map.addLayer(layer);
-
-    //map.addLayer(marker);
-
+        });*/
     
    
-    var overlay = new ol.Overlay({
+    /*var overlay = new ol.Overlay({
         element: content,
         autoPan: false,
         autoPanAnimation: {
@@ -140,7 +147,7 @@ function init(){
         overlay.setPosition(undefined);
         closer.blur();
         return false;
-    };
+    };*/
 
 
 }
