@@ -23,6 +23,8 @@ public class Utilisateur {
 	private String idUtilisateur;
 	private String email;
 	private String mdp;
+	private String region; 
+	
 	public String getIdUtilisateur() {
 		return idUtilisateur;
 	}
@@ -42,4 +44,10 @@ public class Utilisateur {
 		this.mdp = mdp;
 	}
 	public Utilisateur() {}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
 }

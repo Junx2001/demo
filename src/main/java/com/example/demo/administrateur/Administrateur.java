@@ -52,4 +52,5 @@ public class Administrateur implements Serializable{
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
+
 }

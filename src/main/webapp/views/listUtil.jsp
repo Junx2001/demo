@@ -22,6 +22,7 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Region</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                   <tr>
                     <td>${utilisateur.idUtilisateur}</td>
                     <td>${utilisateur.email}</td>
+                    <td>${utilisateur.nomRegion}</td>
                     <td><a class="btn btn-info" href="${baseURL}/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier</a></td>
                     <td><button class="btn btn-danger" onclick="deleteUtil('${utilisateur.idUtilisateur}')">Supprimer</button></td>
                   </tr>

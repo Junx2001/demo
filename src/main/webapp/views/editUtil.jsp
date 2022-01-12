@@ -40,6 +40,17 @@
                                     <input type="password" class="form-control" id="up2" name="up2">
                                 </div>
                             </div>
+                             <div class="row mb-3">
+                                <label for="mdp2" class="col-sm-2 col-form-label">Sa région</label>
+                                <div class="col-sm-10">
+                                   <select name="region" id="region">
+                                   	<option value="">choisir...</option>
+				                        <c:forEach  items="${regions}" var ="region" varStatus="loop">
+				                            <option value="${regions[loop.index].idRegion}">${region.nom}</option>
+				                        </c:forEach>
+				                    </select>
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
@@ -64,16 +75,17 @@
 		$('#bouton').click(function () {
 			var email = $('#email').val();
 			var mdp = $('#mdp').val();
+			var idRegion = $('#region').val();
 			var idUtil = "${utilisateur.idUtilisateur}";
 			
 			setTimeout(function(){
 				window.location ="${baseURL}/utilisateur/listeUtilisateur"; 
-           }, 1000);
+           }, 2000);
      	 
 			$.ajax({
 	            url: '${baseURL}/utilisateur/'+idUtil,
 	            method: 'put',
-	            data: {email: email, mdp:mdp},
+	            data: {email: email, mdp:mdp, idRegion:idRegion},
 	            dataType: 'json',
 	            success: function (response) {
 	               console.log( "Information(s) modifiée(s) avec succes");
