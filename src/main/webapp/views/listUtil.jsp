@@ -16,8 +16,9 @@
           <div class="card">
             <div class="card-body">
               
+              <div class="scrollme" style="overflow: auto;"> 
               <!-- Table with stripped rows -->
-              <table class="table datatable">
+              <table class="table datatable" >
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -38,6 +39,7 @@
                   
                 </tbody>
               </table>
+              </div>
                 </div>
         </div>
               <!-- End Table with stripped rows -->
