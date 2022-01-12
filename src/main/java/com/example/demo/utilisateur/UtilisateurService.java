@@ -20,6 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.example.demo.administrateur.Administrateur;
+
 /**
  *
  * @author ratsi
@@ -133,6 +135,12 @@ public class UtilisateurService {
     void deleteUtil(String idUtil) {
         uRepository.deleteById(idUtil);
     }
+
+	public Utilisateur find(Utilisateur util) {
+		// TODO Auto-generated method stub
+		Utilisateur u = uRepository.findUtilisateurByEmailAndMdp(util.getEmail(),util.getMdp());
+        return u;
+	}
     
 	
 }

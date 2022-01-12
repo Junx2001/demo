@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.administrateur.Administrateur;
 import com.example.demo.region.RegionService;
 import com.example.demo.signalement.SignalementService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -106,5 +107,13 @@ public class UtilisateurController {
         {
             uService.deleteUtil(idUtil);
         }
+    
+    @PostMapping("/login")
+    public @ResponseBody Utilisateur login(Utilisateur util)
+    {
+           return uService.find(util);
+          
+          
+    }
 
 }

@@ -29,6 +29,13 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,String>
     
     @Query(nativeQuery = true, value ="select * from viewUtil")
 	List<Object[]> getViewUtilisateur();
+
+	String QUERY_FIND_USER_FROM_DATBASE = "SELECT * from " +
+		      "utilisateur where " +
+		      "email= ?1 and " +
+		     "mdp=HashBytes('SHA2_256', convert(varchar,?2))";
+	@Query(value = QUERY_FIND_USER_FROM_DATBASE, nativeQuery = true)
+	Utilisateur findUtilisateurByEmailAndMdp(String email, String mdp);
 	
     
 }
