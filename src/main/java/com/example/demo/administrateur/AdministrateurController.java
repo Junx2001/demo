@@ -45,15 +45,11 @@ public class AdministrateurController {
 		 }
 
 	     @PostMapping("/login")
-         public @ResponseBody ModelAndView login(Administrateur adm, Model model,HttpServletRequest request)
+         public @ResponseBody ModelAndView login(Administrateur adm, Model model)
          {
                 Administrateur val = adService.find(adm);
                 if(val!=null)
                 {
-                	HttpSession session = request.getSession();
-                	if (session.getAttribute("admin")==null) {
-                		session.setAttribute("admin", val);
-                	}
                 	
                     model.addAttribute("administrateur", val);
                     model.addAttribute("signalements", signService.getSignalements());
@@ -68,11 +64,6 @@ public class AdministrateurController {
                
          }
 	     
-        @GetMapping("/logout")
-     	public ModelAndView destroySession(HttpServletRequest request) {
-     		request.getSession().invalidate();
-     		System.out.println(request.getSession().getAttribute("admin"));
-     		return new ModelAndView("login");
-     	}
+    
 	    
 }

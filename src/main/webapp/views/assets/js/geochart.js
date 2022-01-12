@@ -36,7 +36,7 @@ function init(){
         // ]
       });
     
-    console.log(${signalement});
+    console.log("${signalement}");
 
     /*var marker = new ol.layer.Vector({
         source: new ol.source.Vector({
