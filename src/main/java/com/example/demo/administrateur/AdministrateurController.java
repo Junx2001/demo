@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.signalement.SignalementService;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  *
@@ -29,6 +31,7 @@ import com.example.demo.signalement.SignalementService;
  */
 @RestController
 @RequestMapping(path = "/administrateur")
+@SessionAttributes({"administrateur"})
 public class AdministrateurController {
     	@Autowired
 		private  AdministrateurService adService;
@@ -44,13 +47,12 @@ public class AdministrateurController {
 		    return new ModelAndView("login");
 		 }
 
-	     @PostMapping("/login")
+	@PostMapping("/login")
          public @ResponseBody ModelAndView login(Administrateur adm, Model model)
          {
                 Administrateur val = adService.find(adm);
                 if(val!=null)
                 {
-                	
                     model.addAttribute("administrateur", val);
                     model.addAttribute("signalements", signService.getSignalements());
         	    	model.addAttribute("maPage", "mainTable");
@@ -63,6 +65,13 @@ public class AdministrateurController {
                 }
                
          }
+         
+        @GetMapping("/logout")
+        public ModelAndView logout(SessionStatus status,Model model)
+        {
+            status.setComplete();
+            return new ModelAndView("login");
+        }
 	     
     
 	    

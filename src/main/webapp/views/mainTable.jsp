@@ -5,11 +5,10 @@
 <c:set var="baseURL" value="${scheme}://${serverName}:${serverPort}"/>
 <main id="main" class="main">
 
-	<!-- <h1>${sessionScope.admin}</h1> -->
 	
 	
     <div class="pagetitle">
-        <h1>Liste des Signalements</h1>
+        <h1>Liste des Signalements </h1>
     </div><!-- End Page Title -->
 
     <section class="section">
