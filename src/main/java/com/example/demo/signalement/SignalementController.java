@@ -25,9 +25,10 @@ public class SignalementController  {
 	
 		@Autowired
 		private  SignalementService signService;
+		
 		public SignalementController(SignalementService signService) {
-		        this.signService = signService;
-		    }
+		    this.signService = signService;
+		}
 		 
 		@Autowired
 		private  RegionService regionService;
