@@ -23,10 +23,9 @@ public class SignalementService {
         this.signRepository = signRepository;
     }
     
-
-    public List<HashMap<String, Object>> getSignalements() {
-    	 List<Object[]> liste = signRepository.getDetailsSignalements();
+    public List<HashMap<String,Object>> hashMapSignalement(List<Object[]> liste){
     	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+         
          for (int i = 0; i < liste.size(); i++) {
              HashMap<String, Object> hm = new HashMap<String, Object>();
              Object[] s = (Object[]) liste.get(i);
@@ -41,8 +40,16 @@ public class SignalementService {
              hm.put("nomSousCat", s[7]);
              hm.put("nomCat", s[8]);
              hm.put("email", s[9]);
+             hm.put("idRegion", s[10]);
+             hm.put("etat", s[11]);
              listehm.add(hm);
          }
+         return listehm;
+    }
+    
+    public List<HashMap<String, Object>> getSignalements() {
+    	 List<Object[]> liste = signRepository.getDetailsSignalements();
+    	 List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
          return listehm;
     }
 
@@ -124,24 +131,9 @@ public class SignalementService {
     }
     
     public List<HashMap<String, Object>> getSignalementSansRegion(){
-		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
 		List<Object[]> liste =   signRepository.getStatSignalementSansRegion();
-		for(int i=0; i<liste.size(); i++) {
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			Object[] s = (Object[]) liste.get(i);
-			hm.put("idSignalement", s[0]);
-			hm.put("dateSignalement", s[1]);
-			hm.put("description", s[2]);
-			hm.put("idGroupement", s[3]);
-			hm.put("idSousCategorie", s[4]);
-			hm.put("idUtilisateur", s[5]);
-			hm.put("latitude", s[6]);
-			hm.put("longitude", s[7]);
-			hm.put("nomImage", s[8]);
-			hm.put("region", s[9]);
-			listehm.add(hm);
-		}
-		return listehm;
+		List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
+        return listehm;
 		
 	}
 
@@ -159,24 +151,8 @@ public class SignalementService {
     }
 
     public List<HashMap<String, Object>> rechercheSignalement(String d1, String d2) {
-        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
         List<Object[]> liste = signRepository.rechercheSign(d1, d2);
-        for (int i = 0; i < liste.size(); i++) {
-            HashMap<String, Object> hm = new HashMap<String, Object>();
-            Object[] s = (Object[]) liste.get(i);
-            hm.put("idSignalement", s[0]);
-            String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
-            hm.put("dateSignalement", str);
-            hm.put("description", s[2]);
-            hm.put("latitude", s[3]);
-            hm.put("longitude", s[4]);
-            hm.put("nomImage", s[5]);
-            hm.put("region", s[6]);
-            hm.put("nomSousCat", s[7]);
-            hm.put("nomCat", s[8]);
-            hm.put("email", s[9]);
-            listehm.add(hm);
-        }
+        List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
         return listehm;
     }
 
@@ -203,17 +179,15 @@ public class SignalementService {
         	sql+=" AND ";
             sql += "dateSignalement <= '"+d2+"'";
         }
-            if(sousCat!=null)
+            if(etat!=null)
         {
             sql+=" AND ";
-            sql += "sousCat = '"+sousCat+"'";
+            sql += "etat = "+etat;
         }
-        List<Object[]> list = entityManager.createNativeQuery(sql).getResultList();
+        List<Object[]> liste = entityManager.createNativeQuery(sql).getResultList();
           
-        return list;
-          
-          
-        
+        List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
+        return listehm;
     }
 
 }
