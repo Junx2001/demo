@@ -136,9 +136,11 @@ public class UtilisateurService {
         uRepository.deleteById(idUtil);
     }
 
-	public Utilisateur find(Utilisateur util) {
-		// TODO Auto-generated method stub
-		Utilisateur u = uRepository.findUtilisateurByEmailAndMdp(util.getEmail(),util.getMdp());
+	public Optional<Utilisateur> find(Utilisateur util) {
+		Optional<Utilisateur> u = uRepository.findUtilisateurByEmailAndMdp(util.getEmail(),util.getMdp());
+		if (!u.isPresent()) {
+			throw new IllegalStateException("Veuillez verifier votre mot de passe et votre email");
+		}
         return u;
 	}
     

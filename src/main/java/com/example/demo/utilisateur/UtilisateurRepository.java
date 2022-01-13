@@ -33,7 +33,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,String>
 		      "email= ?1 and " +
 		     "mdp=HashBytes('SHA2_256', convert(varchar,?2))";
 	@Query(value = QUERY_FIND_USER_FROM_DATBASE, nativeQuery = true)
-	Utilisateur findUtilisateurByEmailAndMdp(String email, String mdp);
+	Optional<Utilisateur> findUtilisateurByEmailAndMdp(String email, String mdp);
 	
     
 }

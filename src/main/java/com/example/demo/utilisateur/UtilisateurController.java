@@ -40,8 +40,6 @@ public class UtilisateurController {
         this.uService = uService;
     }
 
-    @Autowired
-    private SignalementService signService;
     
     @Autowired
     private RegionService regService;
@@ -109,11 +107,10 @@ public class UtilisateurController {
         }
     
     @PostMapping("/login")
-    public @ResponseBody Utilisateur login(Utilisateur util)
+    public @ResponseBody Optional<Utilisateur> login(Utilisateur util)
     {
-           return uService.find(util);
-          
-          
+    	return  uService.find(util);
     }
+    
 
 }
