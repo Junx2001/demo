@@ -79,6 +79,18 @@ public class SignalementControllerBack  {
                 model.addAttribute("maPage", "resultatRecherche");
                 return new ModelAndView("template");
             }
+            @GetMapping("/rechercheFrontOffice")
+            public List rechercheSignalementFront(
+               @RequestParam(required = false) String cat,
+               @RequestParam(required = false) String sousCat,
+               @RequestParam(required = false) String d1,
+               @RequestParam(required = false) String d2,
+               @RequestParam(required = false) String etat
+               )
+            {
+                return signService.rechercheSignalementFront(cat,sousCat,d1,d2,etat);
+            }
+
 
 			
 	    
