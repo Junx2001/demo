@@ -122,15 +122,16 @@ public class SignalementService {
     }
     
     @Transactional
-    void updateGroupementSignalement(String signalementId, String groupemetId) {
-        Signalement sign = signRepository.findById(signalementId)
-                .orElseThrow(() -> new IllegalStateException(
-                "signalement with id " + signalementId + " does not exists"));
-        if (groupemetId != null && groupemetId.length() > 0 && sign.getIdGroupement() == null) {
-            sign.setIdGroupement(groupemetId);
-            signRepository.save(sign);
-        }
-
+	public void updateGroupementSignalement(List<String> listeSignalementId, String groupemetId) {
+    	for(String signalementId : listeSignalementId) {
+    		Signalement sign = signRepository.findById(signalementId)
+                    .orElseThrow(() -> new IllegalStateException(
+                    "signalement with id " + signalementId + " does not exists"));
+            if (groupemetId != null && groupemetId.length() > 0 && sign.getIdGroupement() == null) {
+                sign.setIdGroupement(groupemetId);
+                signRepository.save(sign);
+            }
+    	}
     }
     
     public List<HashMap<String, Object>> getSignalementSansRegion(){

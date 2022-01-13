@@ -35,18 +35,7 @@ public class RegionControllerBack {
 	        return new ModelAndView("template");
 	    }
 	    
-	    @GetMapping("/{regionId}")
-	    public List<HashMap<String, Object>> signalementsRegion(Model model, @PathVariable("regionId") String idRegion) {
-	    	return signService.getSignalementsByRegion(idRegion);
-	    }
 	    
-	    @GetMapping("/signalement/vv")
-	    public List<HashMap<String, Object>> ajouterAUnGroupement(Model model, 
-	    		@PathVariable("listeSignalement") String[] listeSignalement,
-	    		@PathVariable("idGroupement") String idGroupement) {
-	    	//return signService.getSignalementsByRegion(idRegion);
-	    	return null;
-	    }
 	    
 	    /*@GetMapping("/verifDate")
 	    public boolean signalementsRegion() throws ParseException {
