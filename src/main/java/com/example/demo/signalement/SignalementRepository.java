@@ -37,6 +37,6 @@ public interface SignalementRepository
     List<Object[]> rechercheSign(String d1, String d2);
     
     @Query(nativeQuery = true, value="select * from detailsSignalement where idregion=?1")
-	List<Object[]> getStatSignalementByRegion(String idRegion);
+	List<Object[]> getSignalementByRegion(String idRegion);
 
 }

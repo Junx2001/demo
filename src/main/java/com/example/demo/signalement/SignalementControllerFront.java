@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,8 +43,8 @@ public class SignalementControllerFront {
     	return signService.getFicheSignalement(idSignalement);
     }
 
-	@GetMapping("/{regionId}")
-	    public List<HashMap<String, Object>> signalementsRegion(Model model, @PathVariable("regionId") String idRegion) {
+	@GetMapping("/region/{regionId}")
+	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion) {
 	    	return signService.getSignalementsByRegion(idRegion);
 	    }
 		 

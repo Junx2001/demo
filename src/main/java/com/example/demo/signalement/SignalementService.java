@@ -153,6 +153,12 @@ public class SignalementService {
         List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
         return listehm;
     }
+    
+    public List<HashMap<String, Object>> getSignalementsByRegion(String idRegion) {
+      	 List<Object[]> liste = signRepository.getSignalementByRegion(idRegion);
+      	 List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
+        return listehm;
+      }
 
     public List rechercheSignalementFront(String cat, String sousCat, String d1, String d2, String etat) {
         String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null ";
@@ -187,29 +193,6 @@ public class SignalementService {
         List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
         return listehm;
     }
-    
-    public List<HashMap<String, Object>> getSignalementsByRegion(String idRegion) {
-   	 List<Object[]> liste = signRepository.getStatSignalementByRegion(idRegion);
-   	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < liste.size(); i++) {
-            HashMap<String, Object> hm = new HashMap<String, Object>();
-            Object[] s = (Object[]) liste.get(i);
-            hm.put("idSignalement", s[0]);
-            String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
-            hm.put("dateSignalement", str);
-            hm.put("description", s[2]);
-            hm.put("latitude", s[3]);
-            hm.put("longitude", s[4]);
-            hm.put("nomImage", s[5]);
-            hm.put("region", s[6]);
-            hm.put("nomSousCat", s[7]);
-            hm.put("nomCat", s[8]);
-            hm.put("email", s[9]);
-            hm.put("idregion", s[10]);
-            listehm.add(hm);
-        }
-        return listehm;
-   }
     
     public boolean verifDate(String date1,String date2) throws ParseException {
     	Date dateOne=new SimpleDateFormat("yyyy/MM/dd").parse(date1);  
