@@ -16,17 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.region.RegionService;
 
-import java.util.HashMap;
 
 
 @RestController
-@RequestMapping(path = "/signalement")
-public class SignalementController  {
+@RequestMapping(path = "/back/signalement")
+public class SignalementControllerBack  {
 	
 		@Autowired
 		private  SignalementService signService;
 		
-		public SignalementController(SignalementService signService) {
+		public SignalementControllerBack(SignalementService signService) {
 		    this.signService = signService;
 		}
 		 

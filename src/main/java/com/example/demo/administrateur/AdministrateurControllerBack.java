@@ -30,12 +30,12 @@ import org.springframework.web.bind.support.SessionStatus;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/administrateur")
+@RequestMapping(path = "/back/administrateur")
 @SessionAttributes({"administrateur"})
-public class AdministrateurController {
+public class AdministrateurControllerBack {
     	@Autowired
 		private  AdministrateurService adService;
-		public AdministrateurController(AdministrateurService adService) {
+		public AdministrateurControllerBack(AdministrateurService adService) {
 		        this.adService = adService;
 		    }
 		

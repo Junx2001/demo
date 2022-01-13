@@ -30,13 +30,13 @@ import org.springframework.web.bind.annotation.PutMapping;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/utilisateur")
-public class UtilisateurController {
+@RequestMapping(path = "/back/utilisateur")
+public class UtilisateurControllerBack {
 
     @Autowired
     private UtilisateurService uService;
 
-    public UtilisateurController(UtilisateurService uService) {
+    public UtilisateurControllerBack(UtilisateurService uService) {
         this.uService = uService;
     }
 
@@ -105,12 +105,4 @@ public class UtilisateurController {
         {
             uService.deleteUtil(idUtil);
         }
-    
-    @PostMapping("/login")
-    public @ResponseBody Optional<Utilisateur> login(Utilisateur util)
-    {
-    	return  uService.find(util);
-    }
-    
-
 }

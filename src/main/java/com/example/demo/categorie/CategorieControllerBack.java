@@ -18,13 +18,13 @@ import com.example.demo.sousCategorie.SousCategorie;
 import com.example.demo.sousCategorie.SousCategorieService;
 
 @RestController
-@RequestMapping(path = "/categorie")
-public class CategorieController {
+@RequestMapping(path = "/back/categorie")
+public class CategorieControllerBack {
 	
 	private final CategorieService service;
 	
 	@Autowired
-	public CategorieController(CategorieService service) {
+	public CategorieControllerBack(CategorieService service) {
 		this.service = service;
 	}
 	

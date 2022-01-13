@@ -32,6 +32,7 @@ public class Filtre implements Filter {
         	System.out.println("method:  "+req.getMethod()+" uri: "+ req.getRequestURI());
         	String baseURL = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
         	System.out.println("CONTEXT PATH: "+baseURL);
+        	
         	res.sendRedirect(baseURL+"/administrateur/login");
         }
         chain.doFilter(request, response);
@@ -44,11 +45,11 @@ public class Filtre implements Filter {
 	      = new FilterRegistrationBean<>();
 	        
 	    registrationBean.setFilter(new Filtre());
-	    registrationBean.addUrlPatterns("/signalement/*");
-	    registrationBean.addUrlPatterns("/categorie/*");
-	    registrationBean.addUrlPatterns("/regions/*");
-	    registrationBean.addUrlPatterns("/sousCategorie/*");
-	    registrationBean.addUrlPatterns("/utilisateur/*");
+	    registrationBean.addUrlPatterns("/back/signalement/*");
+	    registrationBean.addUrlPatterns("/back/categorie/*");
+	    registrationBean.addUrlPatterns("/back/regions/*");
+	    registrationBean.addUrlPatterns("/back/sousCategorie/*");
+	    registrationBean.addUrlPatterns("/back/utilisateur/*");
 	    registrationBean.setOrder(1);
 	        
 	    return registrationBean;    

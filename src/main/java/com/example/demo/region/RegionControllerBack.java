@@ -9,12 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @RestController
-@RequestMapping(path = "/regions")
-public class RegionController {
+@RequestMapping(path = "/back/regions")
+public class RegionControllerBack {
 	 private final RegionService regionService;
 
 	    @Autowired
-	    public RegionController(RegionService regionService) {
+	    public RegionControllerBack(RegionService regionService) {
 	        this.regionService = regionService;
 	    }
 	    

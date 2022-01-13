@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(path = "/groupement")
-public class GroupementController {
+@RequestMapping(path = "/front/groupement")
+public class GroupementControllerFront {
 	
 	@Autowired
 	private  GroupementService service;
-	public GroupementController(GroupementService service) {
+	public GroupementControllerFront(GroupementService service) {
 	        this.service = service;
 	    }
 	
