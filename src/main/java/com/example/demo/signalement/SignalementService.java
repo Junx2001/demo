@@ -180,44 +180,35 @@ public class SignalementService {
         return listehm;
     }
 
-    List rechercheSignalementFront(String cat, String sousCat, String d1, String d2, String etat) {
-        String sql = "SELECT * FROM detailsSignalement WHERE ";
-        Boolean efaNisy = false;
+    public List rechercheSignalementFront(String cat, String sousCat, String d1, String d2, String etat) {
+        String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null ";
+        
         if(cat!=null)
         {
+        	sql+=" AND ";
             sql += "nomCat = '"+cat+"'";
-            efaNisy = true;
         }
         if(sousCat!=null)
         {
-            if(efaNisy)
-                sql+=" AND ";
+             sql+=" AND ";  
             sql += "sousCat = '"+sousCat+"'";
-            efaNisy = true;
         }
         if(d1!=null)
         {
-            if(efaNisy)
-                sql+=" AND ";
+        	sql+=" AND ";
             sql += "dateSignalement >= '"+d1+"'";
-            efaNisy = true;
         }
         if(d2!=null)
         {
-            if(efaNisy)
-                sql+=" AND ";
+        	sql+=" AND ";
             sql += "dateSignalement <= '"+d2+"'";
-            efaNisy = true;
         }
             if(sousCat!=null)
         {
-            if(efaNisy)
-                sql+=" AND ";
+            sql+=" AND ";
             sql += "sousCat = '"+sousCat+"'";
-            efaNisy = true;
         }
-        List<Object[]> list = entityManager.createNativeQuery(sql)
-        .getResultList();
+        List<Object[]> list = entityManager.createNativeQuery(sql).getResultList();
           
         return list;
           
