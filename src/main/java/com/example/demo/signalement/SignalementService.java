@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SignalementService {
 
+    @PersistenceContext
+    private EntityManager entityManager;
     private final SignalementRepository signRepository;
 
     @Autowired
@@ -174,6 +178,51 @@ public class SignalementService {
             listehm.add(hm);
         }
         return listehm;
+    }
+
+    List rechercheSignalementFront(String cat, String sousCat, String d1, String d2, String etat) {
+        String sql = "SELECT * FROM detailsSignalement WHERE ";
+        Boolean efaNisy = false;
+        if(cat!=null)
+        {
+            sql += "nomCat = '"+cat+"'";
+            efaNisy = true;
+        }
+        if(sousCat!=null)
+        {
+            if(efaNisy)
+                sql+=" AND ";
+            sql += "sousCat = '"+sousCat+"'";
+            efaNisy = true;
+        }
+        if(d1!=null)
+        {
+            if(efaNisy)
+                sql+=" AND ";
+            sql += "dateSignalement >= '"+d1+"'";
+            efaNisy = true;
+        }
+        if(d2!=null)
+        {
+            if(efaNisy)
+                sql+=" AND ";
+            sql += "dateSignalement <= '"+d2+"'";
+            efaNisy = true;
+        }
+            if(sousCat!=null)
+        {
+            if(efaNisy)
+                sql+=" AND ";
+            sql += "sousCat = '"+sousCat+"'";
+            efaNisy = true;
+        }
+        List<Object[]> list = entityManager.createNativeQuery(sql)
+        .getResultList();
+          
+        return list;
+          
+          
+        
     }
 
 }
