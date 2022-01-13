@@ -41,6 +41,17 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label for="mdp2" class="col-sm-2 col-form-label">Sa région</label>
+                                <div class="col-sm-10">
+                                   <select name="region" id="region">
+				                        <c:forEach  items="${regions}" var ="region"  >
+				                            <option value="${region.idRegion}">${region.nom}</option>
+				                        </c:forEach>
+				                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-success">Valider</button>
@@ -51,6 +62,13 @@
  							<c:if test="${succes != null}">
  							<div class="alert alert-success alert-dismissible fade show" role="alert">
 				                ${succes}
+				                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				              </div>
+							</c:if>
+							
+							<c:if test="${erreur != null}">
+ 							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				                ${erreur}
 				                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				              </div>
 							</c:if>

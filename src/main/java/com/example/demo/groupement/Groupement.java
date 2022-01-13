@@ -1,7 +1,6 @@
 package com.example.demo.groupement;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +30,7 @@ public class Groupement {
     private String etat ;
     private String nomImage ;
     private LocalDate dateResolu;
+    private String idSousCategorie;
     
 	public LocalDate getDateResolu() {
 		return dateResolu;
@@ -81,4 +81,10 @@ public class Groupement {
 		this.nomImage = nomImage;
 	}
 	public Groupement() {}
+	public String getIdSousCategorie() {
+		return idSousCategorie;
+	}
+	public void setIdSousCategorie(String idSousCategorie) {
+		this.idSousCategorie = idSousCategorie;
+	}
 }

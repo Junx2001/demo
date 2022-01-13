@@ -6,6 +6,9 @@
 package com.example.demo.utilisateur;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import com.example.demo.administrateur.Administrateur;
 
 /**
  *
@@ -43,17 +48,24 @@ public class UtilisateurService {
     public void insertWithQuery(Utilisateur u) {
           Optional<Utilisateur> uOptional = uRepository
                 .findUtilByEmail(u.getEmail());
+          Optional<Utilisateur> uOptionalRegion = uRepository
+                  .findUtilByRegion(u.getRegion());
         if (uOptional.isPresent()) {
             throw new IllegalStateException("L'email "+ u.getEmail()+" est déja associé à un compte, veuillez vous connecter");
         }
-        entityManager.createNativeQuery("INSERT INTO utilisateur VALUES (CONCAT('U',NEXT VALUE FOR seq_utilisateur),?,HashBytes('SHA2_256', convert(varchar,?)))")
+        if (uOptionalRegion.isPresent()) {
+            throw new IllegalStateException("La region numéro "+ u.getRegion()+" est déja associée à un autre utilisateur");
+        }
+        entityManager.createNativeQuery("INSERT INTO utilisateur"
+        		+ " VALUES (CONCAT('U',NEXT VALUE FOR seq_utilisateur),?,HashBytes('SHA2_256', convert(varchar,?)),?)")
         .setParameter(1, u.getEmail())
         .setParameter(2, u.getMdp())
+        .setParameter(3, u.getRegion())
         .executeUpdate();
     }
     
     @Transactional
-    void updateUtil(String idUtil, String email, String mdp) {
+    void updateUtil(String idUtil, String email, String mdp, String idRegion) {
         uRepository.findById(idUtil)
                 .orElseThrow(() -> new IllegalStateException(
                 "utilisateur with id " + idUtil + " does not exists"));
@@ -68,24 +80,39 @@ public class UtilisateurService {
                 sql += "email = '"+email+"'";
                 misy = true;
             }
-            if(misy==true && mdp!=""){ sql+=","; }
+            if(misy==true && mdp!=null){ sql+=","; }
             if(mdp!=null){
                 sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
                
             }
+            if(misy==true && idRegion!=null){ sql+=","; }
+            if(idRegion!=null){
+                sql += "region = '"+idRegion+"')";
+               
+            }
             sql+=" WHERE id_utilisateur = '"+idUtil+"'";
+            System.out.println(sql);
             
         	entityManager.createQuery(sql).executeUpdate();
         	status.flush();
         	return null;
         });
-        
-        
-       
     }
 
    public List getUtilisateurs() {
-        return uRepository.findAll();
+	   List<Object[]> liste = uRepository.getViewUtilisateur();
+  	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+       for (int i = 0; i < liste.size(); i++) {
+           HashMap<String, Object> hm = new HashMap<String, Object>();
+           Object[] s = (Object[]) liste.get(i);
+           hm.put("idUtilisateur", s[0]);
+           hm.put("email", s[1]);
+           hm.put("mdp", s[2]);
+           hm.put("idRegion", s[3]);
+           hm.put("nomRegion", s[4]);
+           listehm.add(hm);
+       }
+       return listehm;
    }
    public Utilisateur getUtilisateurByEmail(String email)
    {
@@ -108,6 +135,14 @@ public class UtilisateurService {
     void deleteUtil(String idUtil) {
         uRepository.deleteById(idUtil);
     }
+
+	public Optional<Utilisateur> find(Utilisateur util) {
+		Optional<Utilisateur> u = uRepository.findUtilisateurByEmailAndMdp(util.getEmail(),util.getMdp());
+		if (!u.isPresent()) {
+			throw new IllegalStateException("Veuillez verifier votre mot de passe et votre email");
+		}
+        return u;
+	}
     
 	
 }

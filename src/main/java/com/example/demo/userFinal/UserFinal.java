@@ -1,6 +1,4 @@
-package com.example.demo.administrateur;
-
-import java.io.Serializable;
+package com.example.demo.userFinal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,34 +9,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Administrateur implements Serializable{
+public class UserFinal {
 	@Id
 	@SequenceGenerator(
-            name="seq_administrateur",
-            sequenceName="seq_administrateur",
+            name="seq_user_final",
+            sequenceName="seq_user_final",
             allocationSize=1
     )
     @GeneratedValue(
             strategy=GenerationType.SEQUENCE,
-            generator="seq_administrateur"
+            generator="seq_user_final"
     )
-	
-	private String idAdmin;
+	private String idUserFinal;
 	private String email;
 	private String mdp;
 	
-	public Administrateur() {}
-
-    public Administrateur(String idAdmin, String email, String mdp) {
-        this.idAdmin = idAdmin;
-        this.email = email;
-        this.mdp = mdp;
-    }
-	public String getIdAdmin() {
-		return idAdmin;
+	public String getIdUserFinal() {
+		return idUserFinal;
 	}
-	public void setIdAdmin(String idAdmin) {
-		this.idAdmin = idAdmin;
+	public void setIdUserFinal(String idUserFinal) {
+		this.idUserFinal = idUserFinal;
 	}
 	public String getEmail() {
 		return email;
@@ -52,5 +42,5 @@ public class Administrateur implements Serializable{
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-
+	public UserFinal() {}	
 }

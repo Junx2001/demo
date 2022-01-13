@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.administrateur.Administrateur;
+import com.example.demo.region.RegionService;
 import com.example.demo.signalement.SignalementService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,31 +30,40 @@ import org.springframework.web.bind.annotation.PutMapping;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/utilisateur")
-public class UtilisateurController {
+@RequestMapping(path = "/back/utilisateur")
+public class UtilisateurControllerBack {
 
     @Autowired
     private UtilisateurService uService;
 
-    public UtilisateurController(UtilisateurService uService) {
+    public UtilisateurControllerBack(UtilisateurService uService) {
         this.uService = uService;
     }
 
+    
     @Autowired
-    private SignalementService signService;
+    private RegionService regService;
 
     @PostMapping
     public @ResponseBody ModelAndView insertWithQuery(Model model, Utilisateur u) {
         System.out.println(u.getEmail());
         System.out.println(u.getMdp());
-        uService.insertWithQuery(u);
+        System.out.println(u.getRegion());
+        try {
+        	 uService.insertWithQuery(u);
+        	 model.addAttribute("succes", "L'utilisateur a été inséré");
+        }catch(IllegalStateException ex) {
+        	model.addAttribute("erreur",ex.getMessage());
+        }
+        model.addAttribute("regions",regService.getRegions());
         model.addAttribute("maPage", "insertUtil");
-        model.addAttribute("succes", "L'utilisateur a été inséré");
+       
 		return new ModelAndView("template");
     }
 
     @GetMapping("/formulaireInsert")
     public ModelAndView formulaireInsert(Model model) {
+    	model.addAttribute("regions",regService.getRegions());
         model.addAttribute("maPage", "insertUtil");
         return new ModelAndView("template");
     }
@@ -67,6 +78,7 @@ public class UtilisateurController {
     @GetMapping("/formulaireUpdate")
     public ModelAndView updateUtil(Model model,@RequestParam(required = true) String idUtil,@RequestParam(required = false) String reponse) {
         model.addAttribute("maPage", "editUtil");
+        model.addAttribute("regions",regService.getRegions());
         model.addAttribute("utilisateur", uService.getUtilisateurById(idUtil));
         if (reponse!=null) {
         	model.addAttribute("succes", reponse);
@@ -78,11 +90,13 @@ public class UtilisateurController {
         public void updateUtilisateur(
            @PathVariable("idUtilisateur") String idUtil,
            @RequestParam(required = false) String email,
-           @RequestParam(required = false) String mdp)
+           @RequestParam(required = false) String mdp,
+           @RequestParam(required = false) String idRegion)
         {
     		if (email.compareTo("")==0) email=null;
     		if (mdp.compareTo("")==0) mdp=null;
-            uService.updateUtil(idUtil,email,mdp);
+    		if (idRegion.compareTo("")==0) idRegion=null;
+            uService.updateUtil(idUtil,email,mdp,idRegion);
         }
         
     @DeleteMapping(path = "{idUtilisateur}")
@@ -91,5 +105,4 @@ public class UtilisateurController {
         {
             uService.deleteUtil(idUtil);
         }
-
 }

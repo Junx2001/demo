@@ -9,7 +9,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="${baseURL}/views/assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">SignGOV </span>
+        <span class="d-none d-lg-block">SignGOV Admin </span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -33,7 +33,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="${baseURL}/views/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">${administrateur.email}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
