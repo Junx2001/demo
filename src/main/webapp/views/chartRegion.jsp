@@ -11,12 +11,13 @@
 <title></title>
 <h2>My Map</h2>
 <div id="map" class="map">
-	    
-</div>
-<div id="popup" class="ol-popup" >
+
+	 <div id="popup" class="ol-popup" >
 	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
-	<div id="popup-content" class="col-lg-3"></div>
+	<div id="popup-content" class="container-sm"></div>
 </div>
+</div>
+
 <script>
 window.onload = init;
 function init(event){

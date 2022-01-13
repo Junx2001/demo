@@ -1,7 +1,9 @@
 package com.example.demo.signalement;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -119,6 +121,18 @@ public class SignalementService {
 
     }
     
+    @Transactional
+    void updateGroupementSignalement(String signalementId, String groupemetId) {
+        Signalement sign = signRepository.findById(signalementId)
+                .orElseThrow(() -> new IllegalStateException(
+                "signalement with id " + signalementId + " does not exists"));
+        if (groupemetId != null && groupemetId.length() > 0 && sign.getIdGroupement() == null) {
+            sign.setIdGroupement(groupemetId);
+            signRepository.save(sign);
+        }
+
+    }
+    
     public List<HashMap<String, Object>> getSignalementSansRegion(){
 		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
 		List<Object[]> liste =   signRepository.getStatSignalementSansRegion();
@@ -174,6 +188,35 @@ public class SignalementService {
             listehm.add(hm);
         }
         return listehm;
+    }
+    
+    public List<HashMap<String, Object>> getSignalementsByRegion(String idRegion) {
+   	 List<Object[]> liste = signRepository.getStatSignalementByRegion(idRegion);
+   	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < liste.size(); i++) {
+            HashMap<String, Object> hm = new HashMap<String, Object>();
+            Object[] s = (Object[]) liste.get(i);
+            hm.put("idSignalement", s[0]);
+            String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
+            hm.put("dateSignalement", str);
+            hm.put("description", s[2]);
+            hm.put("latitude", s[3]);
+            hm.put("longitude", s[4]);
+            hm.put("nomImage", s[5]);
+            hm.put("region", s[6]);
+            hm.put("nomSousCat", s[7]);
+            hm.put("nomCat", s[8]);
+            hm.put("email", s[9]);
+            hm.put("idregion", s[10]);
+            listehm.add(hm);
+        }
+        return listehm;
+   }
+    
+    public boolean verifDate(String date1,String date2) throws ParseException {
+    	Date dateOne=new SimpleDateFormat("yyyy/MM/dd").parse(date1);  
+    	Date dateTwo=new SimpleDateFormat("yyyy/MM/dd").parse(date2); 
+    	return dateTwo.after(dateOne);
     }
 
 }
