@@ -1,12 +1,12 @@
 package com.example.demo.groupement;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.signalement.Signalement;
 
 
 @Service
@@ -29,6 +29,8 @@ public class GroupementService {
 	    	                "le groupement avec l'id  " + idGroup + " n'existe pas"));
 	    	
 	    	g.setEtat("1");
+	    	LocalDate lt = LocalDate.now();
+	    	g.setDateResolu(lt);
 	    	repository.save(g);
 
 	    }
