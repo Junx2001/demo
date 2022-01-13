@@ -41,5 +41,19 @@ public class SignalementControllerFront {
     {
     	return signService.getFicheSignalement(idSignalement);
     }
+
+	@GetMapping("/{regionId}")
+	    public List<HashMap<String, Object>> signalementsRegion(Model model, @PathVariable("regionId") String idRegion) {
+	    	return signService.getSignalementsByRegion(idRegion);
+	    }
+		 
+		
+		@PutMapping
+		public void ajouterAUnGroupement(Model model, 
+				@PathVariable("listeSignalement") List<String> listeSignalement,
+				@PathVariable("idGroupement") String idGroupement) {
+			//return signService.getSignalementsByRegion(idRegion);
+			 signService.updateGroupementSignalement(listeSignalement,idGroupement);
+		}
     
 }

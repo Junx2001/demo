@@ -19,6 +19,8 @@
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content" class="col-lg-3"></div>
 </div>
+</div>
+
 <script>
     window.onload = init;
     function init(event) {
