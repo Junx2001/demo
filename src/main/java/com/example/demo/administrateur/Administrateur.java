@@ -12,6 +12,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Administrateur implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@SequenceGenerator(
             name="seq_administrateur",
