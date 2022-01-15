@@ -1,14 +1,11 @@
 package com.example.demo.groupement;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.signalement.SignalementService;
@@ -27,10 +24,31 @@ public class GroupementControllerFront {
 	private  SignalementService signService;
 	
 	 @PutMapping(path = "{idGroupement}")
-     public void updateSignalement(
+     public void updateEtatGroupement(
         @PathVariable("idGroupement") String idGroupement)
      {
          service.updateEtatGroupement(idGroupement);
+     }
+	 
+	 @PostMapping
+     public void insertNewGroupement(
+    		@PathVariable("description")
+			@RequestParam(required = false)
+    		 String description,
+    		@PathVariable("latitude")
+			@RequestParam(required = false)
+    		 String latitude,
+    		@PathVariable("longitude")
+			@RequestParam(required = false)
+    		 String longitude,
+    		@PathVariable("region")
+			@RequestParam(required = false)
+    		 String region,
+    		@PathVariable("idSousCategorie")
+			@RequestParam(required = false)
+    		 String idSousCategorie)
+     {
+         service.insertGroupement(description, latitude, longitude,null, region, idSousCategorie);
      }
 	 
 	

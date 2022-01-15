@@ -122,7 +122,7 @@ public class SignalementService {
     }
     
     @Transactional
-	public void updateGroupementSignalement(List<String> listeSignalementId, String groupemetId) {
+	public void updateGroupementSignalement(String[] listeSignalementId, String groupemetId) {
     	for(String signalementId : listeSignalementId) {
     		Signalement sign = signRepository.findById(signalementId)
                     .orElseThrow(() -> new IllegalStateException(

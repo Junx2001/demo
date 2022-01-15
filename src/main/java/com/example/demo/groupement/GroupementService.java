@@ -6,9 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 
 
@@ -16,6 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupementService {
 	 private final GroupementRepository repository;
 
+	 	@PersistenceContext 
+		private EntityManager entityManager;
+	 	private  TransactionTemplate transactionTemplate;
+	 	
+	 	@Autowired
+	    private PlatformTransactionManager transactionManager;
+	 	
 	    @Autowired
 	    public GroupementService(GroupementRepository repository) {
 	        this.repository = repository;
@@ -39,39 +51,46 @@ public class GroupementService {
 	    }
 	    
 	    @Transactional
-	    void insertGroupement(String idGroup) {
-	    	Groupement g = repository.findById(idGroup)
-	    			.orElseThrow(() -> new IllegalStateException(
-	    	                "le groupement avec l'id  " + idGroup + " n'existe pas"));
-	    	
-	    	g.setEtat("1");
-	    	LocalDate lt = LocalDate.now();
-	    	g.setDateResolu(lt);
-	    	repository.save(g);
-
-	    }
-	    
-	    public List<HashMap<String, Object>> getSignalements() {
+	    void insertGroupement(String description,String latitude,String longitude,String nomImage,String region,String idSousCategorie) {
 	    	String liste=repository.getNextSequence();
-	    	 /*List<Object[]> liste = signRepository.getDetailsSignalements();
-	    	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
-	         for (int i = 0; i < liste.size(); i++) {
-	             HashMap<String, Object> hm = new HashMap<String, Object>();
-	             Object[] s = (Object[]) liste.get(i);
-	             hm.put("idSignalement", s[0]);
-	             String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
-	             hm.put("dateSignalement", str);
-	             hm.put("description", s[2]);
-	             hm.put("latitude", s[3]);
-	             hm.put("longitude", s[4]);
-	             hm.put("nomImage", s[5]);
-	             hm.put("region", s[6]);
-	             hm.put("nomSousCat", s[7]);
-	             hm.put("nomCat", s[8]);
-	             hm.put("email", s[9]);
-	             listehm.add(hm);
-	         }*/
-	         return listehm;
+	    	
+		      //.executeUpdate();
+	    	Groupement g = new Groupement();
+	    	g.setIdGroupement(liste);
+	    	g.setDescription(description);
+	    	g.setLatitude(Double.parseDouble(latitude));
+	    	g.setLongitude(Double.parseDouble(longitude));
+	    	g.setRegion(region);
+	    	g.setIdSousCategorie(idSousCategorie);
+	    	System.out.println(longitude);
+	    	//repository.save(g);
+	    	/*entityManager.createNativeQuery("insert into groupement (idGroupement,description,latitude,longitude,nomImage,region,idSousCategorie) values (?,?,?,?,?,?,?)")
+		      .setParameter(1, g.getIdGroupement())
+		      .setParameter(2, g.getDescription())
+		      .setParameter(3, g.getLatitude())
+		      .setParameter(4, g.getLongitude())
+		      .setParameter(5, g.getNomImage())
+		      .setParameter(6, g.getRegion())
+		      .setParameter(7, g.getIdSousCategorie())
+		      .executeUpdate();*/
+	    	
+	    	transactionTemplate = new TransactionTemplate(transactionManager);
+	        
+	        transactionTemplate.execute(status->{
+	        	entityManager.createQuery("insert into groupement (idGroupement,description,latitude,longitude,nomImage,region,idSousCategorie) " + 
+	        			"values ('17','faty olona',15.265,18.66,'blabla','4','SC1')")
+			      /*.setParameter(1, g.getIdGroupement())
+			      .setParameter(2, g.getDescription())
+			      .setParameter(3, g.getLatitude())
+			      .setParameter(4, g.getLongitude())
+			      .setParameter(5, g.getRegion())
+			      .setParameter(6, g.getIdSousCategorie())*/
+			      .executeUpdate();
+	        	
+	        	status.flush();
+	        	return null;
+	        });
+
 	    }
 	    
 	    
