@@ -22,7 +22,7 @@
 		<div id="exception"></div>
 		<div class="card-body">
               <h5 class="card-title">Ajouter une categorie</h5>
-	              <form class="row g-3" action="${baseURL}/categorie" method="post">
+	              <form class="row g-3" action="${baseURL}/back/back/categorie" method="post">
 	                <div class="col-md-6">
 	                  <input type="text" class="form-control" placeholder="Designation" name="label">
 	                </div>
@@ -41,7 +41,7 @@
               <h5 class="card-title">Ajouter un sous-categorie</h5>
 
               <!-- No Labels Form -->
-              <form class="row g-3" action="${baseURL}/sousCategorie" method="post">
+              <form class="row g-3" action="${baseURL}/back/sousCategorie" method="post">
                 <div class="col-md-6">
                   <input type="text" class="form-control" placeholder="Designation" name="label">
                 </div>

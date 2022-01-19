@@ -154,7 +154,7 @@
                             if (k == j) {
                                 var lfeture = map.getFeaturesAtPixel(event.pixel);
                                 let temp = "<div class=\"card\"> \
-                                        <img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
+                                        <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
                                         <input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
                                         <div class=\"card-body\"> \
                                      <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
@@ -183,7 +183,7 @@
                                                 var region = $('#idRegion').val();\
                                                 setTimeout(() => {location.reload();}, 3000);\
                                                 $.ajax({\
-                                                    url: baseUrl + '/signalement/' + sign,\
+                                                    url: baseUrl + '/back/signalement/' + sign,\
                                                     method: 'put',\
                                                     data: {region: region},\
                                                     dataType: 'json',\

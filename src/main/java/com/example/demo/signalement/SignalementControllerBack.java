@@ -52,7 +52,7 @@ public class SignalementControllerBack  {
 	    public ModelAndView ficheSignalement(Model model, @PathVariable("signalementId") String idSignalement) {
 	    	model.addAttribute("signalement", signService.getFicheSignalement(idSignalement));
 	    	model.addAttribute("regions", regionService.getRegions());
-	    	model.addAttribute("maPage", "ficheSignalement");
+	    	model.addAttribute("maPage", "ficheSignalement2");
 	        return new ModelAndView("template");
 	    }
 	    

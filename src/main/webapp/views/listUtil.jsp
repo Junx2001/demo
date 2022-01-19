@@ -32,7 +32,7 @@
                     <td>${utilisateur.idUtilisateur}</td>
                     <td>${utilisateur.email}</td>
                     <td>${utilisateur.nomRegion}</td>
-                    <td><a class="btn btn-info" href="${baseURL}/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier</a></td>
+                    <td><a class="btn btn-info" href="${baseURL}/back/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier</a></td>
                     <td><button class="btn btn-danger" onclick="deleteUtil('${utilisateur.idUtilisateur}')">Supprimer</button></td>
                   </tr>
                   </c:forEach>
@@ -49,7 +49,7 @@
         </div>
     </section>
     <div>
-    	<a href="${baseURL}/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur</a>
+    	<a href="${baseURL}/back/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur</a>
     </div>
     <script>
     	function deleteUtil(idUtil){
@@ -59,7 +59,7 @@
                 location.reload(); 
            }, 1000); 
     		$.ajax({
-	            url: '${baseURL}/utilisateur/' + idUtil,
+	            url: '${baseURL}/back/utilisateur/' + idUtil,
 	            method: 'delete',
 	            dataType: 'json',
 	            success: function (response) {
