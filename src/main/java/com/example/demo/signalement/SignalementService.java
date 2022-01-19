@@ -45,6 +45,7 @@ public class SignalementService {
              hm.put("idRegion", s[10]);
              hm.put("etat", s[11]);
              hm.put("idUserFinal", s[12]);
+             hm.put("dateHeureSignalement", s[1]);
              listehm.add(hm);
          }
          return listehm;
@@ -131,11 +132,12 @@ public class SignalementService {
     
     public List<HashMap<String, Object>> getSignalementSansRegion(){
 		List<Object[]> liste =   signRepository.getStatSignalementSansRegion();
+		List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<liste.size(); i++) {
 			HashMap<String, Object> hm = new HashMap<String, Object>();
 			Object[] s = (Object[]) liste.get(i);
 			hm.put("idSignalement", s[0]);
-			hm.put("dateSignalement", s[1]);
+             hm.put("dateSignalement", s[1]);
 			hm.put("description", s[2]);
 			hm.put("idGroupement", s[3]);
 			hm.put("idSousCategorie", s[4]);

@@ -48,8 +48,8 @@
         </div>
         </div>
     </section>
-    <div>
-    	<a href="${baseURL}/back/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur</a>
+    <div class="d-grid gap-2 mt-3">
+        <a class="btn btn-primary" type="button" href="${baseURL}/back/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur</a>
     </div>
     <script>
     	function deleteUtil(idUtil){

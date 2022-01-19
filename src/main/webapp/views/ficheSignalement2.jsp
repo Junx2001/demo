@@ -31,7 +31,7 @@
 
                 <div class="tab-pane fade profile-overview active show" id="profile-overview">
                   <h5 class="card-title">Avant propos</h5>
-                  <p class="small fst-italic">Ci-jointe est la fiche de signalement ID ${signalement.idSignalement} 
+                  <p class="small fst-italic">Ci-jointe est la fiche du signalement ID ${signalement.idSignalement} 
                   dans sa région ou éventuellement, veuillez affecter ce signalement à une région.
                   </p>
                   
@@ -58,8 +58,8 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Date </div>
-                    <div class="col-lg-9 col-md-8">${signalement.dateSignalement}</div>
+                    <div class="col-lg-3 col-md-4 label">Date et heure</div>
+                    <div class="col-lg-9 col-md-8">${signalement.dateHeureSignalement}</div>
                   </div>
 
                   <div class="row">

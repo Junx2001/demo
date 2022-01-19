@@ -70,10 +70,12 @@
                 <tbody>
                 <c:forEach  items="${signalements}" var ="signalement" varStatus="i">
                   <tr>
-                    <th scope="row"><a href="${baseURL}/back/signalement/${signalement.idSignalement}">
-                    <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
-                    </a></th>
-                    <td>${signalement.nomImage}</td>
+                    <th scope="row"><a href="${baseURL}/back/signalement/${signalement.idSignalement}">${i.index}</a></th>
+                    <td>
+	                    <a href="${baseURL}/back/signalement/${signalement.idSignalement}">
+	                   	 <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
+	                    </a>
+                    </td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
                     <c:if test="${signalement.region == null}">
