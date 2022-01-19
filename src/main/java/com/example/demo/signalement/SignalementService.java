@@ -131,8 +131,22 @@ public class SignalementService {
     
     public List<HashMap<String, Object>> getSignalementSansRegion(){
 		List<Object[]> liste =   signRepository.getStatSignalementSansRegion();
-		List<HashMap<String, Object>> listehm =this.hashMapSignalement(liste);
-        return listehm;
+		for(int i=0; i<liste.size(); i++) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Object[] s = (Object[]) liste.get(i);
+			hm.put("idSignalement", s[0]);
+			hm.put("dateSignalement", s[1]);
+			hm.put("description", s[2]);
+			hm.put("idGroupement", s[3]);
+			hm.put("idSousCategorie", s[4]);
+			hm.put("latitude", s[5]);
+			hm.put("longitude", s[6]);
+			hm.put("nomImage", s[7]);
+			hm.put("region", s[8]);
+			hm.put("idUtilisateur", s[9]);
+			listehm.add(hm);
+		}
+		return listehm;
 		
 	}
 

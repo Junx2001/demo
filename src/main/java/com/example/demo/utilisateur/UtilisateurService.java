@@ -80,12 +80,13 @@ public class UtilisateurService {
             if(misy==true && mdp!=null){ sql+=","; }
             if(mdp!=null){
                 sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
+                misy = true;
                
             }
             if(misy==true && idRegion!=null){ sql+=","; }
             if(idRegion!=null){
-                sql += "region = '"+idRegion+"')";
-               
+                sql += "region = '"+idRegion+"'";
+                misy = true;
             }
             sql+=" WHERE id_utilisateur = '"+idUtil+"'";
             System.out.println(sql);
