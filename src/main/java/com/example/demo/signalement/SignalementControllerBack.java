@@ -82,12 +82,10 @@ public class SignalementControllerBack  {
             
 	    @GetMapping("/carte")
 	    public ModelAndView statistiqueSignalementParRegion(Model model) {
-	    	//model.addAttribute("statRegion", signService.getStatSignalementParRegion());
 	    	model.addAttribute("signalements", signService.getSignalementSansRegion());
 	    	model.addAttribute("regions", regionService.getRegions());
 	    	model.addAttribute("maPage", "chartRegion");
 	        return new ModelAndView("template");
-	        //return signService.getSignalementSansRegion();
 	    }
 	    
 	    

@@ -10,7 +10,7 @@
         <!-- Card with an image on top -->
         <div class="card">
 
-            <img src="${baseURL}/views/assets/img/card.jpg" width="50" class="card-img-top" alt="...">
+            <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50" class="card-img-top" alt="...">
             <input type="hidden" id="url" value="${baseURL}">
             <div class="card-body">
                 <h5 class="card-title">Signalement <span id="idSignalement">${signalement.idSignalement}</span></h5>

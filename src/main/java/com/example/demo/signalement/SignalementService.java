@@ -44,6 +44,7 @@ public class SignalementService {
              hm.put("email", s[9]);
              hm.put("idRegion", s[10]);
              hm.put("etat", s[11]);
+             hm.put("idUserFinal", s[12]);
              listehm.add(hm);
          }
          return listehm;

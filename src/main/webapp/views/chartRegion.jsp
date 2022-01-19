@@ -49,6 +49,7 @@
         console.log("${signalements}");
 
     <c:forEach  items="${signalements}" var ="signalement">
+    console.log(${signalement.idSignalement});
         listeSignalement[i] = "${signalement}";
         cordLayer[i] = event.coordinate;
         var coord = ol.proj.fromLonLat([${signalement.longitude}, ${signalement.latitude}]);
