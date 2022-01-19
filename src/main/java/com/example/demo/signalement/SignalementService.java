@@ -130,11 +130,11 @@ public class SignalementService {
 			hm.put("description", s[2]);
 			hm.put("idGroupement", s[3]);
 			hm.put("idSousCategorie", s[4]);
-			hm.put("idUtilisateur", s[5]);
-			hm.put("latitude", s[6]);
-			hm.put("longitude", s[7]);
-			hm.put("nomImage", s[8]);
-			hm.put("region", s[9]);
+			hm.put("latitude", s[5]);
+			hm.put("longitude", s[6]);
+			hm.put("nomImage", s[7]);
+			hm.put("region", s[8]);
+			hm.put("idUtilisateur", s[9]);
 			listehm.add(hm);
 		}
 		return listehm;
