@@ -28,12 +28,14 @@
                 <tbody>
                 <c:forEach  items="${listeRecherche}" var ="signalement" varStatus="i">
                   <tr>
-                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${i.index}</a></th>
+                    <th scope="row"><a href="${baseURL}/back/signalement/${signalement.idSignalement}">
+                    <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
+                    </a></th>
                     <td>${signalement.nomImage}</td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
                     <c:if test="${signalement.region == null}">
-                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
+                    <td><a href="${baseURL}/back/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
                     </c:if>
                     <c:if test="${signalement.region != null}">
                     <td>${signalement.region}</td>

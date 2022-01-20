@@ -79,11 +79,11 @@
 			var idUtil = "${utilisateur.idUtilisateur}";
 			
 			setTimeout(function(){
-				window.location ="${baseURL}/utilisateur/listeUtilisateur"; 
+				window.location ="${baseURL}/back/utilisateur/listeUtilisateur"; 
            }, 2000);
      	 
 			$.ajax({
-	            url: '${baseURL}/utilisateur/'+idUtil,
+	            url: '${baseURL}/back/utilisateur/'+idUtil,
 	            method: 'put',
 	            data: {email: email, mdp:mdp, idRegion:idRegion},
 	            dataType: 'json',

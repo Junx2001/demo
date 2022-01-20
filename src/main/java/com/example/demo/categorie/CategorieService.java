@@ -1,7 +1,6 @@
 package com.example.demo.categorie;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

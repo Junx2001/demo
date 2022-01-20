@@ -21,7 +21,7 @@
                         <!-- General Form Elements -->
                         <h5 class="card-title">Entrer les Informations de l'Utilisateur Front Office à insérer</h5>
 
-                        <form action="${baseURL}/utilisateur" oninput='up2.setCustomValidity(up2.value != mdp.value ? "Passwords do not match." : "")' method="post">
+                        <form action="${baseURL}/back/utilisateur" oninput='up2.setCustomValidity(up2.value != mdp.value ? "Passwords do not match." : "")' method="post">
                             <div class="row mb-3">
                                 <label for="email" class="col-sm-2 col-form-label">Email </label>
                                 <div class="col-sm-10">
@@ -43,7 +43,7 @@
                             <div class="row mb-3">
                                 <label for="mdp2" class="col-sm-2 col-form-label">Sa région</label>
                                 <div class="col-sm-10">
-                                   <select name="region" id="region">
+                                   <select name="region" id="region" class="form-select">
 				                        <c:forEach  items="${regions}" var ="region"  >
 				                            <option value="${region.idRegion}">${region.nom}</option>
 				                        </c:forEach>

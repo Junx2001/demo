@@ -1,4 +1,4 @@
-package com.example.demo.token;
+package com.example.demo.tokenFront;
 
 import java.time.LocalDateTime;
 
@@ -11,19 +11,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Token {
+public class TokenFront {
 	@Id
 	@SequenceGenerator(
-            name="seq_token",
-            sequenceName="seq_token",
+            name="seq_token_front",
+            sequenceName="seq_token_front",
             allocationSize=1
     )
     @GeneratedValue(
             strategy=GenerationType.SEQUENCE,
-            generator="seq_token"
+            generator="seq_token_front"
     )
 	private String idToken;
-	private String idAdmin;
+	private String idUtilisateur;
 	private LocalDateTime dateValidite;
 	public String getIdToken() {
 		return idToken;
@@ -31,17 +31,17 @@ public class Token {
 	public void setIdToken(String idToken) {
 		this.idToken = idToken;
 	}
-	public String getIdAdmin() {
-		return idAdmin;
-	}
-	public void setIdAdmin(String idAdmin) {
-		this.idAdmin = idAdmin;
-	}
 	public LocalDateTime getDateValidite() {
 		return dateValidite;
 	}
 	public void setDateValidite(LocalDateTime dateValidite) {
 		this.dateValidite = dateValidite;
 	}
-	public Token() {}
+	public TokenFront() {}
+	public String getIdUtilisateur() {
+		return idUtilisateur;
+	}
+	public void setIdUtilisateur(String idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
+	}
 }

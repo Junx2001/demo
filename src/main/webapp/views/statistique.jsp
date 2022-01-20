@@ -176,7 +176,7 @@
                             console.log(baseUrl);
                             console.log(annee);
                             $.ajax({
-                            url: baseUrl + '/signalement/statParMois/' + annee,
+                            url: baseUrl + '/back/signalement/statParMois/' + annee,
                                     method: 'get',
                                     dataType: 'json',
                                     success: function (response) {

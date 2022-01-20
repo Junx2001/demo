@@ -5,8 +5,6 @@
  */
 package com.example.demo.utilisateur;
 
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +18,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.example.demo.administrateur.Administrateur;
 
 /**
  *
@@ -83,12 +80,13 @@ public class UtilisateurService {
             if(misy==true && mdp!=null){ sql+=","; }
             if(mdp!=null){
                 sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
+                misy = true;
                
             }
             if(misy==true && idRegion!=null){ sql+=","; }
             if(idRegion!=null){
-                sql += "region = '"+idRegion+"')";
-               
+                sql += "region = '"+idRegion+"'";
+                misy = true;
             }
             sql+=" WHERE id_utilisateur = '"+idUtil+"'";
             System.out.println(sql);
@@ -99,8 +97,8 @@ public class UtilisateurService {
         });
     }
 
-   public List getUtilisateurs() {
-	   List<Object[]> liste = uRepository.getViewUtilisateur();
+   public List<HashMap<String, Object>> getUtilisateurs() {
+	  List<Object[]> liste = uRepository.getViewUtilisateur();
   	 List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
        for (int i = 0; i < liste.size(); i++) {
            HashMap<String, Object> hm = new HashMap<String, Object>();

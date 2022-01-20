@@ -18,7 +18,7 @@
          	<div class="card">
                  <div class="card-body">
 						<h5 class="card-title">Voir la carte des signalements non encore affectés à une région</h5>
-						<a class="btn btn-primary" href="${baseURL}/signalement/carte">Carte</a>
+						<a class="btn btn-primary" href="${baseURL}/back/signalement/carte">Carte</a>
                   </div>
              </div>
                 
@@ -27,7 +27,7 @@
                         <!-- General Form Elements -->
                         <h5 class="card-title">Filtrer les signalements entre 2 dates</h5>
                         
-                        <form action="${baseURL}/signalement/recherche">
+                        <form action="${baseURL}/back/signalement/recherche">
                             <div class="row mb-3">
                                 <label for="inputDate" class="col-sm-2 col-form-label">Date Debut </label>
                                 <div class="col-sm-10">
@@ -70,12 +70,16 @@
                 <tbody>
                 <c:forEach  items="${signalements}" var ="signalement" varStatus="i">
                   <tr>
-                    <th scope="row"><a href="${baseURL}/signalement/${signalement.idSignalement}">${i.index}</a></th>
-                    <td>${signalement.nomImage}</td>
+                    <th scope="row"><a href="${baseURL}/back/signalement/${signalement.idSignalement}">${i.index}</a></th>
+                    <td>
+	                    <a href="${baseURL}/back/signalement/${signalement.idSignalement}">
+	                   	 <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
+	                    </a>
+                    </td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
                     <c:if test="${signalement.region == null}">
-                    <td><a href="${baseURL}/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
+                    <td><a href="${baseURL}/back/signalement/${signalement.idSignalement}">Affecter a une region</a></td>
                     </c:if>
                     <c:if test="${signalement.region != null}">
                     <td>${signalement.region}</td>

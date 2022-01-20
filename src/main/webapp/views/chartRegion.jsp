@@ -49,6 +49,7 @@
         console.log("${signalements}");
 
     <c:forEach  items="${signalements}" var ="signalement">
+    console.log(${signalement.idSignalement});
         listeSignalement[i] = "${signalement}";
         cordLayer[i] = event.coordinate;
         var coord = ol.proj.fromLonLat([${signalement.longitude}, ${signalement.latitude}]);
@@ -153,7 +154,7 @@
                             if (k == j) {
                                 var lfeture = map.getFeaturesAtPixel(event.pixel);
                                 let temp = "<div class=\"card\"> \
-                                        <img src=\"${baseURL}/views/assets/img/card.jpg\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
+                                        <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
                                         <input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
                                         <div class=\"card-body\"> \
                                      <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
@@ -163,14 +164,14 @@
                                      <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
                                      <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
                                      <hr> \
-                                     <select name=\"idRegion\" id=\"idRegion\">";
+                                     <select name=\"idRegion\" id=\"idRegion\" class=\"form-select\">";
 
         <c:forEach  items="${regions}" var ="region">
                                 temp += "<option value=\"${region.idRegion}\">${region.nom}</option>";
         </c:forEach>
 
                                 temp += "</select> \
-                                     <button id=\"bouton\">Affecter</button> \
+                                     <button  type=\"button\" class=\"btn btn-info\" id=\"bouton\">Affecter</button> \
                                      </div>";
                                 content.innerHTML = temp;
                                 overlay.setPosition(coordinate);
@@ -182,7 +183,7 @@
                                                 var region = $('#idRegion').val();\
                                                 setTimeout(() => {location.reload();}, 3000);\
                                                 $.ajax({\
-                                                    url: baseUrl + '/signalement/' + sign,\
+                                                    url: baseUrl + '/back/signalement/' + sign,\
                                                     method: 'put',\
                                                     data: {region: region},\
                                                     dataType: 'json',\

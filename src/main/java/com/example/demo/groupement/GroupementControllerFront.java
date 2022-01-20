@@ -22,7 +22,7 @@ public class GroupementControllerFront {
 	    }
 	
 	 @PutMapping(path = "{idGroupement}")
-     public void updateEtatGroupement(
+     public void updateEtatSignalement(
         @PathVariable("idGroupement") String idGroupement)
      {
          service.updateEtatGroupement(idGroupement);

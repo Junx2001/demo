@@ -52,7 +52,7 @@ public class SignalementControllerBack  {
 	    public ModelAndView ficheSignalement(Model model, @PathVariable("signalementId") String idSignalement) {
 	    	model.addAttribute("signalement", signService.getFicheSignalement(idSignalement));
 	    	model.addAttribute("regions", regionService.getRegions());
-	    	model.addAttribute("maPage", "ficheSignalement");
+	    	model.addAttribute("maPage", "ficheSignalement2");
 	        return new ModelAndView("template");
 	    }
 	    
@@ -79,18 +79,13 @@ public class SignalementControllerBack  {
                 model.addAttribute("maPage", "resultatRecherche");
                 return new ModelAndView("template");
             }
-
-			
-	    
-	    
+            
 	    @GetMapping("/carte")
 	    public ModelAndView statistiqueSignalementParRegion(Model model) {
-	    	//model.addAttribute("statRegion", signService.getStatSignalementParRegion());
 	    	model.addAttribute("signalements", signService.getSignalementSansRegion());
 	    	model.addAttribute("regions", regionService.getRegions());
 	    	model.addAttribute("maPage", "chartRegion");
 	        return new ModelAndView("template");
-	        //return signService.getSignalementSansRegion();
 	    }
 	    
 	    

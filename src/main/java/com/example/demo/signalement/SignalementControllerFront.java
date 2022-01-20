@@ -20,18 +20,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(path = "/front/signalement")
-public class SignalementControllerFront  {
+public class SignalementControllerFront {
+	@Autowired
+	private  SignalementService signService;
 	
-		@Autowired
-		private  SignalementService signService;
-		
-		public SignalementControllerFront(SignalementService signService) {
-		    this.signService = signService;
-		}
-		
-	    
-	    @GetMapping("/{regionId}")
-	    public List<HashMap<String, Object>> signalementsRegion(Model model, @PathVariable("regionId") String idRegion) {
+	public SignalementControllerFront(SignalementService signService) {
+	    this.signService = signService;
+	}
+	
+    @GetMapping
+    public List rechercheSignalementFront(
+       @RequestParam(required = false) String cat,
+       @RequestParam(required = false) String sousCat,
+       @RequestParam(required = false) String d1,
+       @RequestParam(required = false) String d2,
+       @RequestParam(required = false) String etat
+       )
+    {
+    	
+        return signService.rechercheSignalementFront(cat,sousCat,d1,d2,etat);
+    }
+    
+    @GetMapping("/{signalementId}")
+    public HashMap<String,Object> ficheSignalement(
+    		@PathVariable("signalementId") String idSignalement)
+    {
+    	return signService.getFicheSignalement(idSignalement);
+    }
+
+	@GetMapping("/region/{regionId}")
+	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion) {
 	    	return signService.getSignalementsByRegion(idRegion);
 	    }
 		 
@@ -53,6 +71,5 @@ public class SignalementControllerFront  {
 			signService.updateGroupementSignalement(li,idGroupement);
 			return idGroupement;
 		}
-		
-		
+    
 }
