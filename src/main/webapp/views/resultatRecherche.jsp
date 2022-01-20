@@ -3,6 +3,12 @@
 
     <div class="pagetitle">
       <h1>Liste des Signalements</h1>
+      <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="${baseURL}/back/signalement">Liste des signalements</a></li>
+               <li class="breadcrumb-item active">Recherche</li>
+             </ol>
+         </nav>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -28,10 +34,12 @@
                 <tbody>
                 <c:forEach  items="${listeRecherche}" var ="signalement" varStatus="i">
                   <tr>
-                    <th scope="row"><a href="${baseURL}/back/signalement/${signalement.idSignalement}">
-                    <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
-                    </a></th>
-                    <td>${signalement.nomImage}</td>
+                    <th scope="row"><a href="${baseURL}/back/signalement/${signalement.idSignalement}">${i.index}</a></th>
+                    <td>
+	                    <a href="${baseURL}/back/signalement/${signalement.idSignalement}">
+	                   	 <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
+	                    </a>
+                    </td>
                     <td>${signalement.dateSignalement}</td>
                     <td>${signalement.description}</td>
                     <c:if test="${signalement.region == null}">

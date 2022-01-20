@@ -6,7 +6,13 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Statistiques</h1>
+        <h1>Statistique</h1>
+        <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="${baseURL}/back/signalement">Liste</a></li>
+               <li class="breadcrumb-item active">Statistique</li>
+             </ol>
+         </nav>
 
     </div><!-- End Page Title -->
 

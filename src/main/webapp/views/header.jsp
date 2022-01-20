@@ -9,7 +9,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="${baseURL}/views/assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">SignGOV Admin </span>
+        <span class="d-none d-lg-block">SignalGOV Admin </span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -33,7 +33,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>SignGOV</h6>
+              <h6>SignalGOV</h6>
               <span>Administrateur</span>
             </li>
             <li>

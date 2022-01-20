@@ -7,6 +7,12 @@
 
     <div class="pagetitle">
         <h1>Modifier Utilisateur</h1>
+        <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="${baseURL}/back/utilisateur/listeUtilisateur">Liste utilisateurs</a></li>
+               <li class="breadcrumb-item active">Modification</li>
+             </ol>
+         </nav>
     </div><!-- End Page Title -->
 
     <section class="section">

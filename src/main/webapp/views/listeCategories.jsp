@@ -11,6 +11,11 @@
 
     <div class="pagetitle">
       <h1>Liste des categories et sous-categories</h1>
+      <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="${baseURL}/back/signalement">Retour</a></li>
+             </ol>
+         </nav>
     </div><!-- End Page Title -->
     
 		<div id="container"></div>

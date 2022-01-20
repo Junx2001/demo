@@ -7,6 +7,11 @@
 
     <div class="pagetitle">
         <h1>Liste des Utilisateurs du Gouvernement (Front-Office)</h1>
+        <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="${baseURL}/back/signalement">Liste des signalements</a></li>
+             </ol>
+         </nav>
     </div><!-- End Page Title -->
 
     <section class="section">

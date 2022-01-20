@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+0<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="scheme" value="${pageContext.request.scheme}"/>
 <c:set var="serverName" value="${pageContext.request.serverName}"/>
 <c:set var="serverPort" value="${pageContext.request.serverPort}"/>
@@ -7,6 +7,12 @@
 
     <div class="pagetitle">
         <h1>Insérer Utilisateur</h1>
+        <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="${baseURL}/back/utilisateur/listeUtilisateur">Liste utilisateurs</a></li>
+               <li class="breadcrumb-item active">Insertion</li>
+             </ol>
+         </nav>
     </div><!-- End Page Title -->
 
     <section class="section">
