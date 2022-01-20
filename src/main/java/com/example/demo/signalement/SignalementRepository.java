@@ -33,7 +33,7 @@ public interface SignalementRepository
     @Query(nativeQuery = true, value="select count(*) as nb,MONTH(date_resolu) as mois from groupement where YEAR(date_resolu)=?1 and etat=1 group by MONTH(date_resolu)")
     List<Object[]> getStatParMois(Integer annee);
 
-    @Query(nativeQuery = true, value="select * from detailsSignalement where dateSignalement >=?1 and dateSignalement <=?2 and etat!=1 or etat is null ")
+    @Query(nativeQuery = true, value="select * from detailsSignalement where (etat!=1 or etat is null) and dateSignalement >=?1 and dateSignalement <=?2  ")
     List<Object[]> rechercheSign(String d1, String d2);
     
     @Query(nativeQuery = true, value="select * from detailsSignalement where idRegion=?1 ")
