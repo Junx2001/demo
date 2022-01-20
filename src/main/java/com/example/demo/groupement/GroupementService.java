@@ -51,44 +51,26 @@ public class GroupementService {
 	    }
 	    
 	    @Transactional
-	    void insertGroupement(String description,String latitude,String longitude,String nomImage,String region,String idSousCategorie) {
+	    String insertGroupement(String description,String latitude,String longitude,String nomImage,String region,String idSousCategorie) {
 	    	String liste=repository.getNextSequence();
-	    	
-		      //.executeUpdate();
-	    	Groupement g = new Groupement();
-	    	g.setIdGroupement(liste);
-	    	g.setDescription(description);
-	    	g.setLatitude(Double.parseDouble(latitude));
-	    	g.setLongitude(Double.parseDouble(longitude));
-	    	g.setRegion(region);
-	    	g.setIdSousCategorie(idSousCategorie);
-	    	System.out.println(longitude);
-	    	//repository.save(g);
-	    	/*entityManager.createNativeQuery("insert into groupement (idGroupement,description,latitude,longitude,nomImage,region,idSousCategorie) values (?,?,?,?,?,?,?)")
-		      .setParameter(1, g.getIdGroupement())
-		      .setParameter(2, g.getDescription())
-		      .setParameter(3, g.getLatitude())
-		      .setParameter(4, g.getLongitude())
-		      .setParameter(5, g.getNomImage())
-		      .setParameter(6, g.getRegion())
-		      .setParameter(7, g.getIdSousCategorie())
-		      .executeUpdate();*/
 	    	
 	    	transactionTemplate = new TransactionTemplate(transactionManager);
 	        
-	        transactionTemplate.execute(status->{
-	        	entityManager.createQuery("insert into groupement (idGroupement,description,latitude,longitude,nomImage,region,idSousCategorie) " + 
-	        			"values ('17','faty olona',15.265,18.66,'blabla','4','SC1')")
-			      /*.setParameter(1, g.getIdGroupement())
-			      .setParameter(2, g.getDescription())
-			      .setParameter(3, g.getLatitude())
-			      .setParameter(4, g.getLongitude())
-			      .setParameter(5, g.getRegion())
-			      .setParameter(6, g.getIdSousCategorie())*/
+	        return transactionTemplate.execute(status->{
+	        	
+		    	entityManager.createNativeQuery("insert into groupement (id_groupement,description,latitude,longitude,nom_image,region,id_sous_categorie) values (?,?,?,?,?,?,?)")
+			      .setParameter(1, liste)
+			      .setParameter(2, description)
+			      .setParameter(3, Double.parseDouble(latitude))
+			      .setParameter(4, Double.parseDouble(longitude))
+			      .setParameter(5, null)
+			      .setParameter(6, region)
+			      .setParameter(7, idSousCategorie)
 			      .executeUpdate();
+			      
 	        	
 	        	status.flush();
-	        	return null;
+	        	return liste;
 	        });
 
 	    }

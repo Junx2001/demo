@@ -31,7 +31,7 @@ public class GroupementControllerFront {
      }
 	 
 	 @PostMapping
-     public void insertNewGroupement(
+     public String insertNewGroupement(
     		@PathVariable("description")
 			@RequestParam(required = false)
     		 String description,
@@ -48,7 +48,7 @@ public class GroupementControllerFront {
 			@RequestParam(required = false)
     		 String idSousCategorie)
      {
-         service.insertGroupement(description, latitude, longitude,null, region, idSousCategorie);
+         return service.insertGroupement(description, latitude, longitude,null, region, idSousCategorie);
      }
 	 
 	
