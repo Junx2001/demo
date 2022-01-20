@@ -267,5 +267,27 @@ public class SignalementService {
         	return null;
         });
     }
+    
+    public List<HashMap<String, Object>> getSignalementsByGroupement(String idGroupement) {
+        List<Object[]> liste = signRepository.getSignalementByGroupement(idGroupement);
+        
+        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+
+        for (int i = 0; i < liste.size(); i++) {
+            HashMap<String, Object> hm = new HashMap<String, Object>();
+            Object[] s = (Object[]) liste.get(i);
+            hm.put("idSignalement", s[0]);
+            String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
+            hm.put("dateSignalement", str);
+            hm.put("description", s[2]);
+            hm.put("idUtilisateur", s[3]);
+            hm.put("dateResolu", s[4]);
+            hm.put("nomImage", s[5]);
+            hm.put("etat", s[6]);
+            listehm.add(hm);
+        }
+        //List<HashMap<String, Object>> listehm = this.hashMapSignalement(liste);
+        return listehm;
+    }
 
 }
