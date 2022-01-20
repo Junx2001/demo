@@ -53,4 +53,6 @@ public class SignalementControllerFront  {
 			signService.updateGroupementSignalement(li,idGroupement);
 			return idGroupement;
 		}
+		
+		
 }
