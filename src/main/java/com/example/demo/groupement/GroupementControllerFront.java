@@ -20,8 +20,6 @@ public class GroupementControllerFront {
 	public GroupementControllerFront(GroupementService service) {
 	        this.service = service;
 	    }
-	@Autowired
-	private  SignalementService signService;
 	
 	 @PutMapping(path = "{idGroupement}")
      public void updateEtatGroupement(
