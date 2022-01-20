@@ -39,7 +39,7 @@ public class Filtre implements Filter {
        
 	}
 	
-	@Bean
+	@Bean(name="loggingFilter1")
 	public FilterRegistrationBean<Filter> loggingFilter(){
 	    FilterRegistrationBean<Filter> registrationBean 
 	      = new FilterRegistrationBean<>();
