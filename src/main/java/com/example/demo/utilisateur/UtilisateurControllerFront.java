@@ -1,5 +1,6 @@
 package com.example.demo.utilisateur;
 
+import com.example.demo.tokenFront.TokenFrontService;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UtilisateurControllerFront {
 	 @Autowired
 	 private UtilisateurService uService;
+         
+         @Autowired
+	 private TokenFrontService tokService;
 
 	    public UtilisateurControllerFront(UtilisateurService uService) {
 	        this.uService = uService;
@@ -20,7 +24,9 @@ public class UtilisateurControllerFront {
 	    
 	    @PostMapping("/login")
 	    public @ResponseBody Optional<Utilisateur> login(Utilisateur util)
-	    {
-	    	return  uService.find(util);
+	    {     
+	    	Optional<Utilisateur> u = uService.find(util);
+                tokService.insertToken(util.getIdUtilisateur());
+                return u;
 	    }
 }

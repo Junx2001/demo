@@ -24,7 +24,7 @@ public class TokenFront {
     )
 	private String idToken;
 	private String idUtilisateur;
-	private LocalDateTime dateValidite;
+	private LocalDateTime dateExpiration;
 	public String getIdToken() {
 		return idToken;
 	}
@@ -32,10 +32,10 @@ public class TokenFront {
 		this.idToken = idToken;
 	}
 	public LocalDateTime getDateValidite() {
-		return dateValidite;
+		return dateExpiration;
 	}
-	public void setDateValidite(LocalDateTime dateValidite) {
-		this.dateValidite = dateValidite;
+	public void setDateExpiration(LocalDateTime dateValidite) {
+		this.dateExpiration = dateValidite;
 	}
 	public TokenFront() {}
 	public String getIdUtilisateur() {
