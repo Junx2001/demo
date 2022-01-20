@@ -38,5 +38,18 @@ public interface SignalementRepository
     
     @Query(nativeQuery = true, value="select * from detailsSignalement where idregion=?1")
 	List<Object[]> getSignalementByRegion(String idRegion);
+	
+	@Query(nativeQuery = true, value="select " + 
+			"	id_signalement," + 
+			"	date_signalement," + 
+			"	s.description," + 
+			"	id_utilisateur," + 
+			"	date_resolu," + 
+			"	s.nom_image," + 
+			"	etat " + 
+			"from signalement s" + 
+			"	join groupement g on g.id_groupement = s.id_groupement " + 
+			"where s.id_groupement=?1")
+	List<Object[]> getSignalementByGroupement(String idGroupement);
 
 }

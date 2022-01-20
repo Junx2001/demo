@@ -11,7 +11,6 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
 @Document("notification")
 /**
  *
@@ -25,12 +24,57 @@ public class Notification {
     private LocalDateTime dateHeure;
     
 
-    public Notification(String id, String utilisateur, String message, LocalDateTime dateHeure) {
+    public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getUtilisateur() {
+		return utilisateur;
+	}
+
+
+	public void setUtilisateur(String utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+	public LocalDateTime getDateHeure() {
+		return dateHeure;
+	}
+
+
+	public void setDateHeure(LocalDateTime dateHeure) {
+		this.dateHeure = dateHeure;
+	}
+
+
+	public Notification(String id, String utilisateur, String message, LocalDateTime dateHeure) {
         this.id = id;
         this.utilisateur = utilisateur;
         this.message = message;
         this.dateHeure = dateHeure;
     }
+
+
+	public Notification() {
+		// TODO Auto-generated constructor stub
+	}
 
  
 

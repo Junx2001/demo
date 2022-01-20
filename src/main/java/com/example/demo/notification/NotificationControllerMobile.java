@@ -34,5 +34,13 @@ public class NotificationControllerMobile {
     public List<Notification> getAllNotif(@PathVariable("util") String utilisateur) {
         return nService.findByUtil(utilisateur);
     }
+    
+    @GetMapping(path = "/groupement/{idGroupement}")
+    public void sendNotification(@PathVariable("idGroupement") String idGroupement) {
+    	nService.insertNotification(idGroupement);
+       // return nService.findByUtil(utilisateur);
+    }
+    
+    
 
 }
