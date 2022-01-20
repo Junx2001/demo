@@ -57,22 +57,4 @@ public class NotificationService {
     	}
     }
     
-    /*void addSignalement(Signalement s) {
-        
-	     transactionTemplate = new TransactionTemplate(transactionManager);
-	   
-	   transactionTemplate.execute(status->{
-	   entityManager.createNativeQuery("INSERT INTO signalement (id_signalement,date_signalement,description,id_sous_Categorie,latitude,longitude,nom_image,id_utilisateur)"
-	           + " VALUES (NEXT VALUE FOR seq_signalement,getdate(),?,?,?,?,?,?)")
-	           .setParameter(1, s.getDescription())
-	           .setParameter(2, s.getIdSousCategorie())
-	           .setParameter(3, s.getLatitude())
-	           .setParameter(4, s.getLongitude())
-	           .setParameter(5,s.getNomImage())
-	           .setParameter(6,s.getIdUtilisateur())
-	           .executeUpdate();
-	   	status.flush();
-	   	return null;
-	   });
-	}*/
 }

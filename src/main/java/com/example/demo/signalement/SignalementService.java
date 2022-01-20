@@ -125,9 +125,9 @@ public class SignalementService {
     }
 
     @Transactional
-    public void updateGroupementSignalement(List<String> listeSignalementId, String groupemetId) {
-        for (String signalementId : listeSignalementId) {
-            Signalement sign = signRepository.findById(signalementId)
+	public void updateGroupementSignalement(String[] listeSignalementId, String groupemetId) {
+    	for(String signalementId : listeSignalementId) {
+    		Signalement sign = signRepository.findById(signalementId)
                     .orElseThrow(() -> new IllegalStateException(
                     "signalement with id " + signalementId + " does not exists"));
             if (groupemetId != null && groupemetId.length() > 0 && sign.getIdGroupement() == null) {
@@ -182,6 +182,27 @@ public class SignalementService {
         List<Object[]> liste = signRepository.getSignalementByRegion(idRegion);
         List<HashMap<String, Object>> listehm = this.hashMapSignalement(liste);
         return listehm;
+    }
+    
+    public List<HashMap<String, Object>> getSignalementsByGroupement(String idGroupement) {
+        List<Object[]> liste = signRepository.getSignalementByGroupement(idGroupement);
+        
+        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+        
+        for (int i = 0; i < liste.size(); i++) {
+            HashMap<String, Object> hm = new HashMap<String, Object>();
+            Object[] s = (Object[]) liste.get(i);
+            hm.put("id_signalement", s[0]);
+            hm.put("date_signalement", s[1]);
+            hm.put("description", s[2]);
+            hm.put("id_utilisateur", s[3]);
+            hm.put("date_resolu", s[4]);
+            hm.put("nom_image", s[5]);
+            hm.put("etat", s[6]);
+            listehm.add(hm);
+        }
+        return listehm;
+        
     }
 
     public List rechercheSignalementFront(String cat, String sousCat, String d1, String d2, String etat) {
@@ -266,28 +287,6 @@ public class SignalementService {
         	status.flush();
         	return null;
         });
-    }
-    
-    public List<HashMap<String, Object>> getSignalementsByGroupement(String idGroupement) {
-        List<Object[]> liste = signRepository.getSignalementByGroupement(idGroupement);
-        
-        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
-
-        for (int i = 0; i < liste.size(); i++) {
-            HashMap<String, Object> hm = new HashMap<String, Object>();
-            Object[] s = (Object[]) liste.get(i);
-            hm.put("idSignalement", s[0]);
-            String str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
-            hm.put("dateSignalement", str);
-            hm.put("description", s[2]);
-            hm.put("idUtilisateur", s[3]);
-            hm.put("dateResolu", s[4]);
-            hm.put("nomImage", s[5]);
-            hm.put("etat", s[6]);
-            listehm.add(hm);
-        }
-        //List<HashMap<String, Object>> listehm = this.hashMapSignalement(liste);
-        return listehm;
     }
 
 }
