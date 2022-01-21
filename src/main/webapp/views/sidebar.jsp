@@ -11,14 +11,14 @@
 
       <li class="nav-item">
         <a class="nav-link " href="${baseURL}/back/signalement/statistique">
-          <i class="bi bi-grid"></i>
+          <i class="bi bi-graph-up"></i>
           <span>Statistique</span>
         </a>
       </li>
       
       <li class="nav-item">
         <a class="nav-link " href="${baseURL}/back/categorie">
-          <i class="bi bi-menu-button-wide"></i>
+          <i class="ri-settings-2-fill"></i>
           <span>CRUD catégories</span>
         </a>
       </li>
@@ -33,7 +33,7 @@
 	
 	<li class="nav-item">
         <a class="nav-link " href="${baseURL}/back/utilisateur/listeUtilisateur">
-          <i class="bi bi-layout-text-window-reverse"></i>
+          <i class="bi bi-person-circle"></i>
           <span>Gestion des utilisateurs</span>
         </a>
       </li>

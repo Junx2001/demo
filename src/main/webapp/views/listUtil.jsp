@@ -37,8 +37,8 @@
                     <td>${utilisateur.idUtilisateur}</td>
                     <td>${utilisateur.email}</td>
                     <td>${utilisateur.nomRegion}</td>
-                    <td><a class="btn btn-info" href="${baseURL}/back/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier</a></td>
-                    <td><button class="btn btn-danger" onclick="deleteUtil('${utilisateur.idUtilisateur}')">Supprimer</button></td>
+                    <td><a class="btn btn-warning" href="${baseURL}/back/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier <i class="ri-edit-2-line"></i></a></td>
+                    <td><button class="btn btn-danger" onclick="deleteUtil('${utilisateur.idUtilisateur}')">Supprimer <i class="ri-delete-bin-5-line"></i></button></td>
                   </tr>
                   </c:forEach>
                   
@@ -53,9 +53,19 @@
         </div>
         </div>
     </section>
-    <div class="d-grid gap-2 mt-3">
-        <a class="btn btn-primary" type="button" href="${baseURL}/back/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur</a>
+    <div class="container">
+  <div class="row">
+    <div class="col">
+      <a class="btn btn-success" type="button" href="${baseURL}/back/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur <i class="ri-user-add-fill"></i></a>
     </div>
+    <div class="col">
+      
+    </div>
+    <div class="col">
+      
+    </div>
+  </div>
+</div>
     <script>
     	function deleteUtil(idUtil){
     		console.log(idUtil);
