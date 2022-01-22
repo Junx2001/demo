@@ -56,9 +56,20 @@
         listeLayer[i] = new ol.layer.Vector({
             source: new ol.source.Vector({
                 projection: 'EPSG:4326',
-                features: [new ol.Feature(new ol.geom.Circle(coord, 100000))]
+                features: [new ol.Feature(new ol.geom.Point(coord))]
             }),
 
+            style: [
+            	new ol.style.Style({
+                    image: new ol.style.Icon({
+                      anchor: [0.5, 0.5],
+                      anchorXUnits: 'fraction',
+                      anchorYUnits: 'pixels',
+                      src: '${baseURL}/views/assets/img/icon.png',
+                      scale:0.08,
+                    }),
+                  })
+             ],
             // style: [
             //   new ol.style.Style({
             //     stroke: new ol.style.Stroke({
