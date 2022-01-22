@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
 <style>
     .map {
-        height: 600px;
+        height: 1200px;
         width: 100%;
     }
 </style>
@@ -18,7 +18,6 @@
 <div id="popup" class="ol-popup" >
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content" class="col-lg-3"></div>
-</div>
 </div>
 
 <script>
