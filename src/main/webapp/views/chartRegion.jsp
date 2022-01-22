@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
 <style>
     .map {
-        height: 600px;
+        height: 1200px;
         width: 100%;
     }
 </style>

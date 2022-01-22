@@ -28,7 +28,7 @@ public class NotificationControllerMobile {
     @Autowired
     public NotificationControllerMobile(NotificationService nService) {
         this.nService = nService;
-    }
+    } 
 
     @GetMapping(path = "{util}")
     public List<Notification> getAllNotif(@PathVariable("util") String utilisateur) {
