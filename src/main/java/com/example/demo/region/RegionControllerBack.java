@@ -16,7 +16,7 @@ import com.example.demo.signalement.SignalementService;
 
 
 @RestController
-@RequestMapping(path = "/back/regions")
+@RequestMapping(path = "/back")
 public class RegionControllerBack {
 	 private final RegionService regionService;
 
@@ -28,7 +28,7 @@ public class RegionControllerBack {
 	    @Autowired
 		private  SignalementService signService;
 	    
-	    @GetMapping
+	    @GetMapping("/regions")
 	    public ModelAndView getRegions(Model model){
 	    	model.addAttribute("regions", regionService.getRegions());
 	    	model.addAttribute("maPage", "formulaireAffectation");

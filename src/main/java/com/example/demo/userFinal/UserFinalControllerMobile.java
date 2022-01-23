@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
-@RequestMapping(path = "/mobile/userFinal")
+@RequestMapping(path = "/mobile")
 public class UserFinalControllerMobile {
 	private final UserFinalService service;
 	
@@ -21,7 +21,7 @@ public class UserFinalControllerMobile {
 		this.service = service;
 	}
 	
-    @PostMapping("/login")
+    @PostMapping("/userFinal/login")
     public @ResponseBody String login(UserFinal util)
     {
     	Optional<UserFinal> val = null;
@@ -30,7 +30,7 @@ public class UserFinalControllerMobile {
         return "L'utilisateur Final avec l'email "+val.get().getEmail()+" s'est connecté\n Il obtient un token d'authentification : "+tok;
     }
 	
-    @PostMapping
+    @PostMapping("/userFinal")
     public @ResponseBody String insertWithQuery(UserFinal u) {
         System.out.println(u.getEmail());
         System.out.println(u.getMdp());

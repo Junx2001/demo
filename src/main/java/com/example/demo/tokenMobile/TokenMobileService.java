@@ -41,7 +41,7 @@ public class TokenMobileService {
                 String valueTok = DigestUtils.sha256Hex(idUser+"THETOK123"+LocalDateTime.now());
                 tok.setIdToken(valueTok);
                 tok.setIdUserFinal(idUser);
-                tok.setDateExpiration(LocalDateTime.now());
+                tok.setDateExpiration(LocalDateTime.now().plusDays(14));
                 
 		repository.save(tok);
                 return valueTok;

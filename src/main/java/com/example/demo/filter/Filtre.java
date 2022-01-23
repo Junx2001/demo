@@ -46,10 +46,13 @@ public class Filtre implements Filter {
 	        
 	    registrationBean.setFilter(new Filtre());
 	    registrationBean.addUrlPatterns("/back/signalement/*");
+	    registrationBean.addUrlPatterns("/back/signalements/*");
 	    registrationBean.addUrlPatterns("/back/categorie/*");
+	    registrationBean.addUrlPatterns("/back/categories/*");
 	    registrationBean.addUrlPatterns("/back/regions/*");
 	    registrationBean.addUrlPatterns("/back/sousCategorie/*");
 	    registrationBean.addUrlPatterns("/back/utilisateur/*");
+	    registrationBean.addUrlPatterns("/back/utilisateurs/*");
 	    registrationBean.setOrder(1);
 	        
 	    return registrationBean;    

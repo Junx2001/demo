@@ -18,7 +18,7 @@
          	<div class="card">
                  <div class="card-body">
 						<h5 class="card-title">Voir la carte des signalements non encore affectés à une région <i class="ri-map-line"></i></h5>
-						<a class="btn btn-primary" href="${baseURL}/back/signalement/carte">Carte <i class="bi bi-geo-alt"></i></a>
+						<a class="btn btn-primary" href="${baseURL}/back/signalements/carte">Carte <i class="bi bi-geo-alt"></i></a>
                   </div>
              </div>
                 
@@ -27,7 +27,7 @@
                         <!-- General Form Elements -->
                         <h5 class="card-title">Filtrer les signalements entre 2 dates <i class="ri-calendar-event-fill"></i></h5>
                         
-                        <form action="${baseURL}/back/signalement/recherche">
+                        <form action="${baseURL}/back/signalements/recherche">
                             <div class="row mb-3">
                                 <label for="inputDate" class="col-sm-2 col-form-label">Date Debut </label>
                                 <div class="col-sm-10">

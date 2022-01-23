@@ -329,4 +329,10 @@ public class SignalementService {
         });
     }
 
+	public List<HashMap<String, Object>> getSignalementsByUtilisateur(String idUtilisateur) {
+		List<Object[]> liste = signRepository.getSignalementByUtilisateur(idUtilisateur);
+        List<HashMap<String, Object>> listehm = this.hashMapSignalement(liste);
+        return listehm;
+	}
+
 }

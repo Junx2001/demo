@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/mobile/notification")
+@RequestMapping(path = "/mobile")
 public class NotificationControllerMobile {
 
    
@@ -30,13 +32,13 @@ public class NotificationControllerMobile {
         this.nService = nService;
     } 
 
-    @GetMapping(path = "{util}")
+    @GetMapping(path = "/notifications/{util}")
     public List<Notification> getAllNotif(@PathVariable("util") String utilisateur) {
         return nService.findByUtil(utilisateur);
     }
     
-    @GetMapping(path = "/groupement/{idGroupement}")
-    public void sendNotification(@PathVariable("idGroupement") String idGroupement) {
+    @PostMapping(path = "/notification")
+    public @ResponseBody void sendNotification(String idGroupement) {
     	nService.insertNotification(idGroupement);
     }
     

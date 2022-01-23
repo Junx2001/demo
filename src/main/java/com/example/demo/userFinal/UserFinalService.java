@@ -31,6 +31,9 @@ public class UserFinalService {
 		if (!Fonction.verifEmail(util.getEmail())) {
     		throw new IllegalStateException("Le syntaxe de votre email est incorrect");
 		}
+		if (!Fonction.verifMdp(util.getMdp())) {
+    		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");
+		}
 		
 		Optional<UserFinal> u = repository.findUserFinalByEmailAndMdp(util.getEmail(),util.getMdp());
 		if (!u.isPresent()) {

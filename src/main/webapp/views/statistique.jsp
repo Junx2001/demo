@@ -9,7 +9,7 @@
         <h1>Statistique</h1>
         <nav>
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="${baseURL}/back/signalement">Liste</a></li>
+               <li class="breadcrumb-item"><a href="${baseURL}/back/signalements">Liste</a></li>
                <li class="breadcrumb-item active">Statistique</li>
              </ol>
          </nav>
@@ -182,7 +182,7 @@
                             console.log(baseUrl);
                             console.log(annee);
                             $.ajax({
-                            url: baseUrl + '/back/signalement/statParMois/' + annee,
+                            url: baseUrl + '/back/signalements/statParMois/' + annee,
                                     method: 'get',
                                     dataType: 'json',
                                     success: function (response) {
@@ -328,7 +328,7 @@
               console.log(idRegion);
               console.log(nomR);
               $.ajax({
-              		url: baseUrl + '/back/signalement/statParMoisParRegion/' + annee+'/'+idRegion,
+              		url: baseUrl + '/back/signalements/statParMoisParRegion/' + annee+'/'+idRegion,
                       method: 'get',
                       dataType: 'json',
                       success: function (response) {

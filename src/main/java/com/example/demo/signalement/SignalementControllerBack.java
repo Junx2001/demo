@@ -20,7 +20,7 @@ import com.example.demo.region.RegionService;
 
 
 @RestController
-@RequestMapping(path = "/back/signalement")
+@RequestMapping(path = "/back")
 public class SignalementControllerBack  {
 	
 		@Autowired
@@ -33,7 +33,7 @@ public class SignalementControllerBack  {
 		@Autowired
 		private  RegionService regionService;
 
-	    @GetMapping
+	    @GetMapping("/signalements")
 	    public ModelAndView getSignalement(Model model){
 	    	
 	    	model.addAttribute("signalements", signService.getSignalements());
@@ -41,7 +41,7 @@ public class SignalementControllerBack  {
 	        return new ModelAndView("template");
 	    }
             
-        @PutMapping(path = "{signalementId}")
+        @PutMapping(path = "/signalement/{signalementId}")
         public void updateSignalement(
            @PathVariable("signalementId") String signalementId,
            @RequestParam(required = false) String region)
@@ -49,7 +49,7 @@ public class SignalementControllerBack  {
             signService.updateSignalement(signalementId,region);
         }
 	    
-	    @GetMapping("/{signalementId}")
+	    @GetMapping("/signalement/{signalementId}")
 	    public ModelAndView ficheSignalement(Model model, @PathVariable("signalementId") String idSignalement) {
 	    	model.addAttribute("signalement", signService.getFicheSignalement(idSignalement));
 	    	model.addAttribute("regions", regionService.getRegions());
@@ -57,7 +57,7 @@ public class SignalementControllerBack  {
 	        return new ModelAndView("template");
 	    }
 	    
-	    @GetMapping("/statistique")
+	    @GetMapping("/signalements/statistique")
 	    public ModelAndView statistique(Model model) {
 	    	model.addAttribute("statRegion", signService.getStatParRegion());
 	    	model.addAttribute("statSousCat", signService.getStatSousCategorie());
@@ -66,12 +66,12 @@ public class SignalementControllerBack  {
 	        return new ModelAndView("template");
 	    }
             
-            @GetMapping("/statParMois/{annee}")
+            @GetMapping("/signalements/statParMois/{annee}")
             public List<HashMap<String,Object>> statParMois( @PathVariable("annee") Integer annee){
                 return signService.getStatParMois(annee);
             }
             
-            @GetMapping("/statParMoisParRegion/{annee}/{idRegion}")
+            @GetMapping("/signalements/statParMoisParRegion/{annee}/{idRegion}")
             public List<List<HashMap<String,Object>>> statParMoisParRegion( @PathVariable("annee") Integer annee,  @PathVariable("idRegion") String idRegion){
                 List<List<HashMap<String,Object>>> liste = new ArrayList<List<HashMap<String,Object>>>();
                 liste.add(signService.getResoluParMoisParRegion(annee,idRegion));
@@ -80,7 +80,7 @@ public class SignalementControllerBack  {
             }
             
             
-            @GetMapping("/recherche")
+            @GetMapping("/signalements/recherche")
             public ModelAndView rechercheSignalement(Model model,
                @RequestParam(required = true) String d1,
                @RequestParam(required = true) String d2
@@ -91,7 +91,7 @@ public class SignalementControllerBack  {
                 return new ModelAndView("template");
             }
             
-	    @GetMapping("/carte")
+	    @GetMapping("/signalements/carte")
 	    public ModelAndView statistiqueSignalementParRegion(Model model) {
 	    	model.addAttribute("signalements", signService.getSignalementSansRegion());
 	    	model.addAttribute("regions", regionService.getRegions());

@@ -9,7 +9,7 @@
         <h1>Modifier Utilisateur</h1>
         <nav>
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="${baseURL}/back/utilisateur/listeUtilisateur">Liste utilisateurs</a></li>
+               <li class="breadcrumb-item"><a href="${baseURL}/back/utilisateurs">Liste utilisateurs</a></li>
                <li class="breadcrumb-item active">Modification</li>
              </ol>
          </nav>
@@ -85,7 +85,7 @@
 			var idUtil = "${utilisateur.idUtilisateur}";
 			
 			setTimeout(function(){
-				window.location ="${baseURL}/back/utilisateur/listeUtilisateur"; 
+				window.location ="${baseURL}/back/utilisateurs"; 
            }, 2000);
      	 
 			$.ajax({

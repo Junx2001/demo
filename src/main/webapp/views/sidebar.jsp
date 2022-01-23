@@ -10,21 +10,21 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="${baseURL}/back/signalement/statistique">
+        <a class="nav-link " href="${baseURL}/back/signalements/statistique">
           <i class="bi bi-graph-up"></i>
           <span>Statistique</span>
         </a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link " href="${baseURL}/back/categorie">
+        <a class="nav-link " href="${baseURL}/back/categories">
           <i class="ri-settings-2-fill"></i>
           <span>CRUD catégories</span>
         </a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link " href="${baseURL}/back/signalement">
+        <a class="nav-link " href="${baseURL}/back/signalements">
           <i class="bi bi-layout-text-window-reverse"></i>
           <span>Gestion des signalements</span>
         </a>
@@ -32,7 +32,7 @@
 
 	
 	<li class="nav-item">
-        <a class="nav-link " href="${baseURL}/back/utilisateur/listeUtilisateur">
+        <a class="nav-link " href="${baseURL}/back/utilisateurs">
           <i class="bi bi-person-circle"></i>
           <span>Gestion des utilisateurs</span>
         </a>

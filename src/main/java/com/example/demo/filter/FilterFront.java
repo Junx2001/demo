@@ -66,7 +66,8 @@ public class FilterFront implements Filter {
 
         registrationBean.setFilter(filtre);
         registrationBean.addUrlPatterns("/front/signalement/*");
-
+        registrationBean.addUrlPatterns("/front/signalements/*");
+        registrationBean.addUrlPatterns("/front/groupement/*");
         registrationBean.setOrder(1);
 
         return registrationBean;

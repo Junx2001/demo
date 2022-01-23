@@ -9,7 +9,7 @@
         <h1>Insérer Utilisateur</h1>
         <nav>
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="${baseURL}/back/utilisateur/listeUtilisateur">Liste utilisateurs</a></li>
+               <li class="breadcrumb-item"><a href="${baseURL}/back/utilisateurs">Liste utilisateurs</a></li>
                <li class="breadcrumb-item active">Insertion</li>
              </ol>
          </nav>

@@ -68,6 +68,8 @@ public class FilterMobile implements Filter {
 
         registrationBean.setFilter(filtre);
         registrationBean.addUrlPatterns("/mobile/signalement/*");
+        registrationBean.addUrlPatterns("/mobile/notifications/*");
+        registrationBean.addUrlPatterns("/mobile/notification/*");
 
         registrationBean.setOrder(1);
 

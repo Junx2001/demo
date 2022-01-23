@@ -41,7 +41,7 @@ public class TokenFrontService {
                 String myTok = DigestUtils.sha256Hex(idUtil+"MONTOK123"+LocalDateTime.now());
                 tok.setIdToken(myTok);
                 tok.setIdUtilisateur(idUtil);
-                tok.setDateExpiration(LocalDateTime.now());
+                tok.setDateExpiration(LocalDateTime.now().plusDays(14));
                 
 		repository.save(tok);
                 return myTok;
