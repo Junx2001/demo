@@ -6,13 +6,15 @@
 package com.example.demo.administrateur;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
-/**
- *
- * @author ratsi
- */
+import com.example.demo.fonction.Fonction;
+
+
 @Service
 public class AdministrateurService {
    private final AdministrateurRepository admRepository;
@@ -23,8 +25,18 @@ public class AdministrateurService {
         this.admRepository = admRepository;
     }
 
-    public Administrateur find(Administrateur adm) {      
-    	Administrateur ad = admRepository.findAdministrateurByEmailAndMdp(adm.getEmail(),adm.getMdp());
+    public Optional<Administrateur> find(Administrateur adm) {      
+    	if (!Fonction.verifEmail(adm.getEmail())) {
+    		throw new IllegalStateException("Le syntaxe de votre email est incorrect");
+		 }
+    	if (!Fonction.verifMdp(adm.getMdp())) {
+    		throw new IllegalStateException("Votre mot de passe doit contenir 8 caratères et aucun accent");
+		}
+    	
+    	Optional<Administrateur> ad = admRepository.findAdministrateurByEmailAndMdp(adm.getEmail(),adm.getMdp());
+    	if (!ad.isPresent()) {
+			throw new IllegalStateException("Veuillez verifier votre mot de passe et votre email");
+		}
         return ad;
     }
     

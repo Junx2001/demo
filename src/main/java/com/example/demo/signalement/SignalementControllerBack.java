@@ -1,5 +1,6 @@
 package com.example.demo.signalement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class SignalementControllerBack  {
 	    public ModelAndView statistique(Model model) {
 	    	model.addAttribute("statRegion", signService.getStatParRegion());
 	    	model.addAttribute("statSousCat", signService.getStatSousCategorie());
+	    	model.addAttribute("regions",regionService.getRegions());
 	    	model.addAttribute("maPage", "statistique");
 	        return new ModelAndView("template");
 	    }
@@ -68,6 +70,15 @@ public class SignalementControllerBack  {
             public List<HashMap<String,Object>> statParMois( @PathVariable("annee") Integer annee){
                 return signService.getStatParMois(annee);
             }
+            
+            @GetMapping("/statParMoisParRegion/{annee}/{idRegion}")
+            public List<List<HashMap<String,Object>>> statParMoisParRegion( @PathVariable("annee") Integer annee,  @PathVariable("idRegion") String idRegion){
+                List<List<HashMap<String,Object>>> liste = new ArrayList<List<HashMap<String,Object>>>();
+                liste.add(signService.getResoluParMoisParRegion(annee,idRegion));
+                liste.add(signService.getSignalementsParMoisParRegion(annee, idRegion));
+                return liste;
+            }
+            
             
             @GetMapping("/recherche")
             public ModelAndView rechercheSignalement(Model model,

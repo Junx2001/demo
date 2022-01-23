@@ -18,6 +18,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.example.demo.fonction.Fonction;
+
+
 
 /**
  *
@@ -43,6 +46,13 @@ public class UtilisateurService {
 
     @Transactional
     public void insertWithQuery(Utilisateur u) {
+    	if (!Fonction.verifEmail(u.getEmail())) {
+    		throw new IllegalStateException("Le syntaxe de l'email doit être de la forme xxx@xxx.xx");
+		}
+		if (!Fonction.verifMdp(u.getMdp())) {
+    		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");
+		}
+    	
           Optional<Utilisateur> uOptional = uRepository
                 .findUtilByEmail(u.getEmail());
           Optional<Utilisateur> uOptionalRegion = uRepository
@@ -135,7 +145,17 @@ public class UtilisateurService {
     }
 
 	public Optional<Utilisateur> find(Utilisateur util) {
+		
+		if (!Fonction.verifEmail(util.getEmail())) {
+    		throw new IllegalStateException("Le syntaxe de votre email est incorrect");
+		}
+		if (!Fonction.verifMdp(util.getMdp())) {
+    		throw new IllegalStateException("Votre mot de passe doit contenir 8 caratères et aucun accent");
+		}
+		
+		
 		Optional<Utilisateur> u = uRepository.findUtilisateurByEmailAndMdp(util.getEmail(),util.getMdp());
+		
 		if (!u.isPresent()) {
 			throw new IllegalStateException("Veuillez verifier votre mot de passe et votre email");
 		}

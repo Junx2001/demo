@@ -5,6 +5,8 @@
  */
 package com.example.demo.administrateur;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,23 +42,20 @@ public class AdministrateurControllerBack {
 		    return new ModelAndView("login");
 		 }
 
-	@PostMapping("/login")
+		 @PostMapping("/login")
          public @ResponseBody ModelAndView login(Administrateur adm, Model model)
          {
-                Administrateur val = adService.find(adm);
-                if(val!=null)
-                {
-                    model.addAttribute("administrateur", val);
-                    model.addAttribute("signalements", signService.getSignalements());
-        	    	model.addAttribute("maPage", "mainTable");
-        	        return new ModelAndView("template");
-                }
-                else
-                {
-                    model.addAttribute("erreur", "Verifier votre Email / Mot de Passe ");
-        		    return new ModelAndView("login");
-                }
-               
+				try {
+					Administrateur val = adService.find(adm).get();
+					model.addAttribute("administrateur", val);
+					model.addAttribute("signalements", signService.getSignalements());
+	        	  	model.addAttribute("maPage", "mainTable");
+	        	    return new ModelAndView("template");
+	        	        
+				}catch(Exception e) {
+					model.addAttribute("erreur", e.getMessage());
+					return new ModelAndView("login");
+				}
          }
          
         @GetMapping("/logout")

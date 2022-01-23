@@ -21,7 +21,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Statistique par sous-catégorie</h5>
+                        <h5 class="card-title">Statistique global de signalements par sous-catégorie</h5>
 
                         <!-- Bar Chart -->
                         <div id="barChart" style="min-height: 365px;"></div>
@@ -67,7 +67,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Taux de signalement par region</h5>
+                        <h5 class="card-title">Taux global de signalements par region</h5>
 
                         <!-- Pie Chart -->
                         <div id="pieChart" style="min-height: 310.7px;"></div>
@@ -205,7 +205,7 @@
                                             data: {
                                             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                                                     datasets: [{
-                                                    label: 'Line Chart',
+                                                    label: 'Problèmes résolus sur tout le pays',
                                                             data: donn,
                                                             fill: false,
                                                             borderColor: 'rgb(75, 192, 192)',
@@ -233,7 +233,176 @@
             </div>
 
 
+		<div class="col-lg-6">
+           <div class="card">
+			<div class="card-body">
+              <h5 class="card-title">Statistique de signalements par région par année</h5>
+                        Choisir une année : <input type="number" class="form-control" id="annee2"><br>
+                        Choisir une région:  <select id="idRegion2" class="form-select">
+						                        <c:forEach  items="${regions}" var ="region"  >
+						                            <option value="${region.idRegion}.${region.nom}">${region.nom}</option>
+						                        </c:forEach>
+						                    </select></br>
+                        <button class="btn btn-success" id="bouton2">Envoyer</button>
 
+
+              <!-- Column Chart -->
+              <div id="columnChart" style="min-height: 365px;"></div>
+         	<style type="text/css">	
+    	
+		      .apexcharts-legend {	
+		        display: flex;	
+		        overflow: auto;	
+		        padding: 0 10px;	
+		      }	
+		      .apexcharts-legend.apx-legend-position-bottom, .apexcharts-legend.apx-legend-position-top {	
+		        flex-wrap: wrap	
+		      }	
+		      .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+		        flex-direction: column;	
+		        bottom: 0;	
+		      }	
+		      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+		        justify-content: flex-start;	
+		      }	
+		      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-center, .apexcharts-legend.apx-legend-position-top.apexcharts-align-center {	
+		        justify-content: center;  	
+		      }	
+		      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-right, .apexcharts-legend.apx-legend-position-top.apexcharts-align-right {	
+		        justify-content: flex-end;	
+		      }	
+		      .apexcharts-legend-series {	
+		        cursor: pointer;	
+		        line-height: normal;	
+		      }	
+		      .apexcharts-legend.apx-legend-position-bottom .apexcharts-legend-series, .apexcharts-legend.apx-legend-position-top .apexcharts-legend-series{	
+		        display: flex;	
+		        align-items: center;	
+		      }	
+		      .apexcharts-legend-text {	
+		        position: relative;	
+		        font-size: 14px;	
+		      }	
+		      .apexcharts-legend-text *, .apexcharts-legend-marker * {	
+		        pointer-events: none;	
+		      }	
+		      .apexcharts-legend-marker {	
+		        position: relative;	
+		        display: inline-block;	
+		        cursor: pointer;	
+		        margin-right: 3px;	
+		        border-style: solid;
+		      }	
+		      	
+		      .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series, .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{	
+		        display: inline-block;	
+		      }	
+		      .apexcharts-legend-series.apexcharts-no-click {	
+		        cursor: auto;	
+		      }	
+		      .apexcharts-legend .apexcharts-hidden-zero-series, .apexcharts-legend .apexcharts-hidden-null-series {	
+		        display: none !important;	
+		      }	
+		      .apexcharts-inactive-legend {	
+		        opacity: 0.45;	
+		      }
+		      </style>
+		      
+              <script>
+              var baseUrl = "";
+              var annee = "";
+              var idRegion = "";
+              var donn = [];
+              var donn2 = [];
+              $('#bouton2').click(function () {
+            		$('#columnChart').empty();
+              donn = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+              donn2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+              baseUrl = $('#url').val();
+              annee = $('#annee2').val();
+              var region = $('#idRegion2').val().split(".");
+              idRegion = region[0];
+              var nomR = region[1];
+              console.log(baseUrl);
+              console.log(annee);
+              console.log(idRegion);
+              console.log(nomR);
+              $.ajax({
+              		url: baseUrl + '/back/signalement/statParMoisParRegion/' + annee+'/'+idRegion,
+                      method: 'get',
+                      dataType: 'json',
+                      success: function (response) {
+		                      console.log("get method successfully done");
+		                      console.log(response);
+			                      for (let i = 0; i < response[0].length; i++)
+			                      {
+			                      	donn[response[0][i].mois - 1] = response[0][i].nb;
+			                      }
+			                      for (let i = 0; i < response[1].length; i++)
+			                      {
+			                      	donn2[response[1][i].mois - 1] = response[1][i].nb;
+			                      }
+		
+		                      
+		                      new ApexCharts(document.querySelector("#columnChart"), {
+		                          series: [{
+		                              name: 'En cours',
+		                              data: donn2
+		                            },
+		                            {
+			                              name: 'Résolus',
+			                              data: donn
+			                         }
+		                            ],
+		                            chart: {
+		                              type: 'bar',
+		                              height: 350
+		                            },
+		                            plotOptions: {
+		                              bar: {
+		                                horizontal: false,
+		                                columnWidth: '55%',
+		                                endingShape: 'rounded'
+		                              },
+		                            },
+		                            dataLabels: {
+		                              enabled: false
+		                            },
+		                            stroke: {
+		                              show: true,
+		                              width: 2,
+		                              colors: ['transparent']
+		                            },
+		                            xaxis: {
+		                              categories: ['Jan','Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct','Nov','Dec'],
+		                            },
+		                            yaxis: {
+		                              title: {
+		                                text: 'Etat de signalement de la région '+nomR,
+		                              }
+		                            },
+		                            fill: {
+		                              opacity: 1
+		                            },
+		                            tooltip: {
+		                              y: {
+		                                formatter: function(val) {
+		                                  return val
+		                                }
+		                              }
+		                            }
+		                          }).render();
+                      }
+              });
+              });
+                                  
+                      
+              </script>
+              <!-- End Column Chart -->
+
+            </div>
+            </div>
+            </div>
 
         </div>
     </section>

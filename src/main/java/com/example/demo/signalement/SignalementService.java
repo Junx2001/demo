@@ -73,11 +73,17 @@ public class SignalementService {
     public List<HashMap<String, Object>> getStatParRegion() {
         List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
         List<Object[]> liste = signRepository.getStatParRegion();
+        int pourcentage = 0;
+        for (int i = 0; i < liste.size(); i++) {
+        	Object[] s = (Object[]) liste.get(i);
+        	pourcentage += (Integer) s[1];
+        }
         for (int i = 0; i < liste.size(); i++) {
             HashMap<String, Object> hm = new HashMap<String, Object>();
             Object[] s = (Object[]) liste.get(i);
             hm.put("region", s[0]);
-            hm.put("nb", s[1]);
+            int pourc = (100*(Integer)s[1])/pourcentage;
+            hm.put("nb", pourc);
             listehm.add(hm);
         }
         return listehm;
@@ -167,6 +173,36 @@ public class SignalementService {
             Object[] s = (Object[]) liste.get(i);
             hm.put("nb", s[0]);
             hm.put("mois", s[1]);
+            listehm.add(hm);
+        }
+        return listehm;
+    }
+    
+    public List<HashMap<String, Object>> getResoluParMoisParRegion(Integer annee, String idRegion) {
+        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+        List<Object[]> liste = signRepository.getResoluParMoisParRegion(annee, idRegion);
+        for (int i = 0; i < liste.size(); i++) {
+            HashMap<String, Object> hm = new HashMap<String, Object>();
+            Object[] s = (Object[]) liste.get(i);
+            hm.put("nb", s[0]);
+            hm.put("mois", s[1]);
+            hm.put("nomRegion", s[2]);
+            listehm.add(hm);
+        }
+        return listehm;
+    }
+    
+    public List<HashMap<String, Object>> getSignalementsParMoisParRegion(Integer annee, String idRegion) {
+        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+        System.out.println("ANNEEEEE: "+annee+"\nREGIOOOON: "+idRegion);
+        
+        List<Object[]> liste = signRepository.getSignalementsParMoisParRegion(annee, idRegion);
+        for (int i = 0; i < liste.size(); i++) {
+            HashMap<String, Object> hm = new HashMap<String, Object>();
+            Object[] s = (Object[]) liste.get(i);
+            hm.put("nb", s[0]);
+            hm.put("mois", s[1]);
+            hm.put("nomRegion", s[2]);
             listehm.add(hm);
         }
         return listehm;
