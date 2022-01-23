@@ -13,29 +13,20 @@ import javax.persistence.Table;
 @Table
 public class TokenMobile {
 	@Id
-	@SequenceGenerator(
-            name="seq_token_mobile",
-            sequenceName="seq_token_mobile",
-            allocationSize=1
-    )
-    @GeneratedValue(
-            strategy=GenerationType.SEQUENCE,
-            generator="seq_token_mobile"
-    )
 	private String idToken;
 	private String idUserFinal;
-	private LocalDateTime dateValidite;
+	private LocalDateTime dateExpiration;
 	public String getIdToken() {
 		return idToken;
 	}
 	public void setIdToken(String idToken) {
 		this.idToken = idToken;
 	}
-	public LocalDateTime getDateValidite() {
-		return dateValidite;
+	public LocalDateTime getDateExpiration() {
+		return dateExpiration;
 	}
-	public void setDateValidite(LocalDateTime dateValidite) {
-		this.dateValidite = dateValidite;
+	public void setDateExpiration(LocalDateTime dateExpiration) {
+		this.dateExpiration = dateExpiration;
 	}
 	public TokenMobile() {}
 	public String getIdUserFinal() {

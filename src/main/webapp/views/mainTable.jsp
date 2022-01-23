@@ -17,15 +17,15 @@
         
          	<div class="card">
                  <div class="card-body">
-						<h5 class="card-title">Voir la carte des signalements non encore affectés à une région</h5>
-						<a class="btn btn-primary" href="${baseURL}/back/signalement/carte">Carte</a>
+						<h5 class="card-title">Voir la carte des signalements non encore affectés à une région <i class="ri-map-line"></i></h5>
+						<a class="btn btn-primary" href="${baseURL}/back/signalement/carte">Carte <i class="bi bi-geo-alt"></i></a>
                   </div>
              </div>
                 
 			<div class="card">
                     <div class="card-body">
                         <!-- General Form Elements -->
-                        <h5 class="card-title">Filtrer les signalements entre 2 dates</h5>
+                        <h5 class="card-title">Filtrer les signalements entre 2 dates <i class="ri-calendar-event-fill"></i></h5>
                         
                         <form action="${baseURL}/back/signalement/recherche">
                             <div class="row mb-3">
@@ -41,9 +41,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Filtrer</button>
+                                    <button type="submit" class="btn btn-success">Filtrer <i class="ri-filter-2-fill"></i></button>
                                 </div>
                             </div>
 

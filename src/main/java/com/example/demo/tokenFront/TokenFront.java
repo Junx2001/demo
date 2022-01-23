@@ -13,15 +13,6 @@ import javax.persistence.Table;
 @Table
 public class TokenFront {
 	@Id
-	@SequenceGenerator(
-            name="seq_token_front",
-            sequenceName="seq_token_front",
-            allocationSize=1
-    )
-    @GeneratedValue(
-            strategy=GenerationType.SEQUENCE,
-            generator="seq_token_front"
-    )
 	private String idToken;
 	private String idUtilisateur;
 	private LocalDateTime dateExpiration;
@@ -31,7 +22,7 @@ public class TokenFront {
 	public void setIdToken(String idToken) {
 		this.idToken = idToken;
 	}
-	public LocalDateTime getDateValidite() {
+	public LocalDateTime getDateExpiration() {
 		return dateExpiration;
 	}
 	public void setDateExpiration(LocalDateTime dateValidite) {

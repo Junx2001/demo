@@ -1,4 +1,4 @@
-package com.example.demo.tokenFront;
+package com.example.demo.tokenMobile;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,20 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-public class TokenFrontService {
+public class TokenMobileService {
 	 @PersistenceContext
 	 private EntityManager entityManager;
 	 
-	private final TokenFrontRepository repository;
+	private final TokenMobileRepository repository;
 	
 	@Autowired
-	public TokenFrontService(TokenFrontRepository repository) {
+	public TokenMobileService(TokenMobileRepository repository) {
 		this.repository = repository;
 	}
 
-	public Optional<TokenFront> find(TokenFront tok) {
+	public Optional<TokenMobile> find(TokenMobile tok) {
 		// TODO Auto-generated method stub
-		Optional<TokenFront> u = repository.findByTokenId(tok.getIdToken());
+		Optional<TokenMobile> u = repository.findByTokenId(tok.getIdToken());
 		if (!u.isPresent()) {
 			throw new IllegalStateException("Acces non Autorisé, Token Incorrect");
 		}
@@ -35,16 +35,16 @@ public class TokenFrontService {
 	}
         
         
-        public String insertToken(String idUtil) {
+        public String insertToken(String idUser) {
 		// TODO Auto-generated method stub
-                TokenFront tok = new TokenFront();
-                String myTok = DigestUtils.sha256Hex(idUtil+"MONTOK123"+LocalDateTime.now());
-                tok.setIdToken(myTok);
-                tok.setIdUtilisateur(idUtil);
+                TokenMobile tok = new TokenMobile();
+                String valueTok = DigestUtils.sha256Hex(idUser+"THETOK123"+LocalDateTime.now());
+                tok.setIdToken(valueTok);
+                tok.setIdUserFinal(idUser);
                 tok.setDateExpiration(LocalDateTime.now());
                 
 		repository.save(tok);
-                return myTok;
+                return valueTok;
 	}
 
 	

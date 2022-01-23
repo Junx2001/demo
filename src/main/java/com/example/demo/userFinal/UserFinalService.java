@@ -55,6 +55,7 @@ public class UserFinalService {
 	        entityManager.createNativeQuery("INSERT INTO user_final"
 	        		+ " VALUES (CONCAT('U',NEXT VALUE FOR seq_user_final),?,HashBytes('SHA2_256', convert(varchar,?)))")
 	        .setParameter(1, u.getEmail())
+                        
 	        .setParameter(2, u.getMdp())
 	        .executeUpdate();
 		
