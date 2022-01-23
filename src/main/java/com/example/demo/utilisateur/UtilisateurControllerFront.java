@@ -2,6 +2,7 @@ package com.example.demo.utilisateur;
 
 import com.example.demo.tokenFront.TokenFrontService;
 import java.util.Optional;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,10 +24,10 @@ public class UtilisateurControllerFront {
 	    }
 	    
 	    @PostMapping("/login")
-	    public @ResponseBody Optional<Utilisateur> login(Utilisateur util)
+	    public @ResponseBody String login(Utilisateur util)
 	    {     
 	    	Optional<Utilisateur> u = uService.find(util);
-                tokService.insertToken(util.getIdUtilisateur());
-                return u;
+                String t = tokService.insertToken(u.get().getIdUtilisateur());
+                return "L'utilisateur Front Office avec l'email "+u.get().getEmail()+" s'est connecté\n Il obtient un token d'authentification : "+t;
 	    }
 }

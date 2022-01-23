@@ -30,6 +30,7 @@ public class SignalementControllerFront {
 	
     @GetMapping
     public List rechercheSignalementFront(
+       @RequestParam(required = false) String region,
        @RequestParam(required = false) String cat,
        @RequestParam(required = false) String sousCat,
        @RequestParam(required = false) String d1,
@@ -38,7 +39,7 @@ public class SignalementControllerFront {
        )
     {
     	
-        return signService.rechercheSignalementFront(cat,sousCat,d1,d2,etat);
+        return signService.rechercheSignalementFront(region,cat,sousCat,d1,d2,etat);
     }
     
     @GetMapping("/{signalementId}")
