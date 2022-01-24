@@ -12,7 +12,7 @@ import com.example.demo.signalement.SignalementService;
 
 
 @RestController
-@RequestMapping(path = "/front")
+@RequestMapping(path = "/front/groupements")
 public class GroupementControllerFront {
 	
 	@Autowired
@@ -21,14 +21,14 @@ public class GroupementControllerFront {
 	        this.service = service;
 	    }
 	
-	 @PutMapping(path = "/groupement/{idGroupement}")
+	 @PutMapping(path = "/{idGroupement}")
      public void updateEtatSignalement(
         @PathVariable("idGroupement") String idGroupement)
      {
          service.updateEtatGroupement(idGroupement);
      }
 	 
-	 @PostMapping("/groupement")
+	 @PostMapping
      public String insertNewGroupement(
     		@PathVariable("description")
 			@RequestParam(required = false)

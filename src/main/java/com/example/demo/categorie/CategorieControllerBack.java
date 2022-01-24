@@ -18,7 +18,7 @@ import com.example.demo.sousCategorie.SousCategorie;
 import com.example.demo.sousCategorie.SousCategorieService;
 
 @RestController
-@RequestMapping(path = "/back")
+@RequestMapping(path = "/back/categories")
 public class CategorieControllerBack {
 	
 	private final CategorieService service;
@@ -32,7 +32,7 @@ public class CategorieControllerBack {
 	@Autowired
 	private SousCategorieService sousCatService;
 	
-	@GetMapping("/categories")
+	@GetMapping
     public ModelAndView getCategories(Model model){
 		List<Categorie> listCat = service.getCategories();	
 		List<List<SousCategorie>> listeSousCat = new ArrayList<List<SousCategorie>>();
@@ -46,7 +46,7 @@ public class CategorieControllerBack {
         return new ModelAndView("template");
     }
 	
-	@PostMapping("/categorie")
+	@PostMapping
     public @ResponseBody ModelAndView registerNewCategorie( Categorie categorie,Model model){
 		try {
 			service.insertWithQuery(categorie);
@@ -69,7 +69,7 @@ public class CategorieControllerBack {
         return new ModelAndView("template");
     }
 	
-	@DeleteMapping(path = "/categorie/{categorieId}")
+	@DeleteMapping(path = "{categorieId}")
     public String deleteCategorie(@PathVariable("categorieId") String categorieId)
     {
 		try {

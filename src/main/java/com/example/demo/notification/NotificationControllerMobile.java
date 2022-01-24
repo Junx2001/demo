@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/mobile")
+@RequestMapping(path = "/mobile/notifications")
 public class NotificationControllerMobile {
 
    
@@ -32,12 +32,12 @@ public class NotificationControllerMobile {
         this.nService = nService;
     } 
 
-    @GetMapping(path = "/notifications/{util}")
+    @GetMapping(path = "/{util}")
     public List<Notification> getAllNotif(@PathVariable("util") String utilisateur) {
         return nService.findByUtil(utilisateur);
     }
     
-    @PostMapping(path = "/notification")
+    @PostMapping
     public @ResponseBody void sendNotification(String idGroupement) {
     	nService.insertNotification(idGroupement);
     }

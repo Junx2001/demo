@@ -27,7 +27,7 @@
 		<div id="exception"></div>
 		<div class="card-body">
               <h5 class="card-title">Ajouter une categorie</h5>
-	              <form class="row g-3" action="${baseURL}/back/categorie" method="post">
+	              <form class="row g-3" action="${baseURL}/back/categories" method="post">
 	                <div class="col-md-6">
 	                  <input type="text" class="form-control" placeholder="Designation" name="label">
 	                </div>
@@ -46,7 +46,7 @@
               <h5 class="card-title">Ajouter un sous-categorie</h5>
 
               <!-- No Labels Form -->
-              <form class="row g-3" action="${baseURL}/back/sousCategorie" method="post">
+              <form class="row g-3" action="${baseURL}/back/sousCategories" method="post">
                 <div class="col-md-6">
                   <input type="text" class="form-control" placeholder="Designation" name="label">
                 </div>
@@ -99,7 +99,7 @@
            }, 1000); 
 			console.log(idCat);
 			$.ajax({
-	            url: baseUrl + '/back/categorie/' + idCat,
+	            url: baseUrl + '/back/categories/' + idCat,
 	            method: 'delete',
 	            dataType: 'json',
 	            success: function (response) {
@@ -116,7 +116,7 @@
            }, 1000); 
 			console.log(idSousCat);
 			$.ajax({
-	            url: baseUrl + '/back/sousCategorie/' + idSousCat,
+	            url: baseUrl + '/back/sousCategories/' + idSousCat,
 	            method: 'delete',
 	            dataType: 'json',
 	            success: function (response) {

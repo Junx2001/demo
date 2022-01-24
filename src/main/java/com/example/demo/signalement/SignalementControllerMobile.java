@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/mobile/signalement")
+@RequestMapping(path = "/mobile/signalements")
 public class SignalementControllerMobile {
 
     @Autowired

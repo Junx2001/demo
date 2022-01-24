@@ -37,7 +37,7 @@
                     <td>${utilisateur.idUtilisateur}</td>
                     <td>${utilisateur.email}</td>
                     <td>${utilisateur.nomRegion}</td>
-                    <td><a class="btn btn-warning" href="${baseURL}/back/utilisateur/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier <i class="ri-edit-2-line"></i></a></td>
+                    <td><a class="btn btn-warning" href="${baseURL}/back/utilisateurs/formulaireUpdate?idUtil=${utilisateur.idUtilisateur}">Modifier <i class="ri-edit-2-line"></i></a></td>
                     <td><button class="btn btn-danger" onclick="deleteUtil('${utilisateur.idUtilisateur}')">Supprimer <i class="ri-delete-bin-5-line"></i></button></td>
                   </tr>
                   </c:forEach>
@@ -56,7 +56,7 @@
     <div class="container">
   <div class="row">
     <div class="col">
-      <a class="btn btn-success" type="button" href="${baseURL}/back/utilisateur/formulaireInsert">Ajouter un nouvel utilisateur <i class="ri-user-add-fill"></i></a>
+      <a class="btn btn-success" type="button" href="${baseURL}/back/utilisateurs/formulaireInsert">Ajouter un nouvel utilisateur <i class="ri-user-add-fill"></i></a>
     </div>
     <div class="col">
       
@@ -74,7 +74,7 @@
                 location.reload(); 
            }, 1000); 
     		$.ajax({
-	            url: '${baseURL}/back/utilisateur/' + idUtil,
+	            url: '${baseURL}/back/utilisateurs/' + idUtil,
 	            method: 'delete',
 	            dataType: 'json',
 	            success: function (response) {

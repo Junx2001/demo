@@ -89,7 +89,7 @@
            }, 2000);
      	 
 			$.ajax({
-	            url: '${baseURL}/back/utilisateur/'+idUtil,
+	            url: '${baseURL}/back/utilisateurs/'+idUtil,
 	            method: 'put',
 	            data: {email: email, mdp:mdp, idRegion:idRegion},
 	            dataType: 'json',
