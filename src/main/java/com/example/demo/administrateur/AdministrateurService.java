@@ -27,7 +27,7 @@ public class AdministrateurService {
 
     public Optional<Administrateur> find(Administrateur adm) {      
     	if (!Fonction.verifEmail(adm.getEmail())) {
-    		throw new IllegalStateException("Le syntaxe de votre email est incorrect");
+    		throw new IllegalStateException("La syntaxe de votre email est incorrect");
 		 }
     	if (!Fonction.verifMdp(adm.getMdp())) {
     		throw new IllegalStateException("Votre mot de passe doit contenir 8 caratères et aucun accent");

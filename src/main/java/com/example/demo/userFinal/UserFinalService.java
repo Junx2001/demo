@@ -29,7 +29,7 @@ public class UserFinalService {
 	public Optional<UserFinal> find(UserFinal util) {
 		// TODO Auto-generated method stub
 		if (!Fonction.verifEmail(util.getEmail())) {
-    		throw new IllegalStateException("Le syntaxe de votre email est incorrect");
+    		throw new IllegalStateException("La syntaxe de votre email est incorrect");
 		}
 		if (!Fonction.verifMdp(util.getMdp())) {
     		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");
@@ -45,7 +45,7 @@ public class UserFinalService {
 	@Transactional
 	public void insertWithQuery(UserFinal u) {
 		if (!Fonction.verifEmail(u.getEmail())) {
-    		throw new IllegalStateException("Le syntaxe de l'email doit être de la forme xxx@xxx.xx");
+    		throw new IllegalStateException("La syntaxe de l'email doit être de la forme xxx@xxx.xx");
 		}
 		if (!Fonction.verifMdp(u.getMdp())) {
     		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");

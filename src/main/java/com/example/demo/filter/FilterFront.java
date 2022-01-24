@@ -53,6 +53,7 @@ public class FilterFront implements Filter {
             TokenFront t = new TokenFront();
             t.setIdToken(monTok);
             Optional<TokenFront> token = tserv.find(t);
+            request.setAttribute("token", token);
             chain.doFilter(request, response);
 
         }

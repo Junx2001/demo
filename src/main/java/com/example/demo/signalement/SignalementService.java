@@ -242,12 +242,8 @@ public class SignalementService {
     }
 
     public List rechercheSignalementFront(String region,String cat, String sousCat, String d1, String d2, String etat) {
-        String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null ";
+        String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null AND idRegion = '"+region+"'";
         
-        if (region != null) {
-            sql += " AND ";
-            sql += "idRegion = '" + region + "'";
-        }
         if (cat != null) {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";

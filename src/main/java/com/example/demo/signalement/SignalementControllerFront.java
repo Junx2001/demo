@@ -1,5 +1,8 @@
 package com.example.demo.signalement;
 
+import com.example.demo.tokenFront.TokenFront;
+import com.example.demo.utilisateur.Utilisateur;
+import com.example.demo.utilisateur.UtilisateurService;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 
 
 
@@ -23,6 +28,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SignalementControllerFront {
 	@Autowired
 	private  SignalementService signService;
+        
+        @Autowired
+	private  UtilisateurService uService;
 	
 	public SignalementControllerFront(SignalementService signService) {
 	    this.signService = signService;
@@ -30,16 +38,18 @@ public class SignalementControllerFront {
 	
     @GetMapping("/signalements")
     public List rechercheSignalementFront(
-       @RequestParam(required = false) String region,
        @RequestParam(required = false) String cat,
        @RequestParam(required = false) String sousCat,
        @RequestParam(required = false) String d1,
        @RequestParam(required = false) String d2,
-       @RequestParam(required = false) String etat
+       @RequestParam(required = false) String etat,
+       HttpServletRequest request
        )
     {
-    	
-        return signService.rechercheSignalementFront(region,cat,sousCat,d1,d2,etat);
+    	Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
+        TokenFront tok = otok.get();
+        Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
+        return signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
     }
     
     @GetMapping("/signalement/{signalementId}")
