@@ -33,16 +33,16 @@ public interface SignalementRepository
     @Query(nativeQuery = true, value="select count(*) as nb,MONTH(date_resolu) as mois from groupement where YEAR(date_resolu)=?1 and etat=1 group by MONTH(date_resolu)")
     List<Object[]> getStatParMois(Integer annee);
     
-    @Query(nativeQuery = true, value="select count(*) as nb,MONTH(date_resolu) as mois,  r.nom as nomRegion  from groupement g join region r on r.id_region=g.region where YEAR(date_resolu)=?1 and etat=1 and region=?2 group by MONTH(date_resolu), r.nom")
-    List<Object[]> getResoluParMoisParRegion(Integer annee, String idRegion);
+    @Query(nativeQuery = true, value="select count(*) as nb,MONTH(date_resolu) as mois,  r.nom as nomRegion  from groupement g join region r on r.id_region=g.region where  etat=1 and region=?1 group by MONTH(date_resolu), r.nom")
+    List<Object[]> getResoluParMoisParRegion(String idRegion);
 
     @Query(nativeQuery = true, value="select count(*) as nb,MONTH(s.date_signalement) as mois ,  r.nom as nomRegion  from signalement s "
     		+ "join region r on s.region=r.id_region "
     		+ "left join groupement g on g.id_groupement=s.id_groupement "
     		+ "where (g.etat=0 or s.id_groupement is null) "
-    		+ "and YEAR(s.date_signalement)=?1 and s.region=?2 "
+    		+ "and s.region=?1 "
     		+ "group by MONTH(s.date_signalement), r.nom ")
-    List<Object[]> getSignalementsParMoisParRegion(Integer annee, String idRegion);
+    List<Object[]> getSignalementsParMoisParRegion( String idRegion);
 
     
     @Query(nativeQuery = true, value="select * from detailsSignalement where (etat!=1 or etat is null) and dateSignalement >=?1 and dateSignalement <=?2  ")

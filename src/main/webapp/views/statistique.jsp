@@ -236,8 +236,7 @@
 		<div class="col-lg-6">
            <div class="card">
 			<div class="card-body">
-              <h5 class="card-title">Statistique de signalements par région par année</h5>
-                        Choisir une année : <input type="number" class="form-control" id="annee2"><br>
+              <h5 class="card-title">Statistique de signalements par région </h5>
                         Choisir une région:  <select id="idRegion2" class="form-select">
 						                        <c:forEach  items="${regions}" var ="region"  >
 						                            <option value="${region.idRegion}.${region.nom}">${region.nom}</option>
@@ -310,7 +309,6 @@
 		      
               <script>
               var baseUrl = "";
-              var annee = "";
               var idRegion = "";
               var donn = [];
               var donn2 = [];
@@ -319,16 +317,14 @@
               donn = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
               donn2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
               baseUrl = $('#url').val();
-              annee = $('#annee2').val();
               var region = $('#idRegion2').val().split(".");
               idRegion = region[0];
               var nomR = region[1];
               console.log(baseUrl);
-              console.log(annee);
               console.log(idRegion);
               console.log(nomR);
               $.ajax({
-              		url: baseUrl + '/back/signalements/statParMoisParRegion/' + annee+'/'+idRegion,
+              		url: baseUrl + '/back/signalements/statParMoisParRegion/' +idRegion,
                       method: 'get',
                       dataType: 'json',
                       success: function (response) {

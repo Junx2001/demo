@@ -6,19 +6,15 @@
 package com.example.demo.signalement;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,17 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import lombok.var;
 
 
-/**
- *
- * @author ratsi
- */
-@CrossOrigin("localhost:8080")
 @RestController
 @RequestMapping(path = "/mobile/signalements")
 public class SignalementControllerMobile {
@@ -46,22 +33,19 @@ public class SignalementControllerMobile {
     @Autowired
     private SignalementService signService;
 
-    public SignalementControllerMobile(SignalementService signService) {
+    /*public SignalementControllerMobile(SignalementService signService) {
         this.signService = signService;
-    }
+    }*/
     
-	@Autowired
-    private StorageService storageService;
-	
-	
-	
 	private String uploadLocation;
 	
 	
 	public SignalementControllerMobile(@Value("${upload.location}") String uploadLocation) throws IOException {
 		super();
 		this.uploadLocation = uploadLocation;
-		Path uploadPath = Paths.get(uploadLocation);
+		System.out.println(System.getProperty("user.dir")+"/"+uploadLocation);
+		
+		Path uploadPath = Paths.get(System.getProperty("user.dir")+"/"+uploadLocation);
 		if(!Files.exists(uploadPath)) {
 			Files.createDirectory(uploadPath);
 		}

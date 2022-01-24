@@ -71,11 +71,11 @@ public class SignalementControllerBack  {
                 return signService.getStatParMois(annee);
             }
             
-            @GetMapping("/statParMoisParRegion/{annee}/{idRegion}")
-            public List<List<HashMap<String,Object>>> statParMoisParRegion( @PathVariable("annee") Integer annee,  @PathVariable("idRegion") String idRegion){
+            @GetMapping("/statParMoisParRegion/{idRegion}")
+            public List<List<HashMap<String,Object>>> statParMoisParRegion(  @PathVariable("idRegion") String idRegion){
                 List<List<HashMap<String,Object>>> liste = new ArrayList<List<HashMap<String,Object>>>();
-                liste.add(signService.getResoluParMoisParRegion(annee,idRegion));
-                liste.add(signService.getSignalementsParMoisParRegion(annee, idRegion));
+                liste.add(signService.getResoluParMoisParRegion(idRegion));
+                liste.add(signService.getSignalementsParMoisParRegion(idRegion));
                 return liste;
             }
             

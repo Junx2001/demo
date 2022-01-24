@@ -178,9 +178,9 @@ public class SignalementService {
         return listehm;
     }
     
-    public List<HashMap<String, Object>> getResoluParMoisParRegion(Integer annee, String idRegion) {
+    public List<HashMap<String, Object>> getResoluParMoisParRegion(String idRegion) {
         List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
-        List<Object[]> liste = signRepository.getResoluParMoisParRegion(annee, idRegion);
+        List<Object[]> liste = signRepository.getResoluParMoisParRegion( idRegion);
         for (int i = 0; i < liste.size(); i++) {
             HashMap<String, Object> hm = new HashMap<String, Object>();
             Object[] s = (Object[]) liste.get(i);
@@ -192,11 +192,11 @@ public class SignalementService {
         return listehm;
     }
     
-    public List<HashMap<String, Object>> getSignalementsParMoisParRegion(Integer annee, String idRegion) {
+    public List<HashMap<String, Object>> getSignalementsParMoisParRegion( String idRegion) {
         List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
-        System.out.println("ANNEEEEE: "+annee+"\nREGIOOOON: "+idRegion);
+        System.out.println("nREGIOOOON: "+idRegion);
         
-        List<Object[]> liste = signRepository.getSignalementsParMoisParRegion(annee, idRegion);
+        List<Object[]> liste = signRepository.getSignalementsParMoisParRegion( idRegion);
         for (int i = 0; i < liste.size(); i++) {
             HashMap<String, Object> hm = new HashMap<String, Object>();
             Object[] s = (Object[]) liste.get(i);
