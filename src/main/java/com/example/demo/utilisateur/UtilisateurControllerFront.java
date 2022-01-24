@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/front")
+@RequestMapping(path = "/front/utilisateurs")
 public class UtilisateurControllerFront {
 	 @Autowired
 	 private UtilisateurService uService;
@@ -30,7 +30,7 @@ public class UtilisateurControllerFront {
 	        this.uService = uService;
 	    }
 	    
-	    @PostMapping("/utilisateur/login")
+	    @PostMapping("/login")
 	    public @ResponseBody String login(Utilisateur util)
 	    {     
 	    	Optional<Utilisateur> u = uService.find(util);

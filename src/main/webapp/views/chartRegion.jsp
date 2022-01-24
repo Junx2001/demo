@@ -182,7 +182,7 @@
                                                 var region = $('#idRegion').val();\
                                                 setTimeout(() => {location.reload();}, 3000);\
                                                 $.ajax({\
-                                                    url: baseUrl + '/back/signalement/' + sign,\
+                                                    url: baseUrl + '/back/signalements/' + sign,\
                                                     method: 'put',\
                                                     data: {region: region},\
                                                     dataType: 'json',\

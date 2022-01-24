@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
-@RequestMapping(path = "/front")
+@RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
 	@Autowired
 	private  SignalementService signService;
@@ -28,7 +28,7 @@ public class SignalementControllerFront {
 	    this.signService = signService;
 	}
 	
-    @GetMapping("/signalements")
+    @GetMapping
     public List rechercheSignalementFront(
        @RequestParam(required = false) String region,
        @RequestParam(required = false) String cat,
@@ -42,25 +42,25 @@ public class SignalementControllerFront {
         return signService.rechercheSignalementFront(region,cat,sousCat,d1,d2,etat);
     }
     
-    @GetMapping("/signalement/{signalementId}")
+    @GetMapping("/{signalementId}")
     public HashMap<String,Object> ficheSignalement(
     		@PathVariable("signalementId") String idSignalement)
     {
     	return signService.getFicheSignalement(idSignalement);
     }
 
-	@GetMapping("/signalements/region/{regionId}")
+	@GetMapping("/region/{regionId}")
 	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion) {
 	    	return signService.getSignalementsByRegion(idRegion);
 	    }
 	
-	@GetMapping("/signalements/{idUtilisateur}")
+	@GetMapping("/{idUtilisateur}")
     public List<HashMap<String, Object>> signalementsUtilisateurRegion(@PathVariable("idUtilisateur") String idUtilisateur) {
     	return signService.getSignalementsByUtilisateur(idUtilisateur);
     }
 		 
 		
-		@PutMapping("/signalement/ajout/")
+		@PutMapping
 		public String ajouterAUnGroupement(Model model,
 				@PathVariable("idGroupement")
 				@RequestParam(required = false)

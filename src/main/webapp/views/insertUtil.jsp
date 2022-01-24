@@ -27,7 +27,7 @@
                         <!-- General Form Elements -->
                         <h5 class="card-title">Entrer les Informations de l'Utilisateur Front Office à insérer</h5>
 
-                        <form action="${baseURL}/back/utilisateur" oninput='up2.setCustomValidity(up2.value != mdp.value ? "Passwords do not match." : "")' method="post">
+                        <form action="${baseURL}/back/utilisateurs" oninput='up2.setCustomValidity(up2.value != mdp.value ? "Passwords do not match." : "")' method="post">
                             <div class="row mb-3">
                                 <label for="email" class="col-sm-2 col-form-label">Email </label>
                                 <div class="col-sm-10">

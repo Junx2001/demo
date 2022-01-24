@@ -5,7 +5,7 @@
         <h1>Fiche du signalement</h1>
         <nav>
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="${baseURL}/back/signalements">Liste</a></li>
+               <li class="breadcrumb-item"><a href="${baseURL}/back/signalementss">Liste</a></li>
                <li class="breadcrumb-item active">Fiche</li>
              </ol>
          </nav>
@@ -135,7 +135,7 @@
        }, 2000); 
         
         $.ajax({
-            url: baseUrl + '/back/signalement/' + sign,
+            url: baseUrl + '/back/signalements/' + sign,
             method: 'put',
             data: {region: region},
             dataType: 'json',

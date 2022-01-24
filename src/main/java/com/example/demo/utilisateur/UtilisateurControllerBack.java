@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/back")
+@RequestMapping(path = "/back/utilisateurs")
 public class UtilisateurControllerBack {
 
     @Autowired
@@ -40,7 +40,7 @@ public class UtilisateurControllerBack {
     @Autowired
     private RegionService regService;
 
-    @PostMapping("/utilisateur")
+    @PostMapping
     public @ResponseBody ModelAndView insertWithQuery(Model model, Utilisateur u) {
         System.out.println(u.getEmail());
         System.out.println(u.getMdp());
@@ -57,21 +57,21 @@ public class UtilisateurControllerBack {
 		return new ModelAndView("template");
     }
 
-    @GetMapping("/utilisateurs/formulaireInsert")
+    @GetMapping("/formulaireInsert")
     public ModelAndView formulaireInsert(Model model) {
     	model.addAttribute("regions",regService.getRegions());
         model.addAttribute("maPage", "insertUtil");
         return new ModelAndView("template");
     }
 
-    @GetMapping("/utilisateurs")
+    @GetMapping
     public ModelAndView listeUtil(Model model) {
         model.addAttribute("maPage", "listUtil");
         model.addAttribute("utilisateurs", uService.getUtilisateurs());
         return new ModelAndView("template");
     }
     
-    @GetMapping("/utilisateur/formulaireUpdate")
+    @GetMapping("/formulaireUpdate")
     public ModelAndView updateUtil(Model model,@RequestParam(required = true) String idUtil,@RequestParam(required = false) String reponse) {
         model.addAttribute("maPage", "editUtil");
         model.addAttribute("regions",regService.getRegions());
@@ -82,7 +82,7 @@ public class UtilisateurControllerBack {
         return new ModelAndView("template");
     }
     
-    @PutMapping(path = "/utilisateur/{idUtilisateur}")
+    @PutMapping(path = "/{idUtilisateur}")
         public void updateUtilisateur(
            @PathVariable("idUtilisateur") String idUtil,
            @RequestParam(required = false) String email,
@@ -95,7 +95,7 @@ public class UtilisateurControllerBack {
             uService.updateUtil(idUtil,email,mdp,idRegion);
         }
         
-    @DeleteMapping(path = "/utilisateur/{idUtilisateur}")
+    @DeleteMapping(path = "/{idUtilisateur}")
         public void deleteUtilisateur(
            @PathVariable("idUtilisateur") String idUtil)
         {
