@@ -69,7 +69,7 @@
                     <p class="text-center small">Entrer votre email & votre mot de passe pour vous connecter</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate action="${baseURL}/back/administrateur/login" method="post">
+                  <form class="row g-3 needs-validation" novalidate action="${baseURL}/back/administrateurs/login" method="post">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Emaill</label>

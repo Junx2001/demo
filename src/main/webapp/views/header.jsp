@@ -41,7 +41,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${baseURL}/back/administrateur/logout">
+              <a class="dropdown-item d-flex align-items-center" href="${baseURL}/back/administrateurs/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Se deconnecter</span>
               </a>

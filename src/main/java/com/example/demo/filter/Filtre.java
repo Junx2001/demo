@@ -33,7 +33,7 @@ public class Filtre implements Filter {
         	String baseURL = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
         	System.out.println("CONTEXT PATH: "+baseURL);
         	
-        	res.sendRedirect(baseURL+"/back/administrateur/login");
+        	res.sendRedirect(baseURL+"/back/administrateurs/login");
         }
         chain.doFilter(request, response);
        

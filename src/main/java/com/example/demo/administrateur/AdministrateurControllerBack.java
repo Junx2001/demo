@@ -25,7 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
  * @author ratsi
  */
 @RestController
-@RequestMapping(path = "/back")
+@RequestMapping(path = "/back/administrateurs")
 @SessionAttributes({"administrateur"})
 public class AdministrateurControllerBack {
     	@Autowired
@@ -37,12 +37,12 @@ public class AdministrateurControllerBack {
 		@Autowired
 		private  SignalementService signService;
 		 
-		 @GetMapping("/administrateur/login")
+		 @GetMapping("/login")
 		 public ModelAndView getSignalement(Model model){
 		    return new ModelAndView("login");
 		 }
 
-		 @PostMapping("/administrateur/login")
+		 @PostMapping("/login")
          public @ResponseBody ModelAndView login(Administrateur adm, Model model)
          {
 				try {
@@ -58,7 +58,7 @@ public class AdministrateurControllerBack {
 				}
          }
          
-        @GetMapping("/administrateur/logout")
+        @GetMapping("/logout")
         public ModelAndView logout(SessionStatus status,Model model)
         {
             status.setComplete();
