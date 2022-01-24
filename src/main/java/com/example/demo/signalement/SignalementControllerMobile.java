@@ -5,8 +5,21 @@
  */
 package com.example.demo.signalement;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +27,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import lombok.var;
+
 
 /**
  *
  * @author ratsi
  */
+@CrossOrigin("localhost:8080")
 @RestController
 @RequestMapping(path = "/mobile/signalements")
 public class SignalementControllerMobile {
@@ -29,8 +49,25 @@ public class SignalementControllerMobile {
     public SignalementControllerMobile(SignalementService signService) {
         this.signService = signService;
     }
-
-    @GetMapping(path = "{util}")
+    
+	@Autowired
+    private StorageService storageService;
+	
+	
+	
+	private String uploadLocation;
+	
+	
+	public SignalementControllerMobile(@Value("${upload.location}") String uploadLocation) throws IOException {
+		super();
+		this.uploadLocation = uploadLocation;
+		Path uploadPath = Paths.get(uploadLocation);
+		if(!Files.exists(uploadPath)) {
+			Files.createDirectory(uploadPath);
+		}
+	}
+    
+	@GetMapping(path = "{util}")
     public List rechercheSignalementMobile(
             @PathVariable("util") String utilisateur,
             @RequestParam(required = false) String cat,
@@ -42,12 +79,38 @@ public class SignalementControllerMobile {
 
         return signService.rechercheSignalementMobile(utilisateur, cat, sousCat, d1, d2, etat);
     }
-
-    @PostMapping
-    public @ResponseBody
-    void envoiSignalement(
-            Signalement s
-    ) {
-        signService.addSignalement(s);
+	
+	
+	@PostConstruct
+    public void init() {
+        try {
+            Files.createDirectories(Paths.get(System.getProperty("user.dir")+"/"+uploadLocation));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create upload folder!");
+        }
     }
+	
+    @PostMapping("/upload")
+    public @ResponseBody void envoiSignalement(
+            Signalement s,
+            @RequestParam("image") MultipartFile file
+       ) throws IOException
+    {
+    	s.setNomImage(file.getOriginalFilename());
+        signService.addSignalement(s);
+    	System.out.println(s.getLatitude());
+        try {
+            Path root = Paths.get(System.getProperty("user.dir")+"/"+uploadLocation);
+            if (!Files.exists(root)) {
+                init();
+            }
+            Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+        } catch (Exception e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        } 
+    
+    }
+    
+    
+    
 }
