@@ -72,7 +72,7 @@
                   <form class="row g-3 needs-validation" novalidate action="${baseURL}/back/administrateurs/login" method="post">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Emaill</label>
+                      <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="email" class="form-control" id="yourUsername" required>
