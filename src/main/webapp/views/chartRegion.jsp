@@ -7,6 +7,9 @@
         height: 600px;
         width: 100%;
     }
+    .popover{
+	    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+	}
 </style>
 <%-- <script src="${baseURL}/views/assets/v6.10.0-dist/ol.js"></script> --%>
 <title></title>
@@ -16,10 +19,6 @@
 
     </div>
 </div>
-<!--  <div id="popup" class="ol-popup" >
-    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    <div id="popup-content" class="col-lg-3"></div>
-</div> -->
 </div>
 
 <script>
@@ -29,6 +28,7 @@
             target: 'map',
             layers: [
                 new ol.layer.Tile({
+                	maxZoom: 14,
                     source: new ol.source.OSM()
                 })
             ],
@@ -47,11 +47,10 @@
         var listeSignalement = [];
         var cordLayer = [];
         var i = 0;
-        //console.log("${signalements}");
 	let temp;
     <c:forEach  items="${signalements}" var ="signalement">
     temp = "<div class=\"card\"> \
-        <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
+        <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" height=\"200\"  class=\"card-img-top\" alt=\"...\"> \
         <input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
         <div class=\"card-body\"> \
      <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
@@ -64,13 +63,12 @@
      <select name=\"idRegion\" id=\"idRegion\" class=\"form-select\">";
 
 	<c:forEach  items="${regions}" var ="region">
-	temp += "<option value=\"${region.idRegion}\">${region.nom}</option>";
+	temp += '<option value="${region.idRegion}">${region.nom}</option>'
 	</c:forEach>
 	
-	temp += "</select> \
-	     <button  type=\"button\" class=\"btn btn-info\" id=\"bouton\">Affecter</button> \
-	     </div>";
-    console.log(temp);
+	temp += '</select> '+
+	  '<button  type="button" class="btn btn-info" id="bouton">Affecter</button> '+
+	  '</div>';
         listeSignalement[i] = "${signalement}";
         cordLayer[i] = event.coordinate;
         var coord = ol.proj.fromLonLat([${signalement.longitude}, ${signalement.latitude}]);
@@ -80,6 +78,7 @@
                 features: [new ol.Feature({
                     geometry : new ol.geom.Point(coord),
                     contenu: temp,
+                    coordinate: coord,
                     })]
             }),
 
@@ -94,17 +93,6 @@
                     }),
                   })
              ],
-            // style: [
-            //   new ol.style.Style({
-            //     stroke: new ol.style.Stroke({
-            //       color: 'blue',
-            //       width: 3
-            //     }),
-            //     fill: new ol.style.Fill({
-            //       color: 'rgba(0, 0, 255, 0.1)'
-            //     })
-            //   })
-            // ]
         });
 
         map.addLayer(listeLayer[i]);
@@ -115,7 +103,6 @@
     map.on('pointermove', function (e) {
     	  const pixel = map.getEventPixel(e.originalEvent);
     	  const hit = map.hasFeatureAtPixel(pixel);
-    	  map.getTarget().style.cursor = hit ? 'pointer' : '';
     	});
 
     const element = document.getElementById('popup');
@@ -133,6 +120,11 @@
       return feature;
     });
     if (feature) {
+    	/*map.getView().animate({
+      	  center: feature.get('coordinate'),
+      	  duration: 250,
+      	  zoom: map.getView().getZoom()+2,
+            });*/
       popup.setPosition(evt.coordinate);
       var newScript = document.createElement("script");
       var inlineScript = document.createTextNode("$('#bouton').click(function () {\
@@ -153,11 +145,32 @@
                   });");
       newScript.appendChild(inlineScript);
       container.appendChild(newScript);
+      var contentType = feature.get('contenu');
       $(element).popover({
-        placement: 'right',
+        placement: function (context, source) {
+            var position = $(source).position();
+    
+            if (position.left < 280) {
+                return "right";
+            }
+            if (position.bot < 280) {
+                return "top";
+            }
+    
+            if (position.top < 280){
+                return "bottom";
+            }
+            
+            else {
+                return "left";
+            }
+        },
         html: true,
-        content: feature.get('contenu'),
+        sanitize: false,
+        content: contentType,
       });
+      
+      $(element).popover('update')
       $(element).popover('show');
     } else {
       $(element).popover('dispose');
@@ -168,135 +181,6 @@
     	  $(element).popover('dispose');
     	});
 
-
-        /*var marker = new ol.layer.Vector({
-         source: new ol.source.Vector({
-         features: [
-         new ol.Feature({
-         geometry: new ol.geom.Point(ol.proj.fromLonLat([47.50792, -18.8792]))
-         })
-         ]
-         })
-         });*/
-        //map.addLayer(layer);
-
-        //map.addLayer(marker);
-        /*var overlay = new ol.Overlay({
-            element: content,
-            autoPan: false,
-            autoPanAnimation: {
-                duration: 250
-            }
-        });
-        map.addOverlay(overlay);
-
-        closer.onclick = function () {
-            overlay.setPosition(undefined);
-            closer.blur();
-            return false;
-        };*/
-        //console.log(listeLayer[0].getSource().getFeatures());
-        /*map.getView().on('change:resolution', function (evt) {
-
-            var resolution = evt.target.get(evt.key),
-                    resolution_constant = 40075016.68557849,
-                    tile_pixel = 256;
-
-            var result_resol_const_tile_px = resolution_constant / tile_pixel / resolution;
-
-            var currentZoom = Math.log(result_resol_const_tile_px) / Math.log(2);
-            console.info(currentZoom, resolution);
-
-            //now find your features and apply radius
-            if (resolution > 15000) {
-                for (let l = 0; l < listeLayer.length; l++) {
-                    listeLayer[l].getSource().forEachFeature(function (feature) {
-                        console.log(feature);
-                        //feature.getStyle().getGeometry().setRadius(100000);
-                    });
-                    //feature.getStyle().getGeometry().setRadius(100000);
-                }
-            } else if (resolution <= 15000 && resolution > 6000) {
-                for (let l = 0; l < listeLayer.length; l++) {
-                    listeLayer[l].getSource().forEachFeature(function (feature) {
-                        feature.getStyle().getGeometry().setRadius(30000);
-                    });
-                    //feature.getStyle().getGeometry().setRadius(100000);
-                }
-            }
-        });*/
-
-        /*map.on('singleclick', function (event) {
-
-            if (map.hasFeatureAtPixel(event.pixel) === true) {
-                var feature = map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
-                    var coordinate = event.coordinate;
-                    for (let j = 0; j < listeLayer.length; j++) {
-                        if (layer === listeLayer[j]) {
-
-                            var k = 0;
-    <c:forEach  items="${signalements}" var ="signalement">
-
-                            if (k == j) {
-                                var lfeture = map.getFeaturesAtPixel(event.pixel);
-                                let temp = "<div class=\"card\"> \
-                                        <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
-                                        <input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
-                                        <div class=\"card-body\"> \
-                                     <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
-                                     <p class=\"card-text\">Description: ${signalement.description}</p> \
-                                     <p class=\"card-text\">Date: ${signalement.dateSignalement}</p> \
-                                     <hr> \
-                                     <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
-                                     <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
-                                     <hr> \
-                                     <select name=\"idRegion\" id=\"idRegion\" class=\"form-select\">";
-
-        <c:forEach  items="${regions}" var ="region">
-                                temp += "<option value=\"${region.idRegion}\">${region.nom}</option>";
-        </c:forEach>
-
-                                temp += "</select> \
-                                     <button  type=\"button\" class=\"btn btn-info\" id=\"bouton\">Affecter</button> \
-                                     </div>";
-                                content.innerHTML = temp;
-                                overlay.setPosition(coordinate);
-
-                                var newScript = document.createElement("script");
-                                var inlineScript = document.createTextNode("$('#bouton').click(function () {\
-                                                var baseUrl = $('#url').val();\
-                                                var sign = $('#idSignalement').html();\
-                                                var region = $('#idRegion').val();\
-                                                setTimeout(() => {location.reload();}, 3000);\
-                                                $.ajax({\
-                                                    url: baseUrl + '/back/signalement/' + sign,\
-                                                    method: 'put',\
-                                                    data: {region: region},\
-                                                    dataType: 'json',\
-                                                    success: function (response) {\
-                                                        console.log(\"put method successfully done\");\
-                                                        console.log(response);\
-                                                    }\
-                                                });\
-                                            });");
-                                newScript.appendChild(inlineScript);
-                                container.appendChild(newScript);
-                            }
-                            k++;
-
-    </c:forEach>
-
-                        }
-                    }
-                });
-
-
-
-            } else {
-                overlay.setPosition(undefined);
-                closer.blur();
-            }
-        });*/
 
     }
 </script>
