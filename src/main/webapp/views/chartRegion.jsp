@@ -38,9 +38,7 @@
             })
         });
 
-        var container = document.getElementById('popup');
-        var content = document.getElementById('popup-content');
-        var closer = document.getElementById('popup-closer');
+        var container = document.getElementById('map');
 
 
         var listeLayer = [];
@@ -67,6 +65,9 @@
 	</c:forEach>
 	
 	temp += '</select> '+
+	'<div id="spinner" class="spinner-border" role="status" style="display:none;">'+
+	'<span class="visually-hidden">Chargement...</span>'+
+	'</div><hr>'+
 	  '<button  type="button" class="btn btn-info" id="bouton">Affecter</button> '+
 	  '</div>';
         listeSignalement[i] = "${signalement}";
@@ -127,25 +128,7 @@
       	  zoom: map.getView().getZoom()+2,
             });*/
       popup.setPosition(evt.coordinate);
-      var newScript = document.createElement("script");
-      var inlineScript = document.createTextNode("$('#bouton').click(function () {\
-                      var baseUrl = $('#url').val();\
-                      var sign = $('#idSignalement').html();\
-                      var region = $('#idRegion').val();\
-                      setTimeout(() => {location.reload();}, 3000);\
-                      $.ajax({\
-                          url: baseUrl + '/back/signalement/' + sign,\
-                          method: 'put',\
-                          data: {region: region},\
-                          dataType: 'json',\
-                          success: function (response) {\
-                              console.log(\"put method successfully done\");\
-                              console.log(response);\
-                          }\
-                      });\
-                  });");
-      newScript.appendChild(inlineScript);
-      container.appendChild(newScript);
+     
       var contentType = feature.get('contenu');
       $(element).popover({
         placement: function (context, source) {
@@ -173,6 +156,27 @@
       
       $(element).popover('update')
       $(element).popover('show');
+      var newScript = document.createElement("script");
+      var inlineScript = document.createTextNode("$('#bouton').click(function () {\
+                      var baseUrl = $('#url').val();\
+                      var sign = $('#idSignalement').html();\
+                      var region = $('#idRegion').val();\
+                      var spinner=$('#spinner');\
+                	  spinner.show();\
+                      setTimeout(() => {spinner.hide();location.reload();}, 3000);\
+                      $.ajax({\
+                          url: baseUrl + '/back/signalements/' + sign,\
+                          method: 'put',\
+                          data: {region: region},\
+                          dataType: 'json',\
+                          success: function (response) {\
+                              console.log(\"put method successfully done\");\
+                              console.log(response);\
+                          }\
+                      });\
+                  });");
+      newScript.appendChild(inlineScript);
+      container.appendChild(newScript);
     } else {
       $(element).popover('dispose');
     }
