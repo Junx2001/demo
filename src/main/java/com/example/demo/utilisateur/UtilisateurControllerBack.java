@@ -73,7 +73,10 @@ public class UtilisateurControllerBack {
     
     @GetMapping("/formulaireUpdate")
     public ModelAndView updateUtil(Model model,@RequestParam(required = true) String idUtil,@RequestParam(required = false) String reponse) {
-        model.addAttribute("maPage", "editUtil");
+        Utilisateur util = uService.getUtilisateurById(idUtil);
+        
+    	model.addAttribute("util", util);
+    	model.addAttribute("maPage", "editUtil");
         model.addAttribute("regions",regService.getRegions());
         model.addAttribute("utilisateur", uService.getUtilisateurById(idUtil));
         if (reponse!=null) {
@@ -83,7 +86,7 @@ public class UtilisateurControllerBack {
     }
     
     @PutMapping(path = "/{idUtilisateur}")
-        public void updateUtilisateur(
+        public String updateUtilisateur(
            @PathVariable("idUtilisateur") String idUtil,
            @RequestParam(required = false) String email,
            @RequestParam(required = false) String mdp,
@@ -92,7 +95,13 @@ public class UtilisateurControllerBack {
     		if (email.compareTo("")==0) email=null;
     		if (mdp.compareTo("")==0) mdp=null;
     		if (idRegion.compareTo("")==0) idRegion=null;
-            uService.updateUtil(idUtil,email,mdp,idRegion);
+    		
+    		try {
+    			uService.updateUtil(idUtil,email,mdp,idRegion);
+    		}catch(Exception ex) {
+    			return ex.getMessage();
+    		}
+    		return "Les informations sur l'utilisateur "+idUtil+" ont été modifié";
         }
         
     @DeleteMapping(path = "/{idUtilisateur}")

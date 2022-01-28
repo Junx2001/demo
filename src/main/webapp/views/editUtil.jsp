@@ -31,7 +31,7 @@
                             <div class="row mb-3">
                                 <label for="email" class="col-sm-2 col-form-label">Nouvel Email </label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" name="email" id="email">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="${util.email}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -49,7 +49,7 @@
                              <div class="row mb-3">
                                 <label for="mdp2" class="col-sm-2 col-form-label">Sa région</label>
                                 <div class="col-sm-10">
-                                   <select name="region" id="region">
+                                   <select name="region" id="region" class="form-select">
                                    	<option value="">choisir...</option>
 				                        <c:forEach  items="${regions}" var ="region" varStatus="loop">
 				                            <option value="${regions[loop.index].idRegion}">${region.nom}</option>
@@ -63,11 +63,15 @@
                                     <button type="submit" id="bouton" class="btn btn-success">Valider</button>
                                 </div>
                             </div>
-                            <c:if test="${succes != null}">
-							<div class="alert alert-succes" role="alert">
-							  ${succes}
+                            
+							<div class="alert alert-success" id="succes" role="alert" style="display:none;">
+							
 							</div>
-							</c:if>
+							
+							<div class="alert alert-danger" id="erreur" role="alert" style="display:none;">
+							
+							</div>
+							
                         </div>
  
                     </div>
@@ -79,22 +83,29 @@
 		
 	<script>
 		$('#bouton').click(function () {
+			$('#succes').empty();
+			$('#erreur').empty();
+			
 			var email = $('#email').val();
 			var mdp = $('#mdp').val();
 			var idRegion = $('#region').val();
 			var idUtil = "${utilisateur.idUtilisateur}";
 			
-			setTimeout(function(){
-				window.location ="${baseURL}/back/utilisateurs"; 
-           }, 2000);
      	 
 			$.ajax({
 	            url: '${baseURL}/back/utilisateurs/'+idUtil,
 	            method: 'put',
 	            data: {email: email, mdp:mdp, idRegion:idRegion},
-	            dataType: 'json',
 	            success: function (response) {
-	               console.log( "Information(s) modifiée(s) avec succes");
+	            	console.log(response);
+	            	if (response.includes("modifié")){
+	            		$('#succes').css("display","block");
+	            		$('#succes').append(response);
+	            	}else{
+	            		$('#erreur').css("display","block");
+	            		$('#erreur').append(response);
+	            	}
+	            	
 	              
 	            }
 	        });

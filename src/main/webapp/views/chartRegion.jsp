@@ -55,8 +55,20 @@
         listeLayer[i] = new ol.layer.Vector({
             source: new ol.source.Vector({
                 projection: 'EPSG:4326',
-                features: [new ol.Feature(new ol.geom.Circle(coord, 100000))]
+                features: [new ol.Feature(new ol.geom.Point(coord))]
             }),
+            
+            style :[
+            	new ol.style.Style({
+	            	image: new ol.style.Icon({
+	            		anchor: [0.5, 0.5],
+	            		anchorXUnits: 'fraction',
+	            		anchorYUnits: 'pixels',
+	            		src: '${baseURL}/views/assets/img/icon.png',
+	            		scale:0.08,
+	            	}),
+            	})
+            ]
 
             // style: [
             //   new ol.style.Style({
@@ -151,25 +163,29 @@
     <c:forEach  items="${signalements}" var ="signalement">
 
                             if (k == j) {
+                            	var coord = ol.proj.fromLonLat([${signalement.longitude}, ${signalement.latitude}]);
+                            	map.getView().animate({
+                            		
+                            		zoom:map.getView().getZoom()+3,
+                            		center: coord,
+                            		duration:250
+                            	})
+                            	
                                 var lfeture = map.getFeaturesAtPixel(event.pixel);
                                 let temp = "<div class=\"card\"> \
                                         <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" width=\"50\" class=\"card-img-top\" alt=\"...\"> \
                                         <input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
                                         <div class=\"card-body\"> \
-                                     <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \
-                                     <p class=\"card-text\">Description: ${signalement.description}</p> \
-                                     <p class=\"card-text\">Date: ${signalement.dateSignalement}</p> \
-                                     <hr> \
-                                     <p class=\"card-text\">Longitude: ${signalement.longitude}</p> \
-                                     <p class=\"card-text\">Latitude: ${signalement.latitude}</p> \
-                                     <hr> \
-                                     <select name=\"idRegion\" id=\"idRegion\" class=\"form-select\">";
+                                     <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span> <h5>\
+                                     <p><small class=\"card-text \">Description: ${signalement.description}</small></p> \
+                                     <p><small class=\"card-text \">Date: ${signalement.dateSignalement}</small></p> \
+                                     <select name=\"idRegion\" id=\"idRegion\" class=\"form-select\"> " ;
 
         <c:forEach  items="${regions}" var ="region">
                                 temp += "<option value=\"${region.idRegion}\">${region.nom}</option>";
         </c:forEach>
 
-                                temp += "</select> \
+                                temp += "</select> <hr> \
                                      <button  type=\"button\" class=\"btn btn-info\" id=\"bouton\">Affecter</button> \
                                      </div>";
                                 content.innerHTML = temp;

@@ -72,8 +72,8 @@ public class UtilisateurService {
     }
     
     @Transactional
-    void updateUtil(String idUtil, String email, String mdp, String idRegion) {
-        uRepository.findById(idUtil)
+    public void updateUtil(String idUtil, String email, String mdp, String idRegion) {
+    	uRepository.findById(idUtil)
                 .orElseThrow(() -> new IllegalStateException(
                 "utilisateur with id " + idUtil + " does not exists"));
         
@@ -84,11 +84,19 @@ public class UtilisateurService {
         	String sql = "UPDATE Utilisateur SET ";
             Boolean misy = false;
             if(email!=null ){
+            	if (!Fonction.verifEmail(email)) {
+            		throw new IllegalStateException("La syntaxe de l'email doit être de la forme xxx@xxx.xx");
+        		}
+            	
                 sql += "email = '"+email+"'";
                 misy = true;
             }
             if(misy==true && mdp!=null){ sql+=","; }
             if(mdp!=null){
+            	if (!Fonction.verifMdp(mdp)) {
+            		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");
+        		}
+            	
                 sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
                 misy = true;
                
