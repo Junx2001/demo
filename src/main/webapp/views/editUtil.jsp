@@ -98,7 +98,7 @@
 	            data: {email: email, mdp:mdp, idRegion:idRegion},
 	            success: function (response) {
 	            	console.log(response);
-	            	if (response.includes("modifié")){
+	            	if (response.includes("informations")){
 	            		$('#succes').css("display","block");
 	            		$('#succes').append(response);
 	            	}else{

@@ -50,7 +50,7 @@ public class UtilisateurService {
     		throw new IllegalStateException("La syntaxe de l'email doit être de la forme xxx@xxx.xx");
 		}
 		if (!Fonction.verifMdp(u.getMdp())) {
-    		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");
+    		throw new IllegalStateException("Le mot de passe inséré doit contenir au moins 8 caratères et aucun accent");
 		}
     	
           Optional<Utilisateur> uOptional = uRepository
@@ -94,7 +94,7 @@ public class UtilisateurService {
             if(misy==true && mdp!=null){ sql+=","; }
             if(mdp!=null){
             	if (!Fonction.verifMdp(mdp)) {
-            		throw new IllegalStateException("Le mot de passe inséré doit contenir 8 caratères et aucun accent");
+            		throw new IllegalStateException("Le mot de passe inséré doit au moins contenir 8 caratères et aucun accent");
         		}
             	
                 sql += "mdp = HashBytes('SHA2_256', convert(varchar,'"+mdp+"'))";
