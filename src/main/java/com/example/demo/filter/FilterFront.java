@@ -40,8 +40,10 @@ public class FilterFront implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+       
+        String bearerToken = req.getHeader("Authorization");
 
-        if (request.getParameter("token") == null) {
+        if (bearerToken == null) {
 
             System.out.println("method:  " + req.getMethod() + " uri: " + req.getRequestURI());
             String baseURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
@@ -49,7 +51,10 @@ public class FilterFront implements Filter {
 
             throw new IllegalStateException("Accès non autorisé, Token non Spécifié");
         } else {
-            String monTok = request.getParameter("token");
+
+            String[] list =  bearerToken.split("Bearer ");
+    		String monTok =  list[1];
+    		
             TokenFront t = new TokenFront();
             t.setIdToken(monTok);
             Optional<TokenFront> token = tserv.find(t);
@@ -57,7 +62,7 @@ public class FilterFront implements Filter {
             chain.doFilter(request, response);
 
         }
-
+    	chain.doFilter(request, response);
     }
 
     @Bean(name = "loggingFilter2")
