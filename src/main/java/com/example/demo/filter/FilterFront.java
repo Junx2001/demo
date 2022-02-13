@@ -69,7 +69,6 @@ public class FilterFront implements Filter {
             chain.doFilter(request, response);
 
         }
-        chain.doFilter(request, response);
     }
 
     @Bean(name = "loggingFilter2")

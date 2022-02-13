@@ -53,8 +53,11 @@ public class SignalementControllerFront {
     {
     	Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = otok.get();
+        
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
-    	return signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
+        List val =  signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
+        
+        return val;
     }
     
     @GetMapping("/{signalementId}")
