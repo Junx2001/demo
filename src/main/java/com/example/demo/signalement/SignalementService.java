@@ -53,6 +53,12 @@ public class SignalementService {
             hm.put("etat", s[11]);
             hm.put("idUserFinal", s[12]);
             hm.put("dateHeureSignalement", s[1]);
+            String nomCat = (String)s[8];
+            if (nomCat.compareTo("infrastructure")==0) {
+            	hm.put("couleur", "purple");
+            }else if (nomCat.compareTo("evenement")==0) {
+            	hm.put("couleur", "red");
+            }
             listehm.add(hm);
         }
         return listehm;
