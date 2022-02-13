@@ -32,11 +32,14 @@ public class UtilisateurControllerFront {
 	    }
 	    
 	    @PostMapping("/login")
-	    public @ResponseBody String login(Utilisateur util)
+	    public @ResponseBody HashMap<String,Object> login(Utilisateur util)
 	    {     
+	    	HashMap<String,Object> hm = new HashMap<String,Object>();
 	    	Optional<Utilisateur> u = uService.find(util);
                 String t = tokService.insertToken(u.get().getIdUtilisateur());
-                return "L'utilisateur Front Office avec l'email "+u.get().getEmail()+" s'est connecté\n Il obtient un token d'authentification : "+t;
+                hm.put("token", t);
+                
+                return hm;
 	    }
 	    
 	    

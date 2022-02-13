@@ -244,23 +244,23 @@ public class SignalementService {
     public List rechercheSignalementFront(String region,String cat, String sousCat, String d1, String d2, String etat) {
         String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null AND idRegion = '"+region+"'";
         
-        if (cat != null) {
+        if (cat != null && !cat.isEmpty()) {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";
         }
-        if (sousCat != null) {
+        if (sousCat != null && !sousCat.isEmpty()) {
             sql += " AND ";
-            sql += "sousCat = '" + sousCat + "'";
+            sql += "nomSousCat = '" + sousCat + "'";
         }
-        if (d1 != null) {
+        if (d1 != null && !d1.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement >= '" + d1 + "'";
         }
-        if (d2 != null) {
+        if (d2 != null && !d2.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement <= '" + d2 + "'";
         }
-        if (etat != null) {
+        if (etat != null && !etat.isEmpty()) {
             sql += " AND ";
             sql += "etat = " + etat;
         }

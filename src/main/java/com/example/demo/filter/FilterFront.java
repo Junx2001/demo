@@ -3,6 +3,7 @@ package com.example.demo.filter;
 import com.example.demo.tokenFront.TokenFront;
 import com.example.demo.tokenFront.TokenFrontService;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @Component
 @Order(1)
 public class FilterFront implements Filter {
@@ -40,10 +43,14 @@ public class FilterFront implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-       
+    
+        
         String bearerToken = req.getHeader("Authorization");
-
-        if (bearerToken == null) {
+        
+        System.out.println("Authorization => "+bearerToken);
+        System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
+       
+       if (bearerToken == null) {
 
             System.out.println("method:  " + req.getMethod() + " uri: " + req.getRequestURI());
             String baseURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
@@ -54,15 +61,17 @@ public class FilterFront implements Filter {
 
             String[] list =  bearerToken.split("Bearer ");
     		String monTok =  list[1];
-    		
-            TokenFront t = new TokenFront();
+    		TokenFront t = new TokenFront();
             t.setIdToken(monTok);
             Optional<TokenFront> token = tserv.find(t);
             request.setAttribute("token", token);
+            
             chain.doFilter(request, response);
-
+        	
         }
-    	chain.doFilter(request, response);
+
+        
+        
     }
 
     @Bean(name = "loggingFilter2")

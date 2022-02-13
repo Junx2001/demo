@@ -1,6 +1,7 @@
 package com.example.demo.signalement;
 
 import com.example.demo.tokenFront.TokenFront;
+import com.example.demo.tokenFront.TokenFrontService;
 import com.example.demo.utilisateur.Utilisateur;
 import com.example.demo.utilisateur.UtilisateurService;
 import java.util.HashMap;
@@ -28,10 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
+	
 	@Autowired
 	private  SignalementService signService;
         
-        @Autowired
+    @Autowired
 	private  UtilisateurService uService;
 	
 	public SignalementControllerFront(SignalementService signService) {
@@ -51,7 +53,7 @@ public class SignalementControllerFront {
     	Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = otok.get();
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
-        return signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
+    	return signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
     }
     
     @GetMapping("/{signalementId}")
