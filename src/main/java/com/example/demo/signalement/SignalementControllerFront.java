@@ -20,9 +20,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {

@@ -38,7 +38,7 @@ public class FilterFront implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) request;
+        /*  HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         if (request.getParameter("token") == null) {
@@ -56,8 +56,8 @@ public class FilterFront implements Filter {
             request.setAttribute("token", token);
             chain.doFilter(request, response);
 
-        }
-
+        }*/
+        chain.doFilter(request, response);
     }
 
     @Bean(name = "loggingFilter2")
