@@ -25,6 +25,5 @@ public interface AdministrateurRepository extends JpaRepository<Administrateur,S
 		     "mdp=HashBytes('SHA2_256', convert(varchar,?2))";
 	@Query(value = QUERY_FIND_USER_FROM_DATBASE, nativeQuery = true)
 	Optional<Administrateur> findAdministrateurByEmailAndMdp(String email,String mdp);
-	
     
 }

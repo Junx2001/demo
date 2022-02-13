@@ -74,7 +74,7 @@ public class SignalementControllerMobile {
         }
     }
 	
-    @PostMapping("/upload")
+    @PostMapping
     public @ResponseBody void envoiSignalement(
             Signalement s,
             @RequestParam("image") MultipartFile file
