@@ -26,6 +26,10 @@ public class SousCategorieService {
 	public List<SousCategorie> getSousCatByIdCat (Categorie cat) {
         return repository.findSousCategorieByIdCategorie(cat.getIdCategorie());
     }
+	
+	public List<SousCategorie> getAll(){
+		return repository.findAll();
+	}
 
 	
 	@Transactional
