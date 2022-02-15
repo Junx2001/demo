@@ -154,7 +154,7 @@
         content: contentType,
       });
       
-      $(element).popover('update')
+      $(element).popover('update');
       $(element).popover('show');
       var newScript = document.createElement("script");
       var inlineScript = document.createTextNode("$('#bouton').click(function () {\
