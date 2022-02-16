@@ -44,10 +44,7 @@ public class FilterFront implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
    
-        //System.out.println("Authorization => "+req.getHeader("Authorization"));
-        //System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
-        
-        
+       
         String bearerToken = req.getHeader("Authorization");
         
         System.out.println("Authorization => "+bearerToken);
