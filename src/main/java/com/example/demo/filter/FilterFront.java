@@ -48,7 +48,18 @@ public class FilterFront implements Filter {
         String bearerToken = req.getHeader("Authorization");
         
         System.out.println("Authorization => "+bearerToken);
+        
+        
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        res.setHeader("Access-Control-Max-Age", "3600");
+        res.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN");
+        
         System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
+
+       
+        
+        
        
        if (bearerToken == null) {
 
@@ -69,6 +80,8 @@ public class FilterFront implements Filter {
             chain.doFilter(request, response);
 
         }
+       
+       
     }
 
     @Bean(name = "loggingFilter2")
