@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-@CrossOrigin
+@CrossOrigin(origins = "*", exposedHeaders="Access-Control-Allow-Origin")
 @RestController
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
