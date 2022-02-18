@@ -20,7 +20,7 @@ import com.example.demo.tokenFront.TokenFront;
 import com.example.demo.utilisateur.Utilisateur;
 import com.example.demo.utilisateur.UtilisateurService;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/front/groupements")
 public class GroupementControllerFront {

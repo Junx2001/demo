@@ -23,7 +23,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @Component
 @Order(1)
 public class FilterMobile implements Filter {
@@ -42,8 +44,10 @@ public class FilterMobile implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-
-        if (request.getParameter("tokenMobile") == null) {
+        
+        String bearerToken = req.getHeader("Authorization");
+        
+        if (bearerToken == null) {
 
             System.out.println("method:  " + req.getMethod() + " uri: " + req.getRequestURI());
             String baseURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
@@ -51,7 +55,9 @@ public class FilterMobile implements Filter {
 
             throw new IllegalStateException("Accès non autorisé, Token non Spécifié");
         } else {
-            String monTok = request.getParameter("tokenMobile");
+        	String[] list =  bearerToken.split("Bearer ");
+    		String monTok =  list[1];
+    		
             TokenMobile t = new TokenMobile();
             t.setIdToken(monTok);
             Optional<TokenMobile> token = tserv.find(t);

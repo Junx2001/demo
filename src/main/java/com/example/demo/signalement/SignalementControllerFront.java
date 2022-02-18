@@ -1,6 +1,7 @@
 package com.example.demo.signalement;
 
 import com.example.demo.tokenFront.TokenFront;
+import com.example.demo.tokenFront.TokenFrontService;
 import com.example.demo.utilisateur.Utilisateur;
 import com.example.demo.utilisateur.UtilisateurService;
 import java.util.HashMap;
@@ -8,9 +9,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +23,18 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-
+@CrossOrigin(origins = "*", exposedHeaders="Access-Control-Allow-Origin")
 @RestController
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
+	
 	@Autowired
 	private  SignalementService signService;
         
-        @Autowired
+    @Autowired
 	private  UtilisateurService uService;
 	
 	public SignalementControllerFront(SignalementService signService) {
@@ -48,8 +53,11 @@ public class SignalementControllerFront {
     {
     	Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = otok.get();
+        
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
-        return signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
+        List val =  signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
+        
+        return val;
     }
     
     @GetMapping("/{signalementId}")

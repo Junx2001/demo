@@ -53,6 +53,12 @@ public class SignalementService {
             hm.put("etat", s[11]);
             hm.put("idUserFinal", s[12]);
             hm.put("dateHeureSignalement", s[1]);
+            String nomCat = (String)s[8];
+            if (nomCat.compareTo("infrastructure")==0) {
+            	hm.put("couleur", "purple");
+            }else if (nomCat.compareTo("evenement")==0) {
+            	hm.put("couleur", "red");
+            }
             listehm.add(hm);
         }
         return listehm;
@@ -252,15 +258,15 @@ public class SignalementService {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";
         }
-        if (sousCat != null) {
+        if (sousCat != null && !sousCat.isEmpty()) {
             sql += " AND ";
-            sql += "sousCat = '" + sousCat + "'";
+            sql += "nomSousCat = '" + sousCat + "'";
         }
-        if (d1 != null) {
+        if (d1 != null && !d1.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement >= '" + d1 + "'";
         }
-        if (d2 != null) {
+        if (d2 != null && !d2.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement <= '" + d2 + "'";
         }

@@ -63,7 +63,7 @@ public class GroupementService {
 			      .setParameter(2, description)
 			      .setParameter(3, Double.parseDouble(latitude))
 			      .setParameter(4, Double.parseDouble(longitude))
-			      .setParameter(5, null)
+			      .setParameter(5, nomImage)
 			      .setParameter(6, region)
 			      .setParameter(7, idSousCategorie)
 			      .executeUpdate();
