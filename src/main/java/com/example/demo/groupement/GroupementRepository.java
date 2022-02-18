@@ -1,5 +1,7 @@
 package com.example.demo.groupement;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,5 +17,8 @@ extends JpaRepository<Groupement,String>{
 	
 	@Query(nativeQuery = true, value ="select NEXT VALUE FOR seq_groupement")
 	String getNextSequence();
+	
+	@Query(nativeQuery = true, value ="select * from groupement  where region=?1")
+	List<Groupement> findGroupements(String idRegion);
 	
 }

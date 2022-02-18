@@ -242,9 +242,13 @@ public class SignalementService {
     }
 
     public List rechercheSignalementFront(String region,String cat, String sousCat, String d1, String d2, String etat) {
-        String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null AND idRegion = '"+region+"'";
-        
-        if (cat != null) {
+
+    	String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null AND idRegion = '"+region+"'";
+    	if (etat.compareTo("-1")==0) {
+    		sql = "SELECT * FROM detailsSignalement WHERE idGroupement is null AND idRegion='"+region+"'";
+    	}
+    	
+        if (cat != null && !cat.isEmpty()) {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";
         }
@@ -260,10 +264,11 @@ public class SignalementService {
             sql += " AND ";
             sql += "dateSignalement <= '" + d2 + "'";
         }
-        if (etat != null) {
+        if (etat != null && !etat.isEmpty() && etat.compareTo("-1")!=0) {
             sql += " AND ";
             sql += "etat = " + etat;
         }
+        System.out.println(sql);
         List<Object[]> liste = entityManager.createNativeQuery(sql).getResultList();
 
         List<HashMap<String, Object>> listehm = this.hashMapSignalement(liste);

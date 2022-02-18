@@ -74,6 +74,17 @@ public class GroupementService {
 	        });
 
 	    }
+
+		public List<Groupement> findAll() {
+			// TODO Auto-generated method stub
+			return repository.findAll();
+		}
+
+		public List<Groupement> findGroupements(String region) {
+			// TODO Auto-generated method stub
+			
+			return repository.findGroupements(region);
+		}
 	    
 	    
 	    
