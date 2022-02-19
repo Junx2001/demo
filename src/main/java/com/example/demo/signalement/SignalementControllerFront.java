@@ -79,7 +79,7 @@ public class SignalementControllerFront {
 		 
 		
 		@PutMapping
-		public String ajouterAUnGroupement(Model model,
+		public String ajouterAUnGroupement(
 				@PathVariable("idGroupement")
 				@RequestParam(required = false)
 				String idGroupement,

@@ -46,9 +46,11 @@ public class GroupementControllerFront {
         return  val;
         
 	}
-	 @PutMapping(path = "/{idGroupement}")
+	 @PutMapping
      public void updateEtatSignalement(
-        @PathVariable("idGroupement") String idGroupement)
+    		 @PathVariable("idGroupement")
+				@RequestParam(required = false)
+				String idGroupement)
      {
          service.updateEtatGroupement(idGroupement);
      }
@@ -64,14 +66,16 @@ public class GroupementControllerFront {
     		@PathVariable("longitude")
 			@RequestParam(required = false)
     		 String longitude,
-    		@PathVariable("region")
-			@RequestParam(required = false)
-    		 String region,
     		@PathVariable("idSousCategorie")
 			@RequestParam(required = false)
-    		 String idSousCategorie)
+    		 String idSousCategorie,
+    		 HttpServletRequest request)
      {
-         return service.insertGroupement(description, latitude, longitude,null, region, idSousCategorie);
+		 Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
+	     TokenFront tok = otok.get();
+	        
+	     Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
+         return service.insertGroupement(description, latitude, longitude,null, u.getRegion(), idSousCategorie);
      }
 	 
 	

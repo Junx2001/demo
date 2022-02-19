@@ -53,7 +53,10 @@ public class GroupementService {
 	    @Transactional
 	    String insertGroupement(String description,String latitude,String longitude,String nomImage,String region,String idSousCategorie) {
 	    	String liste=repository.getNextSequence();
-	    	
+	    	System.out.println(region);
+	    	System.out.println(description);
+	    	System.out.println(nomImage);
+	    	System.out.println(idSousCategorie);
 	    	transactionTemplate = new TransactionTemplate(transactionManager);
 	        
 	        return transactionTemplate.execute(status->{
