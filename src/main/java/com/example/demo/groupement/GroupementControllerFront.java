@@ -1,5 +1,6 @@
 package com.example.demo.groupement;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class GroupementControllerFront {
 	    }
 	
 	@GetMapping
-	public List<Groupement> getAllGroupement( HttpServletRequest request)
+	public  List<Groupement> getAllGroupement( HttpServletRequest request)
 	{
 		Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = otok.get();
@@ -46,6 +47,25 @@ public class GroupementControllerFront {
         return  val;
         
 	}
+	
+	@GetMapping("/details")
+	public  List<HashMap<String, Object>> getDetailsGroupement( HttpServletRequest request)
+	{
+		Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
+        TokenFront tok = otok.get();
+        
+        Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
+        List<HashMap<String, Object>> val =  service.findDetailsGroupements(u.getRegion());
+        return  val;
+        
+	}
+	 @GetMapping("/{idGroupement}")
+	    public HashMap<String,Object> ficheGroupement(
+	    		@PathVariable("idGroupement") String idGroupement)
+	    {
+	    	return service.getFicheGroupement(idGroupement);
+	    }
+	
 	 @PutMapping
      public void updateEtatSignalement(
     		 @PathVariable("idGroupement")

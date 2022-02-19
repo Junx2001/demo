@@ -17,6 +17,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 
 
+
 @Service
 public class GroupementService {
 	 private final GroupementRepository repository;
@@ -83,10 +84,55 @@ public class GroupementService {
 			return repository.findAll();
 		}
 
-		public List<Groupement> findGroupements(String region) {
+		public List<Groupement>  findGroupements(String region) {
 			// TODO Auto-generated method stub
-			
-			return repository.findGroupements(region);
+	        return repository.findGroupements(region);
+		}
+		
+		public List<HashMap<String, Object>> hashMapGroupement(List<Object[]> liste) {
+	        List<HashMap<String, Object>> listehm = new ArrayList<HashMap<String, Object>>();
+
+	        for (int i = 0; i < liste.size(); i++) {
+	            HashMap<String, Object> hm = new HashMap<String, Object>();
+	            Object[] s = (Object[]) liste.get(i);
+	            hm.put("idGroupement", s[0]);
+	            String str = "";
+	            if (s[1]!=null) {
+	            	str = new SimpleDateFormat("dd-MM-yyyy").format(s[1]);
+	            }
+	            hm.put("dateResolu", str);
+	            hm.put("description", s[2]);
+	            hm.put("latitude", s[3]);
+	            hm.put("longitude", s[4]);
+	            hm.put("nomImage", s[5]);
+	            hm.put("nomRegion", s[6]);
+	            hm.put("nomSousCat", s[7]);
+	            hm.put("nomCat", s[8]);
+	            hm.put("idRegion", s[9]);
+	            hm.put("etat", s[10]);
+	            
+	            String nomCat = (String)s[8];
+	            if (nomCat.compareTo("infrastructure")==0) {
+	            	hm.put("couleur", "purple");
+	            }else if (nomCat.compareTo("evenement")==0) {
+	            	hm.put("couleur", "red");
+	            }
+	            listehm.add(hm);
+	        }
+	        return listehm;
+	    }
+
+		public List<HashMap<String, Object>> findDetailsGroupements(String region) {
+			List<Object[]> liste =  repository.findDetailsGroupements(region);
+			List<HashMap<String, Object>> listehm = this.hashMapGroupement(liste);
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		public HashMap<String, Object> getFicheGroupement(String idGroupement) {
+			List<Object[]> liste = repository.getFicheGroupement(idGroupement);
+	        List<HashMap<String, Object>> listehm = this.hashMapGroupement(liste);
+	        return listehm.get(0);
 		}
 	    
 	    
