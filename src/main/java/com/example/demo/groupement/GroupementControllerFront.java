@@ -89,13 +89,16 @@ public class GroupementControllerFront {
     		@PathVariable("idSousCategorie")
 			@RequestParam(required = false)
     		 String idSousCategorie,
+    		 @PathVariable("image")
+ 			@RequestParam(required = false)
+     		 String image,
     		 HttpServletRequest request)
      {
 		 Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
 	     TokenFront tok = otok.get();
 	        
 	     Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
-         return service.insertGroupement(description, latitude, longitude,null, u.getRegion(), idSousCategorie);
+         return service.insertGroupement(description, latitude, longitude,image, u.getRegion(), idSousCategorie);
      }
 	 
 	
