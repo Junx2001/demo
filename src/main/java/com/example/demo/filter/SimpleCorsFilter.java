@@ -16,11 +16,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
+/*
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class SimpleCorsFilter implements Filter {
-	
+@Order(Ordered.HIGHEST_PRECEDENCE)*/
+public class SimpleCorsFilter /*implements Filter */{
+	/*
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -53,6 +53,6 @@ public class SimpleCorsFilter implements Filter {
 	    }
 
 	
-
+*/
 
 }
