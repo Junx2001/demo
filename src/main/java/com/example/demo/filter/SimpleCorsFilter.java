@@ -11,6 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class SimpleCorsFilter implements Filter {
 		    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
 		    response.setHeader("Access-Control-Max-Age", "3600");
 		    response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, content-type");
-		
+
 		    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
 		        response.setStatus(HttpServletResponse.SC_OK);
 		    } else {
@@ -36,14 +38,19 @@ public class SimpleCorsFilter implements Filter {
 		    }
 	}
 		
-	
-	@Override
-	public void init(FilterConfig filterConfig) {
-	}
-	
-	@Override
-	public void destroy() {
-	}
+	 @Bean(name = "loggingFilter0")
+	    public FilterRegistrationBean<Filter> loggingFilter(final SimpleCorsFilter filtre) {
+	        FilterRegistrationBean<Filter> registrationBean
+	                = new FilterRegistrationBean<>();
+
+	        registrationBean.setFilter(filtre);
+	        registrationBean.addUrlPatterns("/mobile/*");
+	        registrationBean.addUrlPatterns("/front/*");
+
+	        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+
+	        return registrationBean;
+	    }
 
 	
 

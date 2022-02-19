@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
 @Component
-@Order(1)
+@Order(2)
 public class FilterMobile implements Filter {
 
     @Autowired
@@ -76,7 +76,7 @@ public class FilterMobile implements Filter {
         registrationBean.addUrlPatterns("/mobile/signalements/*");
         registrationBean.addUrlPatterns("/mobile/notifications/*");
 
-        registrationBean.setOrder(1);
+        registrationBean.setOrder(2);
 
         return registrationBean;
     }

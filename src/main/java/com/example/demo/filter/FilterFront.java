@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
 @Component
-@Order(1)
+@Order(2)
 public class FilterFront implements Filter {
 
     @Autowired
@@ -45,7 +45,7 @@ public class FilterFront implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
    
        
-        String bearerToken = req.getHeader("Authorization");
+       /* String bearerToken = req.getHeader("Authorization");
         
         System.out.println("Authorization => "+bearerToken);
         System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
@@ -61,14 +61,14 @@ public class FilterFront implements Filter {
 
             String[] list =  bearerToken.split("Bearer ");
     		String monTok =  list[1];
-    		TokenFront t = new TokenFront();
-            t.setIdToken(monTok);
+ */   		TokenFront t = new TokenFront();
+            t.setIdToken("6b7ad76977d7510626bb8a283689a9fc113dcd584a60bebb8b991b78293f2212");
             Optional<TokenFront> token = tserv.find(t);
             request.setAttribute("token", token);
             
             chain.doFilter(request, response);
 
-        }
+        //}
     }
 
     @Bean(name = "loggingFilter2")
@@ -79,7 +79,7 @@ public class FilterFront implements Filter {
         registrationBean.setFilter(filtre);
         registrationBean.addUrlPatterns("/front/signalements/*");
         registrationBean.addUrlPatterns("/front/groupements/*");
-        registrationBean.setOrder(1);
+        registrationBean.setOrder(2);
 
         return registrationBean;
     }
