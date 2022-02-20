@@ -13,6 +13,7 @@ public class Config  implements WebMvcConfigurer{
 		.addMapping("/**")
 		.allowedOrigins("*")
 		.allowedHeaders("*")
+		.allowCredentials(true)
 		.allowedMethods("OPTIONS","POST","GET","PUT","DELETE");
 		
 	}
