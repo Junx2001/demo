@@ -30,6 +30,9 @@ public class SimpleCorsFilter {
 	    	List<String> origins = new ArrayList<String>();
 	    	origins.add("http://localhost:4200");
 	    	origins.add("https://spring-joharisoa.herokuapp.com");
+	    	origins.add("https://signgovfo.herokuapp.com");
+	    	origins.add("http://spring-joharisoa.herokuapp.com");
+	    	origins.add("http://signgovfo.herokuapp.com");
 	        // @formatter:off
 	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	        CorsConfiguration config = new CorsConfiguration();
@@ -40,6 +43,7 @@ public class SimpleCorsFilter {
 	        source.registerCorsConfiguration("/**", config);
 	        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
 	        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	        System.out.println("TTTTTTTTTTSSSSSSSS");
 	        return bean;
 	        // @formatter:on
 	    }
