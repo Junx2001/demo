@@ -1,6 +1,7 @@
 package com.example.demo.filter;
 
 import java.io.IOException;
+import java.util.*;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,43 +17,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-/*
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)*/
-public class SimpleCorsFilter /*implements Filter */{
-	/*
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
-		    HttpServletResponse response = (HttpServletResponse) res;
-		    HttpServletRequest request = (HttpServletRequest) req;
-		    response.setHeader("Access-Control-Allow-Origin", "*");
-		    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-		    response.setHeader("Access-Control-Max-Age", "3600");
-		    response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, content-type");
+public class SimpleCorsFilter {
+	 public static final List<String> allowedOrigins = Arrays.asList("*");
 
-		    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-		        response.setStatus(HttpServletResponse.SC_OK);
-		    } else {
-		        chain.doFilter(req, res);
-		    }
-	}
-		
-	 @Bean(name = "loggingFilter0")
-	    public FilterRegistrationBean<Filter> loggingFilter(final SimpleCorsFilter filtre) {
-	        FilterRegistrationBean<Filter> registrationBean
-	                = new FilterRegistrationBean<>();
-
-	        registrationBean.setFilter(filtre);
-	        registrationBean.addUrlPatterns("/mobile/*");
-	        registrationBean.addUrlPatterns("/front/*");
-
-	        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-
-	        return registrationBean;
+	    @Bean
+	    public FilterRegistrationBean<CorsFilter> initCorsFilter() {
+	    	List<String> origins = new ArrayList<String>();
+	    	origins.add("http://localhost:4200");
+	        // @formatter:off
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        CorsConfiguration config = new CorsConfiguration();
+	        config.setAllowCredentials(true);
+	        config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+	        config.addAllowedMethod("*");
+	        config.setAllowedOrigins(origins);
+	        source.registerCorsConfiguration("/**", config);
+	        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+	        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	        return bean;
+	        // @formatter:on
 	    }
-
-	
-*/
 
 }
