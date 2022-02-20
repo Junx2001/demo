@@ -49,7 +49,7 @@ public class FilterFront implements Filter {
         System.out.println("Authorization => "+bearerToken);
         System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
        
-       if (bearerToken == null) {
+       /*if (bearerToken == null) {
 
             System.out.println("method:  " + req.getMethod() + " uri: " + req.getRequestURI());
             String baseURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
@@ -59,15 +59,15 @@ public class FilterFront implements Filter {
         } else {
 
             String[] list =  bearerToken.split("Bearer ");
-    		String monTok =  list[1];
+    		String monTok =  list[1];*/
     		TokenFront t = new TokenFront();
-            t.setIdToken(monTok);
+            t.setIdToken("098ca68ea82c02f8aea362c59482e4971b94a6ebcc87510e0dc58915c4f2c449");
             Optional<TokenFront> token = tserv.find(t);
             request.setAttribute("token", token);
             
             chain.doFilter(request, response);
 
-        }
+       // }
     }
 
     @Bean(name = "loggingFilter2")
