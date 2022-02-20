@@ -45,12 +45,12 @@ public class FilterFront implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
    
        
-       /* String bearerToken = req.getHeader("Authorization");
+        String bearerToken = req.getHeader("Authorization");
         
         System.out.println("Authorization => "+bearerToken);
         System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
        
-       if (bearerToken == null) {
+       /*if (bearerToken == null) {
 
             System.out.println("method:  " + req.getMethod() + " uri: " + req.getRequestURI());
             String baseURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
