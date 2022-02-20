@@ -29,6 +29,7 @@ public class SimpleCorsFilter {
 	    public FilterRegistrationBean<CorsFilter> initCorsFilter() {
 	    	List<String> origins = new ArrayList<String>();
 	    	origins.add("http://localhost:4200");
+	    	origins.add("https://spring-joharisoa.herokuapp.com");
 	        // @formatter:off
 	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	        CorsConfiguration config = new CorsConfiguration();
