@@ -52,7 +52,8 @@ public class SignalementService {
             hm.put("idRegion", s[10]);
             hm.put("etat", s[11]);
             hm.put("idUserFinal", s[12]);
-            hm.put("dateHeureSignalement", s[1]);
+            String str2 = new SimpleDateFormat("dd-MM-yyyy H:m:s").format(s[1]);
+            hm.put("dateHeureSignalement", str2);
             hm.put("idGroupement", s[13]);
             String nomCat = (String)s[8];
             if (nomCat.compareTo("infrastructure")==0) {
