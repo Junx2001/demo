@@ -21,9 +21,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-@Component
+//@Component
 public class SimpleCorsFilter {
-
+/*
 	    @Bean
 	    public FilterRegistrationBean<CorsFilter> initCorsFilter() {
 	    	List<String> origins = new ArrayList<String>();
@@ -45,6 +45,6 @@ public class SimpleCorsFilter {
 	        System.out.println("TTTTTTTTTTSSSSSSSS");
 	        return bean;
 	        // @formatter:on
-	    }
+	    }*/
 
 }
