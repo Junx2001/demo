@@ -255,7 +255,7 @@ public class SignalementService {
     public List rechercheSignalementFront(String region,String cat, String sousCat, String d1, String d2, String etat) {
 
     	String sql = "SELECT * FROM detailsSignalement WHERE idGroupement is not null AND idRegion = '"+region+"'";
-    	if (etat.compareTo("-1")==0) {
+    	if (etat != null && !etat.isEmpty() && etat.compareTo("-1")==0) {
     		sql = "SELECT * FROM detailsSignalement WHERE idGroupement is null AND idRegion='"+region+"'";
     	}
     	
