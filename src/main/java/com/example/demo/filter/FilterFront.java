@@ -76,7 +76,7 @@ public class FilterFront implements Filter {
                 = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(filtre);
-        registrationBean.addUrlPatterns("/front/signalements/*");
+        //registrationBean.addUrlPatterns("/front/signalements/*");
         registrationBean.addUrlPatterns("/front/groupements/*");
         registrationBean.setOrder(2);
 
