@@ -30,11 +30,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
 	
+	
 	@Autowired
 	private  SignalementService signService;
         
     @Autowired
 	private  UtilisateurService uService;
+    
+    @Autowired
+    private TokenFrontService tserv;
 	
 	public SignalementControllerFront(SignalementService signService) {
 	    this.signService = signService;
@@ -50,7 +54,15 @@ public class SignalementControllerFront {
        HttpServletRequest request
        )
     {
-    	Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
+    	String bearerToken = request.getHeader("Authorization");
+
+        String[] list =  bearerToken.split("Bearer ");
+		String monTok =  list[1];
+		TokenFront t = new TokenFront();
+        t.setIdToken(monTok);
+        Optional<TokenFront> otok = tserv.find(t);
+        
+    	//Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = otok.get();
         
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
