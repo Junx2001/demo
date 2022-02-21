@@ -1,5 +1,6 @@
 package com.example.demo.signalement;
 
+import com.example.demo.filter.TokenFilter;
 import com.example.demo.tokenFront.TokenFront;
 import com.example.demo.tokenFront.TokenFrontService;
 import com.example.demo.utilisateur.Utilisateur;
@@ -36,9 +37,6 @@ public class SignalementControllerFront {
         
     @Autowired
 	private  UtilisateurService uService;
-    
-    @Autowired
-    private TokenFrontService tserv;
 	
 	public SignalementControllerFront(SignalementService signService) {
 	    this.signService = signService;
@@ -54,16 +52,10 @@ public class SignalementControllerFront {
        HttpServletRequest request
        )
     {
-    	String bearerToken = request.getHeader("Authorization");
-
-        String[] list =  bearerToken.split("Bearer ");
-		String monTok =  list[1];
-		TokenFront t = new TokenFront();
-        t.setIdToken(monTok);
-        Optional<TokenFront> otok = tserv.find(t);
+    	TokenFilter filtre = new TokenFilter();
         
     	//Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
-        TokenFront tok = otok.get();
+        TokenFront tok = filtre.doFilter(request);
         
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
         List val =  signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
