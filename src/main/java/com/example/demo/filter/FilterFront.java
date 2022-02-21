@@ -44,7 +44,7 @@ public class FilterFront implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
        
-        /*String bearerToken = req.getHeader("Authorization");
+        String bearerToken = req.getHeader("Authorization");
         
         System.out.println("Authorization => "+bearerToken);
         System.out.println("Access-Control-Allow-Origin => "+req.getHeader("Access-Control-Allow-Origin"));
@@ -67,7 +67,7 @@ public class FilterFront implements Filter {
             
             chain.doFilter(request, response);
 
-        //}
+        }
     }
 
     @Bean(name = "loggingFilter2")
