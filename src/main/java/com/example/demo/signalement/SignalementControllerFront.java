@@ -30,7 +30,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "https://signgovfo.herokuapp.com/signalement", allowedHeaders="*")@RestController
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
-	
+	@Autowired
+	private  TokenFrontService tserv;
 	
 	@Autowired
 	private  SignalementService signService;
@@ -52,7 +53,7 @@ public class SignalementControllerFront {
        HttpServletRequest request
        )
     {
-    	TokenFilter filtre = new TokenFilter();
+    	TokenFilter filtre = new TokenFilter(tserv);
         
     	//Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = filtre.doFilter(request);

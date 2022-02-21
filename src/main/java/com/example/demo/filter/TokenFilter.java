@@ -12,15 +12,15 @@ import com.example.demo.tokenFront.TokenFrontService;
 public class TokenFilter {
 
     @Autowired
-    private TokenFrontService tserv;
+    private final TokenFrontService tserv;
 
-    public TokenFilter() {
+    public TokenFilter(TokenFrontService tserv) {
+    	this.tserv = tserv;
     }
     
 	public TokenFront doFilter(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
         
-        System.out.println("Authorization => "+bearerToken);
         TokenFront val = null;
        if (bearerToken == null) {
             throw new IllegalStateException("Accès non autorisé, Token non Spécifié");
@@ -30,7 +30,9 @@ public class TokenFilter {
     		String monTok =  list[1];
     		TokenFront t = new TokenFront();
             t.setIdToken(monTok);
+            System.out.println("Authorization => "+monTok);
             Optional<TokenFront> token = tserv.find(t);
+            System.out.println("Authorization => "+token);
             val = token.get();
         }
        return val;
