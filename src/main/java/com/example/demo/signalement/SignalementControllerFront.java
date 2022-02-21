@@ -1,5 +1,6 @@
 package com.example.demo.signalement;
 
+import com.example.demo.filter.TokenFilter;
 import com.example.demo.tokenFront.TokenFront;
 import com.example.demo.tokenFront.TokenFrontService;
 import com.example.demo.utilisateur.Utilisateur;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,10 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-@CrossOrigin(origins = "*", exposedHeaders="Access-Control-Allow-Origin")
-@RestController
+@CrossOrigin(origins = "https://signgovfo.herokuapp.com/signalement", allowedHeaders="*")@RestController
 @RequestMapping(path = "/front/signalements")
 public class SignalementControllerFront {
+	@Autowired
+	private  TokenFrontService tserv;
 	
 	@Autowired
 	private  SignalementService signService;
@@ -51,8 +55,8 @@ public class SignalementControllerFront {
        HttpServletRequest request
        )
     {
-    	Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
-        TokenFront tok = otok.get();
+    	TokenFilter filtre = new TokenFilter(tserv);
+        TokenFront tok = filtre.doFilter(request);
         
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
         List val =  signService.rechercheSignalementFront(u.getRegion(),cat,sousCat,d1,d2,etat);
@@ -62,32 +66,40 @@ public class SignalementControllerFront {
     
     @GetMapping("/{signalementId}")
     public HashMap<String,Object> ficheSignalement(
-    		@PathVariable("signalementId") String idSignalement)
+    		@PathVariable("signalementId") String idSignalement,HttpServletRequest request)
     {
+    	TokenFilter filtre = new TokenFilter(tserv);
+        filtre.doFilter(request);
     	return signService.getFicheSignalement(idSignalement);
     }
 
 	@GetMapping("/region/{regionId}")
-	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion) {
-	    	return signService.getSignalementsByRegion(idRegion);
+	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion,HttpServletRequest request) {
+			TokenFilter filtre = new TokenFilter(tserv);
+	        filtre.doFilter(request);
+			return signService.getSignalementsByRegion(idRegion);
 	    }
 	
 	@GetMapping("/{idUtilisateur}")
-    public List<HashMap<String, Object>> signalementsUtilisateurRegion(@PathVariable("idUtilisateur") String idUtilisateur) {
-    	return signService.getSignalementsByUtilisateur(idUtilisateur);
+    public List<HashMap<String, Object>> signalementsUtilisateurRegion(@PathVariable("idUtilisateur") String idUtilisateur,HttpServletRequest request) {
+		TokenFilter filtre = new TokenFilter(tserv);
+        filtre.doFilter(request);
+		return signService.getSignalementsByUtilisateur(idUtilisateur);
     }
 		 
 		
 		@PutMapping
-		public String ajouterAUnGroupement(Model model,
-				@PathVariable("idGroupement")
-				@RequestParam(required = false)
-				String idGroupement,
-				@PathVariable("liste")
-				@RequestParam(required = false)
-				String liste) throws JsonMappingException, JsonProcessingException {
-			ObjectMapper mapper = new ObjectMapper();
-			String[] li = mapper.readValue(liste,String[].class);
+		public  String ajouterAUnGroupement(
+				@RequestBody(required = false)
+				HashMap jobj ,
+				HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
+			
+			TokenFilter filtre = new TokenFilter(tserv);
+	        filtre.doFilter(request);
+	        
+	        String idGroupement = (String)jobj.get("idGroupement");
+	        
+	        List<String> li = (List<String>)jobj.get("liste");
 			for(String s :li)
 			{
 				System.out.println(s);

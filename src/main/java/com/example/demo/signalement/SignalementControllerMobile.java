@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,18 +26,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.filter.TokenFilter;
+import com.example.demo.filter.TokenMobileFilter;
+import com.example.demo.tokenFront.TokenFront;
+import com.example.demo.tokenFront.TokenFrontService;
+import com.example.demo.tokenMobile.TokenMobile;
+import com.example.demo.tokenMobile.TokenMobileService;
+
 @CrossOrigin
 @RestController
 @RequestMapping(path = "/mobile/signalements")
 public class SignalementControllerMobile {
-
+	@Autowired
+	private  TokenMobileService tserv;
+	
     @Autowired
     private SignalementService signService;
 
-    /*public SignalementControllerMobile(SignalementService signService) {
-        this.signService = signService;
-    }*/
-    
 	private String uploadLocation;
 	
 	
@@ -58,9 +64,11 @@ public class SignalementControllerMobile {
             @RequestParam(required = false) String sousCat,
             @RequestParam(required = false) String d1,
             @RequestParam(required = false) String d2,
-            @RequestParam(required = false) String etat
+            @RequestParam(required = false) String etat,
+            HttpServletRequest request
     ) {
-
+		TokenMobileFilter filtre = new TokenMobileFilter(tserv);
+        filtre.doFilter(request);
         return signService.rechercheSignalementMobile(utilisateur, cat, sousCat, d1, d2, etat);
     }
 	
@@ -77,9 +85,12 @@ public class SignalementControllerMobile {
     @PostMapping
     public @ResponseBody void envoiSignalement(
             Signalement s,
-            @RequestParam("image") MultipartFile file
+            @RequestParam("image") MultipartFile file,
+            HttpServletRequest request
        ) throws IOException
     {
+    	TokenMobileFilter filtre = new TokenMobileFilter(tserv);
+        filtre.doFilter(request);
     	s.setNomImage(file.getOriginalFilename());
         signService.addSignalement(s);
     	System.out.println(s.getLatitude());

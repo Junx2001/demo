@@ -52,7 +52,9 @@ public class SignalementService {
             hm.put("idRegion", s[10]);
             hm.put("etat", s[11]);
             hm.put("idUserFinal", s[12]);
-            hm.put("dateHeureSignalement", s[1]);
+            String str2 = new SimpleDateFormat("dd-MM-yyyy H:m:s").format(s[1]);
+            hm.put("dateHeureSignalement", str2);
+            hm.put("idGroupement", s[13]);
             String nomCat = (String)s[8];
             if (nomCat.compareTo("infrastructure")==0) {
             	hm.put("couleur", "purple");
@@ -137,7 +139,7 @@ public class SignalementService {
     }
 
     @Transactional
-	public void updateGroupementSignalement(String[] listeSignalementId, String groupemetId) {
+	public void updateGroupementSignalement(List<String> listeSignalementId, String groupemetId) {
     	for(String signalementId : listeSignalementId) {
     		Signalement sign = signRepository.findById(signalementId)
                     .orElseThrow(() -> new IllegalStateException(
@@ -165,6 +167,10 @@ public class SignalementService {
             hm.put("nomImage", s[7]);
             hm.put("region", s[8]);
             hm.put("idUtilisateur", s[9]);
+            hm.put("idRegion", s[10]);
+            hm.put("etat", s[11]);
+            hm.put("idUserFinal", s[12]);
+            hm.put("idGroupement", s[13]);
             listehm.add(hm);
         }
         return listehm;
@@ -248,8 +254,12 @@ public class SignalementService {
     }
 
     public List rechercheSignalementFront(String region,String cat, String sousCat, String d1, String d2, String etat) {
-        String sql = "SELECT * FROM detailsSignalement WHERE idSignalement is not null AND idRegion = '"+region+"'";
-        
+
+    	String sql = "SELECT * FROM detailsSignalement WHERE idGroupement is not null AND idRegion = '"+region+"'";
+    	if (etat != null && !etat.isEmpty() && etat.compareTo("-1")==0) {
+    		sql = "SELECT * FROM detailsSignalement WHERE idGroupement is null AND idRegion='"+region+"'";
+    	}
+    	
         if (cat != null && !cat.isEmpty()) {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";
@@ -266,10 +276,11 @@ public class SignalementService {
             sql += " AND ";
             sql += "dateSignalement <= '" + d2 + "'";
         }
-        if (etat != null && !etat.isEmpty()) {
+        if (etat != null && !etat.isEmpty() && etat.compareTo("-1")!=0) {
             sql += " AND ";
             sql += "etat = " + etat;
         }
+        System.out.println(sql);
         List<Object[]> liste = entityManager.createNativeQuery(sql).getResultList();
 
         List<HashMap<String, Object>> listehm = this.hashMapSignalement(liste);
@@ -285,23 +296,23 @@ public class SignalementService {
     List rechercheSignalementMobile(String user, String cat, String sousCat, String d1, String d2, String etat) {
         String sql = "SELECT * FROM detailsSignalement WHERE idUserFinal = '" + user + "'";
 
-        if (cat != null) {
+        if (cat != null && !cat.isEmpty()) {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";
         }
-        if (sousCat != null) {
+        if (sousCat != null && !sousCat.isEmpty()) {
             sql += " AND ";
             sql += "sousCat = '" + sousCat + "'";
         }
-        if (d1 != null) {
+        if (d1 != null && !d1.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement >= '" + d1 + "'";
         }
-        if (d2 != null) {
+        if (d2 != null && !d2.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement <= '" + d2 + "'";
         }
-        if (etat != null) {
+        if (etat != null && !etat.isEmpty()) {
             sql += " AND ";
             sql += "etat = " + etat;
         }
