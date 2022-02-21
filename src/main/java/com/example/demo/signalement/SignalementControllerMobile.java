@@ -80,6 +80,14 @@ public class SignalementControllerMobile {
             @RequestParam("image") MultipartFile file
        ) throws IOException
     {
+        System.out.println(s.getDescription());
+        System.out.println(s.getLatitude());
+        System.out.println(s.getLongitude());
+        System.out.println(s.getIdSousCategorie());
+        System.out.println(s.getNomImage());
+        System.out.println(s.getIdUtilisateur());
+        
+        
     	s.setNomImage(file.getOriginalFilename());
         signService.addSignalement(s);
     	System.out.println(s.getLatitude());

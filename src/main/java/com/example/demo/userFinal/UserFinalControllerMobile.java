@@ -1,6 +1,7 @@
 package com.example.demo.userFinal;
 
 import com.example.demo.tokenMobile.TokenMobileService;
+import java.util.HashMap;
 
 
 import java.util.Optional;
@@ -26,20 +27,27 @@ public class UserFinalControllerMobile {
 	}
 	
     @PostMapping("/login")
-    public @ResponseBody String login(UserFinal util)
+    public @ResponseBody HashMap<String,Object> login(UserFinal util)
     {
+        HashMap<String,Object> hm = new HashMap<String,Object>();
     	Optional<UserFinal> val = null;
         val =  service.find(util);
-        String tok = tokService.insertToken(val.get().getIdUserFinal());        
-        return "L'utilisateur Final avec l'email "+val.get().getEmail()+" s'est connecté\n Il obtient un token d'authentification : "+tok;
+        String tok = tokService.insertToken(val.get().getIdUserFinal()); 
+        hm.put("token", tok);
+        hm.put("message", "L'utilisateur Final avec l'email "+val.get().getEmail()+" s'est connecté");
+        return hm;
+        //return "L'utilisateur Final avec l'email "+val.get().getEmail()+" s'est connecté\n Il obtient un token d'authentification : "+tok;
     }
 	
     @PostMapping
-    public @ResponseBody String insertWithQuery(UserFinal u) {
+    public @ResponseBody HashMap<String,Object> insertWithQuery(UserFinal u) {
+        HashMap<String,Object> hm = new HashMap<String,Object>();
         System.out.println(u.getEmail());
         System.out.println(u.getMdp());
         service.insertWithQuery(u);
-        return "L'utilisateur Final avec l'email "+u.getEmail()+" a été inséré";
+        hm.put("message", "L'utilisateur Final avec l'email "+u.getEmail()+" a été inséré");
+        return hm;
+        
     }
 	
 	
