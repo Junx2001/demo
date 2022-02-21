@@ -61,7 +61,7 @@ public class FilterFront implements Filter {
             String[] list =  bearerToken.split("Bearer ");
     		String monTok =  list[1];
     		TokenFront t = new TokenFront();
-            t.setIdToken("9f348900867301b5af5b05eabc0e1ef06f529f6c337a2621f6d31b3adc906dd0");
+            t.setIdToken(monTok);
             Optional<TokenFront> token = tserv.find(t);
             request.setAttribute("token", token);
             
