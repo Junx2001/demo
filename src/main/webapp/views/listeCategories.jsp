@@ -28,8 +28,11 @@
 		<div class="card-body">
               <h5 class="card-title">Ajouter une categorie</h5>
 	              <form class="row g-3" action="${baseURL}/back/categories" method="post">
-	                <div class="col-md-6">
+	                <div class="col-md-12">
 	                  <input type="text" class="form-control" placeholder="Designation" name="label">
+	                </div>
+	                <div class="col-md-12">
+	                  <input type="text" class="form-control" placeholder="Couleur des signalements avec cette catégorie" name="couleur">
 	                </div>
 	                <div class="col-md-6">
 	                  <button type="submit" class="btn btn-primary">Ajouter</button>

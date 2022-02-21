@@ -25,6 +25,7 @@ public class Categorie {
 	
 	private String idCategorie;
 	private String label;
+	private String couleur;
 	
 	public String getIdCategorie() {
 		return idCategorie;
@@ -37,6 +38,12 @@ public class Categorie {
 	}
 	public void setLabel(String label) {
 		this.label = label;
+	}
+	public String getCouleur() {
+		return couleur;
+	}
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
 	}
 	public Categorie() {}
 	

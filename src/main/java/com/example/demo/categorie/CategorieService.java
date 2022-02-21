@@ -34,8 +34,9 @@ public class CategorieService {
             throw new IllegalStateException(
                 "La categorie avec le nom " + cat.getLabel() + " existe deja ");
         }else {
-        	entityManager.createNativeQuery("INSERT INTO categorie (id_categorie, label) VALUES (CONCAT('C',NEXT VALUE FOR seq_categorie),?)")
+        	entityManager.createNativeQuery("INSERT INTO categorie (id_categorie, label,couleur) VALUES (CONCAT('C',NEXT VALUE FOR seq_categorie),?,?)")
 		      .setParameter(1, cat.getLabel())
+		      .setParameter(2, cat.getCouleur())
 		      .executeUpdate();
         }
 	}

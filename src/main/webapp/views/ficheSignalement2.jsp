@@ -18,9 +18,9 @@
         
 	        <c:set var = "images" value = "${fn:split(signalement.nomImage, ',')}" />
 	        <c:forEach  items="${images}" var ="image">
-	        <p>${image}</p>
+	        <img src="${baseURL}/views/assets/img/imgCloud/${image}" width="100%" alt="${signalement.description}">
 	        </c:forEach>
-			<img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="100%" alt="${signalement.description}">
+			
         </div>
 
         <div class="col-xl-8">

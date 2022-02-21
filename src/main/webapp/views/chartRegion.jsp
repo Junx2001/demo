@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/css/ol.css" type="text/css">
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -47,8 +48,10 @@
         var i = 0;
 	let temp;
     <c:forEach  items="${signalements}" var ="signalement">
+    <c:set var = "images" value = "${fn:split(signalement.nomImage, ',')}" />
+    
     temp = "<div class=\"card\"> \
-        <img src=\"${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}\" height=\"200\"  class=\"card-img-top\" alt=\"...\"> \
+        <img src=\"${baseURL}/views/assets/img/imgCloud/${images[0]}\" height=\"200\"  class=\"card-img-top\" alt=\"...\"> \
         <input type=\"hidden\" id=\"url\" value=\"${baseURL}\"> \
         <div class=\"card-body\"> \
      <h5 class=\"card-title\">Signalement <span id=\"idSignalement\">${signalement.idSignalement}</span></h5> \

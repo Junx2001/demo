@@ -55,12 +55,7 @@ public class SignalementService {
             String str2 = new SimpleDateFormat("dd-MM-yyyy H:m:s").format(s[1]);
             hm.put("dateHeureSignalement", str2);
             hm.put("idGroupement", s[13]);
-            String nomCat = (String)s[8];
-            if (nomCat.compareTo("infrastructure")==0) {
-            	hm.put("couleur", "purple");
-            }else if (nomCat.compareTo("evenement")==0) {
-            	hm.put("couleur", "red");
-            }
+            hm.put("couleur", s[14]);
             listehm.add(hm);
         }
         return listehm;
