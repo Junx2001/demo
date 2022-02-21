@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -14,6 +15,11 @@
     <section class="section profile">
       <div class="row">
         <div class="col-xl-4">
+        
+	        <c:set var = "images" value = "${fn:split(signalement.nomImage, ',')}" />
+	        <c:forEach  items="${images}" var ="image">
+	        <p>${image}</p>
+	        </c:forEach>
 			<img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="100%" alt="${signalement.description}">
         </div>
 

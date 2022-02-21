@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="scheme" value="${pageContext.request.scheme}"/>
 <c:set var="serverName" value="${pageContext.request.serverName}"/>
 <c:set var="serverPort" value="${pageContext.request.serverPort}"/>
@@ -72,7 +73,8 @@
                     <th scope="row"><a href="${baseURL}/back/signalements/${signalement.idSignalement}">${i.index}</a></th>
                     <td>
 	                    <a href="${baseURL}/back/signalements/${signalement.idSignalement}">
-	                   	 <img src="${baseURL}/views/assets/img/imgCloud/${signalement.nomImage}" width="50"  alt="${signalement.description}">
+	                    <c:set var = "images" value = "${fn:split(signalement.nomImage, ',')}" />
+	                   	 <img src="${baseURL}/views/assets/img/imgCloud/${images[0]}" width="50"  alt="${signalement.description}">
 	                    </a>
                     </td>
                     <td>${signalement.dateSignalement}</td>
