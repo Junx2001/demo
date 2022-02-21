@@ -17,7 +17,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(2)
+@Order(1)
 public class Filtre implements Filter {
 
 	@Override
@@ -50,7 +50,7 @@ public class Filtre implements Filter {
 	    registrationBean.addUrlPatterns("/back/regions/*");
 	    registrationBean.addUrlPatterns("/back/sousCategories/*");
 	    registrationBean.addUrlPatterns("/back/utilisateurs/*");
-	    registrationBean.setOrder(2);
+	    registrationBean.setOrder(1);
 	        
 	    return registrationBean;    
 	}

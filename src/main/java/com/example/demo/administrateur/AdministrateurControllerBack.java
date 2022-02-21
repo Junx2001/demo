@@ -26,7 +26,6 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 @RestController
 @RequestMapping(path = "/back/administrateurs")
-@SessionAttributes({"administrateur"})
 public class AdministrateurControllerBack {
     	@Autowired
 		private  AdministrateurService adService;
