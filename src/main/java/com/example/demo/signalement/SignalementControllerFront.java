@@ -54,8 +54,6 @@ public class SignalementControllerFront {
        )
     {
     	TokenFilter filtre = new TokenFilter(tserv);
-        
-    	//Optional<TokenFront> otok = (Optional<TokenFront>)request.getAttribute("token");
         TokenFront tok = filtre.doFilter(request);
         
         Utilisateur u = uService.getUtilisateurById(tok.getIdUtilisateur());
@@ -66,19 +64,25 @@ public class SignalementControllerFront {
     
     @GetMapping("/{signalementId}")
     public HashMap<String,Object> ficheSignalement(
-    		@PathVariable("signalementId") String idSignalement)
+    		@PathVariable("signalementId") String idSignalement,HttpServletRequest request)
     {
+    	TokenFilter filtre = new TokenFilter(tserv);
+        filtre.doFilter(request);
     	return signService.getFicheSignalement(idSignalement);
     }
 
 	@GetMapping("/region/{regionId}")
-	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion) {
-	    	return signService.getSignalementsByRegion(idRegion);
+	    public List<HashMap<String, Object>> signalementsRegion(@PathVariable("regionId") String idRegion,HttpServletRequest request) {
+			TokenFilter filtre = new TokenFilter(tserv);
+	        filtre.doFilter(request);
+			return signService.getSignalementsByRegion(idRegion);
 	    }
 	
 	@GetMapping("/{idUtilisateur}")
-    public List<HashMap<String, Object>> signalementsUtilisateurRegion(@PathVariable("idUtilisateur") String idUtilisateur) {
-    	return signService.getSignalementsByUtilisateur(idUtilisateur);
+    public List<HashMap<String, Object>> signalementsUtilisateurRegion(@PathVariable("idUtilisateur") String idUtilisateur,HttpServletRequest request) {
+		TokenFilter filtre = new TokenFilter(tserv);
+        filtre.doFilter(request);
+		return signService.getSignalementsByUtilisateur(idUtilisateur);
     }
 		 
 		
@@ -89,7 +93,10 @@ public class SignalementControllerFront {
 				String idGroupement,
 				@PathVariable("liste")
 				@RequestParam(required = false)
-				String liste) throws JsonMappingException, JsonProcessingException {
+				String liste,
+				HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
+			TokenFilter filtre = new TokenFilter(tserv);
+	        filtre.doFilter(request);
 			ObjectMapper mapper = new ObjectMapper();
 			String[] li = mapper.readValue(liste,String[].class);
 			for(String s :li)
