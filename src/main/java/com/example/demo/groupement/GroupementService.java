@@ -52,7 +52,7 @@ public class GroupementService {
 	    }
 	    
 	    @Transactional
-	    String insertGroupement(String description,String latitude,String longitude,String nomImage,String region,String idSousCategorie) {
+	    String insertGroupement(String description,Double double1,Double double2,String nomImage,String region,String idSousCategorie) {
 	    	String liste=repository.getNextSequence();
 	    	System.out.println(region);
 	    	System.out.println(description);
@@ -65,8 +65,8 @@ public class GroupementService {
 		    	entityManager.createNativeQuery("insert into groupement (id_groupement,description,latitude,longitude,nom_image,region,id_sous_categorie) values (?,?,?,?,?,?,?)")
 			      .setParameter(1, liste)
 			      .setParameter(2, description)
-			      .setParameter(3, Double.parseDouble(latitude))
-			      .setParameter(4, Double.parseDouble(longitude))
+			      .setParameter(3, (double1))
+			      .setParameter(4, (double2))
 			      .setParameter(5, nomImage)
 			      .setParameter(6, region)
 			      .setParameter(7, idSousCategorie)

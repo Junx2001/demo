@@ -139,7 +139,7 @@ public class SignalementService {
     }
 
     @Transactional
-	public void updateGroupementSignalement(String[] listeSignalementId, String groupemetId) {
+	public void updateGroupementSignalement(List<String> listeSignalementId, String groupemetId) {
     	for(String signalementId : listeSignalementId) {
     		Signalement sign = signRepository.findById(signalementId)
                     .orElseThrow(() -> new IllegalStateException(
@@ -296,23 +296,23 @@ public class SignalementService {
     List rechercheSignalementMobile(String user, String cat, String sousCat, String d1, String d2, String etat) {
         String sql = "SELECT * FROM detailsSignalement WHERE idUserFinal = '" + user + "'";
 
-        if (cat != null) {
+        if (cat != null && !cat.isEmpty()) {
             sql += " AND ";
             sql += "nomCat = '" + cat + "'";
         }
-        if (sousCat != null) {
+        if (sousCat != null && !sousCat.isEmpty()) {
             sql += " AND ";
             sql += "sousCat = '" + sousCat + "'";
         }
-        if (d1 != null) {
+        if (d1 != null && !d1.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement >= '" + d1 + "'";
         }
-        if (d2 != null) {
+        if (d2 != null && !d2.isEmpty()) {
             sql += " AND ";
             sql += "dateSignalement <= '" + d2 + "'";
         }
-        if (etat != null) {
+        if (etat != null && !etat.isEmpty()) {
             sql += " AND ";
             sql += "etat = " + etat;
         }

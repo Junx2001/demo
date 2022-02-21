@@ -20,7 +20,7 @@ public class TokenFilter {
     
 	public TokenFront doFilter(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
-        
+
         TokenFront val = null;
        if (bearerToken == null) {
             throw new IllegalStateException("Accès non autorisé, Token non Spécifié");

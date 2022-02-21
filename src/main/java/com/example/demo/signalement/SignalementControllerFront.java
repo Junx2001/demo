@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -87,18 +89,17 @@ public class SignalementControllerFront {
 		 
 		
 		@PutMapping
-		public String ajouterAUnGroupement(
-				@PathVariable("idGroupement")
-				@RequestParam(required = false)
-				String idGroupement,
-				@PathVariable("liste")
-				@RequestParam(required = false)
-				String liste,
+		public  String ajouterAUnGroupement(
+				@RequestBody(required = false)
+				HashMap jobj ,
 				HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
+			
 			TokenFilter filtre = new TokenFilter(tserv);
 	        filtre.doFilter(request);
-			ObjectMapper mapper = new ObjectMapper();
-			String[] li = mapper.readValue(liste,String[].class);
+	        
+	        String idGroupement = (String)jobj.get("idGroupement");
+	        
+	        List<String> li = (List<String>)jobj.get("liste");
 			for(String s :li)
 			{
 				System.out.println(s);
