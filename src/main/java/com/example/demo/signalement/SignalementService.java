@@ -167,10 +167,7 @@ public class SignalementService {
             hm.put("nomImage", s[7]);
             hm.put("region", s[8]);
             hm.put("idUtilisateur", s[9]);
-            hm.put("idRegion", s[10]);
-            hm.put("etat", s[11]);
-            hm.put("idUserFinal", s[12]);
-            hm.put("idGroupement", s[13]);
+            
             listehm.add(hm);
         }
         return listehm;
