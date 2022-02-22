@@ -22,9 +22,42 @@ public class Notification {
     private String utilisateur;
     private String message;
     private LocalDateTime dateHeure;
+    private String description;
+    private String nomImage;
+    private String etat;
     
 
-    public String getId() {
+    public String getEtat() {
+		return etat;
+	}
+
+
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+
+
+	public String getNomImage() {
+		return nomImage;
+	}
+
+
+	public void setNomImage(String nomImage) {
+		this.nomImage = nomImage;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public String getId() {
 		return id;
 	}
 

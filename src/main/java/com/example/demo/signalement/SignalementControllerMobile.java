@@ -85,24 +85,33 @@ public class SignalementControllerMobile {
     @PostMapping
     public @ResponseBody void envoiSignalement(
             Signalement s,
-            @RequestParam("image") MultipartFile file,
-            HttpServletRequest request
+            @RequestParam("image") MultipartFile[] listefile
        ) throws IOException
     {
-    	TokenMobileFilter filtre = new TokenMobileFilter(tserv);
+        TokenMobileFilter filtre = new TokenMobileFilter(tserv);
         filtre.doFilter(request);
-    	s.setNomImage(file.getOriginalFilename());
-        signService.addSignalement(s);
-    	System.out.println(s.getLatitude());
-        try {
-            Path root = Paths.get(System.getProperty("user.dir")+"/"+uploadLocation);
-            if (!Files.exists(root)) {
-                init();
+    	String nomImage="";
+    	int i=0;
+    	for(MultipartFile file: listefile) {
+    		nomImage+=file.getOriginalFilename();
+            if(i<listefile.length-1) {
+            	nomImage+=",";
             }
-            Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
-        } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-        } 
+        	System.out.println(s.getLatitude());
+            try {
+                Path root = Paths.get(System.getProperty("user.dir")+"/"+uploadLocation);
+                if (!Files.exists(root)) {
+                    init();
+                }
+                Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+            } catch (Exception e) {
+                throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            } 
+            i++;
+    	}
+    	s.setNomImage(nomImage);
+    	signService.addSignalement(s);
+    	
     
     }
     

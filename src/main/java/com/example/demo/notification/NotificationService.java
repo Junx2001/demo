@@ -8,6 +8,8 @@ package com.example.demo.notification;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,13 +50,24 @@ public class NotificationService {
     		Notification n=new Notification();
     		n.setUtilisateur(signal.get("idUtilisateur").toString());
     		String msg="Grace a votre signalement du "+signal.get("dateSignalement").toString()+" concernant "+signal.get("description").toString()+
-    				", on a pu identifier le prbleme et entamer les demarches necessaires pour l'amelioration du quotidient des malgaches \n"
+    				", on a pu identifier le probleme et entamer les demarches necessaires pour l'amelioration du quotidient des malgaches \n"
     				+ "La resolution du probleme que vous avez signaler s'est terminée le "+signal.get("dateResolu").toString()+".\n"
     						+ "Nous vous remercions de votre participation a cette initiative de developpement pour un madagascar en paix";
     		n.setMessage(msg);
+    		n.setDescription((String)signal.get("description"));
+    		n.setNomImage((String)signal.get("1.jpg"));
     		n.setDateHeure(LocalDateTime.now());
     		nRepository.save(n);
     	}
+    }
+    
+    @Transactional
+    void readnotifivcation(String idNotification) {
+    	//System.out.print(liste.size());
+    	Optional<Notification> not=this.nRepository.findById(idNotification);
+    	Notification n=not.get();
+		n.setEtat("Lu");
+    	this.nRepository.save(n);
     }
     
 }
