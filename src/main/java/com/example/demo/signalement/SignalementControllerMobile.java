@@ -85,7 +85,8 @@ public class SignalementControllerMobile {
     @PostMapping
     public @ResponseBody void envoiSignalement(
             Signalement s,
-            @RequestParam("image") MultipartFile[] listefile
+            @RequestParam("image") MultipartFile[] listefile,
+            HttpServletRequest request
        ) throws IOException
     {
         TokenMobileFilter filtre = new TokenMobileFilter(tserv);
