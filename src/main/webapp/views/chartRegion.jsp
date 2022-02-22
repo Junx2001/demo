@@ -29,7 +29,6 @@
             target: 'map',
             layers: [
                 new ol.layer.Tile({
-                	maxZoom: 14,
                     source: new ol.source.OSM()
                 })
             ],
