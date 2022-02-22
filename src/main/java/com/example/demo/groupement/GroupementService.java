@@ -62,7 +62,7 @@ public class GroupementService {
 	        
 	        return transactionTemplate.execute(status->{
 	        	
-		    	entityManager.createNativeQuery("insert into groupement (id_groupement,description,latitude,longitude,nom_image,region,id_sous_categorie) values (?,?,?,?,?,?,?)")
+		    	entityManager.createNativeQuery("insert into groupement (id_groupement,description,latitude,longitude,nom_image,region,id_sous_categorie, etat) values (?,?,?,?,?,?,?,?)")
 			      .setParameter(1, liste)
 			      .setParameter(2, description)
 			      .setParameter(3, (double1))
@@ -70,6 +70,7 @@ public class GroupementService {
 			      .setParameter(5, nomImage)
 			      .setParameter(6, region)
 			      .setParameter(7, idSousCategorie)
+			      .setParameter(8, 0)
 			      .executeUpdate();
 			      
 	        	
