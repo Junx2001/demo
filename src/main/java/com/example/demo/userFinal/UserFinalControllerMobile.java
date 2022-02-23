@@ -34,6 +34,7 @@ public class UserFinalControllerMobile {
         val =  service.find(util);
         String tok = tokService.insertToken(val.get().getIdUserFinal()); 
         hm.put("token", tok);
+        hm.put("idUser", val.get().getIdUserFinal());
         hm.put("message", "L'utilisateur Final avec l'email "+val.get().getEmail()+" s'est connecté");
         return hm;
         //return "L'utilisateur Final avec l'email "+val.get().getEmail()+" s'est connecté\n Il obtient un token d'authentification : "+tok;
