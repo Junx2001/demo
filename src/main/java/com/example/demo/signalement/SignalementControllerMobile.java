@@ -90,7 +90,7 @@ public class SignalementControllerMobile {
        ) throws IOException
     {
         TokenMobileFilter filtre = new TokenMobileFilter(tserv);
-        filtre.doFilter(request);
+        TokenMobile tok = filtre.doFilter(request);
     	String nomImage="";
     	int i=0;
     	for(MultipartFile file: listefile) {
@@ -110,6 +110,7 @@ public class SignalementControllerMobile {
             } 
             i++;
     	}
+        s.setIdUtilisateur(tok.getIdUserFinal());
     	s.setNomImage(nomImage);
     	signService.addSignalement(s);
     	
