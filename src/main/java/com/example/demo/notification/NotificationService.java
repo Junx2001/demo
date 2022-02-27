@@ -41,7 +41,7 @@ public class NotificationService {
     }
     
     @Transactional
-    void insertNotification(String idGroupement) {
+	public void insertNotification(String idGroupement) {
     	List<HashMap<String, Object>> liste= singnServ.getSignalementsByGroupement(idGroupement);
     	//System.out.print(liste.size());
     	for(int i=0;i<liste.size();i++) {
