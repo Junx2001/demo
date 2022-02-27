@@ -41,7 +41,7 @@ public class NotificationService {
     }
     
     @Transactional
-    void insertNotification(String idGroupement) {
+	public void insertNotification(String idGroupement) {
     	List<HashMap<String, Object>> liste= singnServ.getSignalementsByGroupement(idGroupement);
     	//System.out.print(liste.size());
     	for(int i=0;i<liste.size();i++) {
@@ -52,17 +52,17 @@ public class NotificationService {
     		String msg="Grace a votre signalement du "+signal.get("dateSignalement").toString()+" concernant "+signal.get("description").toString()+
     				", on a pu identifier le probleme et entamer les demarches necessaires pour l'amelioration du quotidient des malgaches \n"
     				+ "La resolution du probleme que vous avez signaler s'est terminée le "+signal.get("dateResolu").toString()+".\n"
-    						+ "Nous vous remercions de votre participation a cette initiative de developpement pour un madagascar en paix";
+    						+ "Nous vous remercions de votre participation a cette initiative de developpement pour un Madagascar en paix";
     		n.setMessage(msg);
     		n.setDescription((String)signal.get("description"));
-    		n.setNomImage((String)signal.get("1.jpg"));
+    		n.setNomImage((String)signal.get(signal.get("nomImage").toString()));
     		n.setDateHeure(LocalDateTime.now());
     		nRepository.save(n);
     	}
     }
     
     @Transactional
-    void readnotifivcation(String idNotification) {
+    void readnotification(String idNotification) {
     	//System.out.print(liste.size());
     	Optional<Notification> not=this.nRepository.findById(idNotification);
     	Notification n=not.get();

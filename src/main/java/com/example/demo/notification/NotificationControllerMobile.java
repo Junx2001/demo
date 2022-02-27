@@ -53,7 +53,7 @@ public class NotificationControllerMobile {
     @PutMapping(path = "/{notif}")
     public void readNotification(@PathVariable("notif") String notif) {
     	System.out.println("update");
-    	nService.readnotifivcation(notif);
+    	nService.readnotification(notif);
     }
     
     
