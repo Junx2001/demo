@@ -46,16 +46,17 @@ public class NotificationService {
     	//System.out.print(liste.size());
     	for(int i=0;i<liste.size();i++) {
     		HashMap<String, Object> signal=liste.get(i);
-    		System.out.println(signal.get("idSignalement").toString());
+    		System.out.println("signal : "+signal);
     		Notification n=new Notification();
-    		n.setUtilisateur(signal.get("idUtilisateur").toString());
-    		String msg="Grace a votre signalement du "+signal.get("dateSignalement").toString()+" concernant "+signal.get("description").toString()+
+    		n.setUtilisateur(signal.get("id_utilisateur").toString());
+    		String msg="Grace a votre signalement du "+signal.get("date_signalement").toString()+" concernant "+signal.get("description").toString()+
     				", on a pu identifier le probleme et entamer les demarches necessaires pour l'amelioration du quotidient des malgaches \n"
-    				+ "La resolution du probleme que vous avez signaler s'est terminée le "+signal.get("dateResolu").toString()+".\n"
+    				+ "La resolution du probleme que vous avez signaler s'est terminée le "+signal.get("date_resolu").toString()+".\n"
     						+ "Nous vous remercions de votre participation a cette initiative de developpement pour un madagascar en paix";
     		n.setMessage(msg);
     		n.setDescription((String)signal.get("description"));
-    		n.setNomImage((String)signal.get("1.jpg"));
+    		n.setNomImage((String)signal.get("nom_image"));
+    		System.out.println("image :"+n.getNomImage());
     		n.setDateHeure(LocalDateTime.now());
     		nRepository.save(n);
     	}
